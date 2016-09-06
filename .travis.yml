@@ -1,1 +1,2 @@
-
+lanugage: javascript
+script: node test.js
