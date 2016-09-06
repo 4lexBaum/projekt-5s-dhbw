@@ -7,5 +7,5 @@ fs.readFile('foo.js', 'utf8', function (err, data) {
     }
     console.log(beautify(data, { indent_size: 2 }));
 	var content = beautify(data, {indent_size:2});
-	fs.writeFileSync('result.js',content, 'utf8');
+	fs.writeFileSync('foo.js',content, 'utf8');
 });
