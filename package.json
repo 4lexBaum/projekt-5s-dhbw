@@ -8,6 +8,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "pug": "^2.0.0-beta6",
+    "connect-rest": "^2.8.0"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "name": "docker_web_app",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "Philip Riecks <riecks95@gmail.com>",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.13.0",
+    "body-parser": "^1.15.2",
+    "connect": "^3.5.0",
+    "connect-rest": "^2.8.0",
+    "express": "^4.13.3",
+    "html-to-json": "^0.6.0",
+    "jade": "^1.11.0",
+    "js-beautify": "^1.6.4",
+    "jslint": "^0.10.3",
+    "mongodb": "^2.2.9",
+    "mongoose": "^4.6.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.74.0"
+  },
+  "bin": {
+    "docker_web_app": "www.js"
+  },
+  "license": "ISC"
+}
