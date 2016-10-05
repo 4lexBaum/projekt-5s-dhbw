@@ -25,6 +25,7 @@ public class JSONConverter implements Converter {
 	public void convert(String msg) {
 		ProductionData data = gson.fromJson(msg, ProductionData.class);
         productionDataList.add(data);
+        System.out.println(data);
 	}
 
 }
