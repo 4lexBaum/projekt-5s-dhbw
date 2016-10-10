@@ -92,7 +92,6 @@ public class Consumer extends AbstractExecutionThreadService {
             	 * Run method.
             	 * Iterate messageStream.
             	 */
-            	@Override
             	public void run() {
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
             			//logger.info("Received: {}", new String(messageAndMetadata.message()));

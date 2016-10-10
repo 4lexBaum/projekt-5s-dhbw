@@ -21,7 +21,6 @@ public class JSONConverter implements Converter {
 	/**
 	 * Converts JSON to Java object.
 	 */
-	@Override
 	public void convert(String msg) {
 		ProductionData data = gson.fromJson(msg, ProductionData.class);
         productionDataList.add(data);
