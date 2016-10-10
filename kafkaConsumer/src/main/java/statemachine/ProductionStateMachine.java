@@ -4,6 +4,7 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
 import consumer.ProductionData;
+import database.DatabaseManager;
 
 /**
  * Class ProductionStateMachine.
@@ -13,6 +14,8 @@ import consumer.ProductionData;
  */
 public class ProductionStateMachine {
 	private StateMachine<State, Trigger> productionLine;
+	private DatabaseManager dbm;
+	private int counter = 0;
 	
 	/**
 	 * Constructor ProductionStateMachine.
@@ -20,6 +23,7 @@ public class ProductionStateMachine {
 	 */
 	public ProductionStateMachine() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
+		dbm = new DatabaseManager();
 		
 		//configure states and transitions
 		machineConfig.configure(State.EnterL1)
@@ -81,9 +85,13 @@ public class ProductionStateMachine {
 	public void trigger(ProductionData event) {
 		switch(event.getItemName()) {
 		case "L1":
-			if(event.getValue().equals("false")) 
+			if(event.getValue().equals("false") && counter > 0 ){
+				dbm.saveSpectralanalysis("/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData");
 				productionLine.fire(Trigger.L1Close);
-			else
+			}else if(event.getValue().equals("false")){
+				counter++;
+				productionLine.fire(Trigger.L1Close);
+			}else
 				productionLine.fire(Trigger.L1Open);
 			break;
 		case "L2":
