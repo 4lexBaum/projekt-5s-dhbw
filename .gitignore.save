@@ -1,0 +1,4 @@
+node_modules
+kafkaConsumer/.settings
+kafkaConsumer/target
+.DS_Store
