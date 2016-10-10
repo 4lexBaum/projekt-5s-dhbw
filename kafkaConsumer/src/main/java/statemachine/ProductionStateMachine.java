@@ -11,6 +11,7 @@ import consumer.ProductionData;
  * @author Daniel
  *
  */
+@SuppressWarnings("all")
 public class ProductionStateMachine {
 	private StateMachine<State, Trigger> productionLine;
 	
@@ -39,7 +40,6 @@ public class ProductionStateMachine {
 			.permit(Trigger.MillingStart, State.Milling);
 		
 		machineConfig.configure(State.Milling)
-			.onEntry(this::onStartMilling)
 			.permit(Trigger.MillingStop, State.MillingCompleted);
 		
 		machineConfig.configure(State.MillingCompleted)
@@ -52,7 +52,6 @@ public class ProductionStateMachine {
 			.permit(Trigger.DrillingStart, State.Drilling);
 		
 		machineConfig.configure(State.Drilling)
-			.onEntry(this::onStartDrilling)
 			.permit(Trigger.DrillingStop, State.DrillingCompleted);
 		
 		machineConfig.configure(State.DrillingCompleted)
@@ -127,21 +126,23 @@ public class ProductionStateMachine {
 		System.out.println(productionLine.getState());
 	}
 	
-	/**
-	 * onStartMilling.
-	 * Entry method for state milling.
-	 */
-	private void onStartMilling() {
-		System.out.println("Started milling");
-	}
+
 	
-	/**
-	 * onStartDrilling.
-	 * Entry method for state drilling.
-	 */
-	private void onStartDrilling() {
-		System.out.println("Started drilling");
-	}
+	private void adjustMillingSpeed() {}
+	
+	private void adjustDrillingSpeed() {}
+	
+	private void startTimer() {}
+	
+	private void stopTimer() {}
+	
+	private void trackTemperature() {}
+	
+	private void startGlobalTimer() {}
+	
+	private void stopGlobalTimer() {}
+	
+	private void saveSpectralAnalysis() {}
 	
 	/**
 	 * Enum State.
