@@ -22,7 +22,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//KafkaConsumer.getConsumer(Constants.KAFKA_PORT, Constants.KAFKA_TOPIC).start();
+		KafkaConsumer.getConsumer(Constants.KAFKA_PORT, Constants.KAFKA_TOPIC).start();
 		new Thread(AmqConsumer.getConsumer(Constants.AMQ_PORT, Constants.AMQ_TOPIC)).start();
 	}
 }

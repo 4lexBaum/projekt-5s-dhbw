@@ -1,5 +1,6 @@
 # projekt-5s-dhbw
-Gruppenprojekt 5. Semester
+
+<img src="./docu/browm_logo.png" width="400" height="400" />
 
 [![Build Status](https://travis-ci.org/4lexBaum/projekt-5s-dhbw.svg?branch=master)](https://travis-ci.org/4lexBaum/projekt-5s-dhbw)
 
