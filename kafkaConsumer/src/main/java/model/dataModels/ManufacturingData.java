@@ -7,7 +7,7 @@ package model.dataModels;
  * @author Daniel
  *
  */
-public class ManufacturingData {
+public class ManufacturingData extends Data {
 	private String value;
 	private String status;
 	private String itemName;

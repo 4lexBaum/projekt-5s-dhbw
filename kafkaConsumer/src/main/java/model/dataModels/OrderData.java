@@ -1,5 +1,5 @@
 package model.dataModels;
 
-public class OrderData {
+public class OrderData extends Data {
 
 }

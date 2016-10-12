@@ -1,5 +1,5 @@
 package model.dataModels;
 
-public class SpectralAnalysisData {
+public class SpectralAnalysisData extends Data {
 
 }

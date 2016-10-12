@@ -15,7 +15,6 @@ import model.dataModels.ManufacturingData;
 @SuppressWarnings("all")
 public class ProductionStateMachine {
 	private StateMachine<State, Trigger> productionLine;
-	private DatabaseManager dbm;
 	private int counter = 0;
 	
 	/**
@@ -24,7 +23,6 @@ public class ProductionStateMachine {
 	 */
 	public ProductionStateMachine() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
-		dbm = new DatabaseManager();
 		
 		//configure states and transitions
 		machineConfig.configure(State.EnterL1)
@@ -85,7 +83,6 @@ public class ProductionStateMachine {
 		switch(event.getItemName()) {
 		case "L1":
 			if(event.getValue().equals("false") && counter > 0 ){
-				dbm.saveSpectralanalysis("/Users/Daniel/Documents/tmp");
 				productionLine.fire(Trigger.L1Close);
 			}else if(event.getValue().equals("false")){
 				counter++;

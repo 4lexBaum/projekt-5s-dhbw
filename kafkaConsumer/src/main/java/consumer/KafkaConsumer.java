@@ -7,6 +7,7 @@ import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
+import model.stateMachine.ProductionStateMachine;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -31,6 +32,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
 
     private ConsumerConfig consumerConfig;
     private JSONConverter converter = new JSONConverter();
+    private ProductionStateMachine stateMachine;
    
     /**
      * Constructor Consumer.
@@ -38,7 +40,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
      * @param port
      * @param topicName
      */
-    public KafkaConsumer(int port, String topicName) {
+    public KafkaConsumer(int port, String topicName, ProductionStateMachine stateMachine) {
     	
     	//determine ip depeding on the operating system
     	String ip = (System.getProperty("os.name").toLowerCase().matches("(.*)windows(.*)")) 
@@ -58,6 +60,8 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
         
         this.consumerConfig = new ConsumerConfig(properties);
         this.topicName = topicName;
+        
+        this.stateMachine = stateMachine;
     }
 
     /**
@@ -81,7 +85,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             	 */
             	public void run() {
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-            			converter.convert(new String(messageAndMetadata.message()));
+            			stateMachine.trigger(converter.convert(new String(messageAndMetadata.message())));
             		}
             	}
             });
