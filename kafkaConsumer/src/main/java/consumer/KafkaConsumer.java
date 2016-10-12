@@ -3,6 +3,7 @@ package consumer;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
+import app.Constants;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
@@ -43,10 +44,8 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
     public KafkaConsumer(int port, String topicName, ProductionStateMachine stateMachine) {
     	
     	//determine ip depeding on the operating system
-    	String ip = (System.getProperty("os.name").toLowerCase().matches("(.*)windows(.*)")) 
-			? "192.168.99.100" : "127.0.0.1";
-    	
-    	String server = ip + ":" + port;
+   
+    	String server = Constants.getIPAddress() + ":" + port;
     	
     	//config kafka
         Properties properties = new Properties();
