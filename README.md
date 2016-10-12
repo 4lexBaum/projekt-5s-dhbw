@@ -70,3 +70,10 @@ mongo
 ```shell
 > db.collection_name.find({name:"mongoDB", nummer:1})
 ```
+
+### Node Anwendung starten
+* Anwendung ist anschließend unter localhost:8080 zu erreichen
+```shell
+cd Webserver
+node app.js
+```
