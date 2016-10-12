@@ -21,3 +21,11 @@ Gruppenprojekt 5. Semester
 ### Simulation starten
 * Windows: java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://192.168.99.100:32768 -d 1000 -kafka 192.168.99.100:9092 -o <path> -topic prodData
 * sonst:   java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://localhost:32768 -d 1000 -kafka localhost:9092 -o <path> -topic prodData
+
+### MongoDB starten und benutzen
+* MongoDB Server starten: mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
+* Mit MongoDB Server über die MongoShell verbinden: mongo
+* Alle Datenbanken auflisten: show dbs
+* Spezielle Datenbank verwenden: use db_name
+* Alle Collections einer Datenbank anzeigen: show collections
+* Eine Collection auf einer ausgewählten Datenbank durchsuchen: db.collection_name.find()
