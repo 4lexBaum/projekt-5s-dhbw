@@ -19,13 +19,19 @@ Gruppenprojekt 5. Semester
 * ActiveMq starten: docker run --name activemq -P webcenter/activemq
 
 ### Simulation starten
-* Windows: java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://192.168.99.100:32768 -d 1000 -kafka 192.168.99.100:9092 -o <path> -topic prodData
-* sonst:   java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://localhost:32768 -d 1000 -kafka localhost:9092 -o <path> -topic prodData
+* Windows: 
+```shell
+java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://192.168.99.100:32768 -d 1000 -kafka 192.168.99.100:9092 -o <path> -topic prodData
+```
+* sonst:   
+```shell
+java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://localhost:32768 -d 1000 -kafka localhost:9092 -o <path> -topic prodData
+``
 
 ### MongoDB starten und benutzen
-* MongoDB Server starten: mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
+* MongoDB Server starten:
 ```shell
-mongod --dbpath /Pfad/zum/Data/Ordner
+mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
 ```
 * Mit MongoDB Server über die MongoShell verbinden:
 ```shell
