@@ -37,7 +37,7 @@ java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://192.168.99.100:327
 java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://localhost:32768 -d 1000 -kafka localhost:9092 -o <path> -topic prodData
 ```
 
-### MongoDB starten und benutzen
+### MongoDB starten und benutzen (ohne Docker, lokal auf dem Rechner)
 * MongoDB Server starten (ohne Angabe eines Pfades verwendet MongoDB das aktuelle Verzeichnis:
 ```shell
 mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
