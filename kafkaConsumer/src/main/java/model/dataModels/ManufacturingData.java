@@ -1,4 +1,4 @@
-package consumer;
+package model.dataModels;
 
 /**
  * Class ProductionData.
@@ -7,7 +7,7 @@ package consumer;
  * @author Daniel
  *
  */
-public class ProductionData {
+public class ManufacturingData {
 	private String value;
 	private String status;
 	private String itemName;
@@ -16,7 +16,7 @@ public class ProductionData {
 	/**
 	 * Empty constructor.
 	 */
-	public ProductionData() {}
+	public ManufacturingData() {}
 	
 	/**
 	 * toString method.

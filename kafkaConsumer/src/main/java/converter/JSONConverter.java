@@ -1,7 +1,7 @@
 package converter;
 
-import consumer.ProductionData;
-import statemachine.ProductionStateMachine;
+import model.dataModels.ManufacturingData;
+import model.stateMachine.ProductionStateMachine;
 
 import java.util.Vector;
 
@@ -17,14 +17,14 @@ import com.google.gson.Gson;
 public class JSONConverter implements Converter {
 	Gson gson = new Gson();
 	
-	Vector<ProductionData> productionDataList = new Vector<>();
+	Vector<ManufacturingData> productionDataList = new Vector<>();
 	ProductionStateMachine psm = new ProductionStateMachine();
 	
 	/**
 	 * Converts JSON to Java object.
 	 */
 	public void convert(String msg) {
-		ProductionData data = gson.fromJson(msg, ProductionData.class);
+		ManufacturingData data = gson.fromJson(msg, ManufacturingData.class);
         productionDataList.add(data);
         System.out.println("Received data: " + data);
         psm.trigger(data);

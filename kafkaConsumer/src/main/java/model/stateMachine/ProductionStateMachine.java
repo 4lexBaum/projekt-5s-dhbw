@@ -1,10 +1,10 @@
-package statemachine;
+package model.stateMachine;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
-import consumer.ProductionData;
-import database.DatabaseManager;
+import db.DatabaseManager;
+import model.dataModels.ManufacturingData;
 
 /**
  * Class ProductionStateMachine.
@@ -81,11 +81,11 @@ public class ProductionStateMachine {
 	 * determins the next state.
 	 * @param data
 	 */
-	public void trigger(ProductionData event) {
+	public void trigger(ManufacturingData event) {
 		switch(event.getItemName()) {
 		case "L1":
 			if(event.getValue().equals("false") && counter > 0 ){
-				dbm.saveSpectralanalysis("/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData");
+				dbm.saveSpectralanalysis("/Users/Daniel/Documents/tmp");
 				productionLine.fire(Trigger.L1Close);
 			}else if(event.getValue().equals("false")){
 				counter++;
