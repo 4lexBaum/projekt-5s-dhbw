@@ -2,8 +2,11 @@ package db;
 
 import org.bson.Document;
 
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+
+import model.dataModels.ManufacturingData;
 
 /**
  * Class DatabaseManager.
@@ -14,6 +17,7 @@ import com.mongodb.client.MongoDatabase;
 public class DatabaseManager {
 	private MongoClient mongoClient;
 	private MongoDatabase db;
+	private Gson gson;
 	
 	private static DatabaseManager dbManager;
 			
@@ -24,6 +28,7 @@ public class DatabaseManager {
 	private DatabaseManager(){
 		mongoClient = new MongoClient();
 		db = mongoClient.getDatabase("oip_taktstrasse");
+		gson = new Gson();
 	}
 	
 	/**
@@ -32,6 +37,7 @@ public class DatabaseManager {
 	 * @return
 	 */
 	public static DatabaseManager getManager() {
+		
 		if(dbManager == null) {
 			dbManager = new DatabaseManager();
 		}
@@ -43,8 +49,9 @@ public class DatabaseManager {
 	 * Stores JSON formatted String message to the specified database collection.
 	 * @param collection, message
 	 */
-	public void insertDocument(String collection, String message){
-        Document doc = Document.parse(message);
-		db.getCollection(collection).insertOne(doc);
+	public void insertManifacturingDocument(ManufacturingData data){
+		String json = gson.toJson(data);
+        Document doc = Document.parse(json);
+		db.getCollection("manufacturingData").insertOne(doc);
 	}
 }
