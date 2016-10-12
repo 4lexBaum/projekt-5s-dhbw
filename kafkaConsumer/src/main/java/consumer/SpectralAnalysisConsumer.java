@@ -106,5 +106,6 @@ public class SpectralAnalysisConsumer implements Consumer {
 		SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
 		SpectralAnalysisData data = (SpectralAnalysisData) converter.convert(readSpectralAnalysisFile());
 		Main.previousData.setAnalysisData(data);
+		//ManufacturingData has to be stored in mongoDB
 	}
 }
