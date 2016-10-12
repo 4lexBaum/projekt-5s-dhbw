@@ -24,6 +24,9 @@ Gruppenprojekt 5. Semester
 
 ### MongoDB starten und benutzen
 * MongoDB Server starten: mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
+´´´´shell
+mongod --dbpath /Pfad/zum/Data/Ordner
+´´´´
 * Mit MongoDB Server über die MongoShell verbinden: mongo
 * Alle Datenbanken auflisten: show dbs
 * Spezielle Datenbank verwenden: use db_name
