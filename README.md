@@ -26,9 +26,24 @@ Gruppenprojekt 5. Semester
 * MongoDB Server starten: mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
 ```shell
 mongod --dbpath /Pfad/zum/Data/Ordner
-``
-* Mit MongoDB Server über die MongoShell verbinden: mongo
-* Alle Datenbanken auflisten: show dbs
-* Spezielle Datenbank verwenden: use db_name
-* Alle Collections einer Datenbank anzeigen: show collections
-* Eine Collection auf einer ausgewählten Datenbank durchsuchen: db.collection_name.find()
+```
+* Mit MongoDB Server über die MongoShell verbinden:
+```shell
+mongo
+```
+* Alle Datenbanken auflisten: 
+```shell
+> show dbs
+```
+* Spezielle Datenbank verwenden: 
+```shell
+> use db_name
+```
+* Alle Collections einer Datenbank anzeigen: 
+```shell
+> show collections
+```
+* Eine Collection auf einer ausgewählten Datenbank durchsuchen: 
+```shell
+> db.collection_name.find()
+```
