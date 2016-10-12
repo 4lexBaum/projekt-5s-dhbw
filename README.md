@@ -12,6 +12,7 @@ Gruppenprojekt 5. Semester
 ### Docker Images herunterladen
 * docker pull spotify/docker ([Dokumentation](https://hub.docker.com/r/spotify/kafka/))
 * docker pull webcenter/activemq ([Dokumentation](https://hub.docker.com/r/webcenter/activemq/))
+* docker pull mongo ([Dokumentation](https://hub.docker.com/_/mongo/))
 
 ### Docker Container ausführen
 * Kafka starten (Windows): 
