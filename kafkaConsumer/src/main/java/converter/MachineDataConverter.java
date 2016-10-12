@@ -1,7 +1,6 @@
 package converter;
 
 import model.dataModels.MachineData;
-import model.dataModels.SpectralAnalysisData;
 
 import com.google.gson.Gson;
 

@@ -25,7 +25,7 @@ public class DatabaseManager {
 	 * Constructor DatabaseManger.
 	 * Singleton-Pattern! => private constructor.	
 	 */
-	private DatabaseManager(){
+	private DatabaseManager() {
 		mongoClient = new MongoClient();
 		db = mongoClient.getDatabase("oip_taktstrasse");
 		gson = new Gson();
@@ -49,7 +49,7 @@ public class DatabaseManager {
 	 * Stores JSON formatted String message to the specified database collection.
 	 * @param collection, message
 	 */
-	public void insertManifacturingDocument(ManufacturingData data){
+	public void insertManifacturingDocument(ManufacturingData data) {
 		String json = gson.toJson(data);
         Document doc = Document.parse(json);
 		db.getCollection("manufacturingData").insertOne(doc);

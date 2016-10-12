@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 import app.Main;
 import converter.SpectralAnalysisDataConverter;
-import converter.MachineDataConverter;
+import db.DatabaseManager;
 import model.dataModels.SpectralAnalysisData;
 
 /**
@@ -106,6 +106,8 @@ public class SpectralAnalysisConsumer implements Consumer {
 		SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
 		SpectralAnalysisData data = (SpectralAnalysisData) converter.convert(readSpectralAnalysisFile());
 		Main.previousData.setAnalysisData(data);
-		//ManufacturingData has to be stored in mongoDB
+		
+		//save ManufacturingData in database
+		DatabaseManager.getManager().insertManifacturingDocument(Main.previousData);
 	}
 }
