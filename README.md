@@ -70,7 +70,10 @@ mongo
 ```shell
 > db.collection_name.find({name:"mongoDB", nummer:1})
 ```
-
+*  MongoShell verlassen: 
+```shell
+> exit
+```
 ### Node Anwendung starten
 ```shell
 cd Webserver
