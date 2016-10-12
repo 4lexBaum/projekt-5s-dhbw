@@ -38,7 +38,7 @@ java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://localhost:32768 -d
 ```
 
 ### MongoDB starten und benutzen
-* MongoDB Server starten:
+* MongoDB Server starten (ohne Angabe eines Pfades verwendet MongoDB das aktuelle Verzeichnis:
 ```shell
 mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
 ```
