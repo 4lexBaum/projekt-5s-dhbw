@@ -102,7 +102,7 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 * Convert and save the incoming message from the file system
 	 * @param msg
 	 */
-	public void saveSpectralAnalysisData(){
+	public void saveSpectralAnalysisData() {
 		SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
 		SpectralAnalysisData data = (SpectralAnalysisData) converter.convert(readSpectralAnalysisFile());
 		Main.previousData.setAnalysisData(data);

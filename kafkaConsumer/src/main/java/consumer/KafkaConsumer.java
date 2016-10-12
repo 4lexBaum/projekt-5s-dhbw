@@ -34,7 +34,6 @@ import converter.MachineDataConverter;
 public class KafkaConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
     private String topicName;
-    private MachineDataConverter converter = new MachineDataConverter();
     
     private static KafkaConsumer consumer;
    
@@ -97,6 +96,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             	 * Iterate messageStream.
             	 */
             	public void run() {
+            		MachineDataConverter converter = new MachineDataConverter();
             		boolean finishedFirstProduction = false;
             		
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
