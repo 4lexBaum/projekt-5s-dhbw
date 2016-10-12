@@ -17,11 +17,14 @@ public class ProductionStateMachine {
 	private StateMachine<State, Trigger> productionLine;
 	private int counter = 0;
 	
+	private static ProductionStateMachine stateMachine;
+	
 	/**
 	 * Constructor ProductionStateMachine.
+	 * Singleton-Pattern! => private constructor.
 	 * Configures states and transitions of the state machine.
 	 */
-	public ProductionStateMachine() {
+	private ProductionStateMachine() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
 		
 		//configure states and transitions
@@ -71,6 +74,18 @@ public class ProductionStateMachine {
 		
 		//create state machine
 		productionLine = new StateMachine<>(State.EnterL1, machineConfig);
+	}
+	
+	/**
+	 * getStateMachine method.
+	 * Is used to obtain an instance of the ProductionStateMachine.
+	 * @return
+	 */
+	public static ProductionStateMachine getStateMachine() {
+		if(stateMachine == null) {
+			stateMachine = new ProductionStateMachine();
+		}
+		return stateMachine;
 	}
 	
 	/**

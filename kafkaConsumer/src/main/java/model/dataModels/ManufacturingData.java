@@ -26,6 +26,10 @@ public class ManufacturingData extends Data {
 		return value + " " + status + " " + itemName + " " + timestamp;
 	}
 
+	/*
+	 * Getters and Setters. 
+	 */
+	
 	public String getValue() {
 		return value;
 	}

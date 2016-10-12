@@ -16,7 +16,6 @@ public class Constants {
 	//activeMQ constants
 	public static final int AMQ_PORT = 32774;
 	public static final String AMQ_TOPIC = "m_orders";
-	public static final String AMQ_QUEUE_NAME = "TestQueue";
 	
 	/**
 	 * Returns ip address according

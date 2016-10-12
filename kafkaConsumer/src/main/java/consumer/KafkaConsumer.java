@@ -4,10 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import app.Constants;
+
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
+
+import model.dataModels.ManufacturingData;
 import model.stateMachine.ProductionStateMachine;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -29,22 +32,20 @@ import converter.JSONConverter;
  *
  */
 public class KafkaConsumer extends AbstractExecutionThreadService implements Consumer {
-    private String topicName;
-
     private ConsumerConfig consumerConfig;
+    private String topicName;
     private JSONConverter converter = new JSONConverter();
-    private ProductionStateMachine stateMachine;
+    
+    private static KafkaConsumer consumer;
    
     /**
      * Constructor Consumer.
+     * Singleton-Pattern! => private constructor.
      * Creates the properties for the kafka server.
      * @param port
      * @param topicName
      */
-    public KafkaConsumer(int port, String topicName, ProductionStateMachine stateMachine) {
-    	
-    	//determine ip depeding on the operating system
-   
+    private KafkaConsumer(int port, String topicName) {
     	String server = Constants.getIPAddress() + ":" + port;
     	
     	//config kafka
@@ -59,8 +60,21 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
         
         this.consumerConfig = new ConsumerConfig(properties);
         this.topicName = topicName;
-        
-        this.stateMachine = stateMachine;
+    }
+    
+    /**
+     * getConsumer method.
+     * Is used to obtain an instance of the KafkaConsumer.
+     * @param port
+     * @param topicname
+     * @param stateMachine
+     * @return
+     */
+    public static KafkaConsumer getConsumer(int port, String topicname) {
+    	if(consumer == null) {
+    		consumer = new KafkaConsumer(port, topicname);
+    	}
+    	return consumer;
     }
 
     /**
@@ -83,8 +97,17 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             	 * Iterate messageStream.
             	 */
             	public void run() {
+            		int counter = 0;
+            		
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-            			stateMachine.trigger(converter.convert(new String(messageAndMetadata.message())));
+            			ManufacturingData data = converter.convert(new String(messageAndMetadata.message()));
+            			ProductionStateMachine.getStateMachine().trigger(data);
+            			
+            			if(data.getItemName().equals("L1") && data.getValue().equals("false")) {
+            				if(counter > 0) {
+            					
+            				}
+            			}
             		}
             	}
             });
