@@ -4,13 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import app.Constants;
-
+import app.Main;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
-import model.dataModels.ManufacturingData;
+import model.dataModels.MachineData;
 import model.stateMachine.ProductionStateMachine;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -97,20 +97,32 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             	 * Iterate messageStream.
             	 */
             	public void run() {
-            		int counter = 0;
+            		boolean finishedFirstProduction = false;
             		
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-            			ManufacturingData data = converter.convert(new String(messageAndMetadata.message()));
+            			MachineData data = converter.convert(new String(messageAndMetadata.message()));
             			ProductionStateMachine.getStateMachine().trigger(data);
             			
+            			saveMachineData(data);
+            			
             			if(data.getItemName().equals("L1") && data.getValue().equals("false")) {
-            				if(counter > 0) {
-            					
+            				if(finishedFirstProduction) {
+            					SpectralAnalysisConsumer.getConsumer(Constants.PATH_SPECTRAL_ANALYSIS).saveSpectralanalysis();
+            				} else {
+            					finishedFirstProduction = true;
             				}
             			}
             		}
             	}
             });
         }
+    }
+    
+    /**
+     * Saves MachineData in ManufacturingData object.
+     * @param data
+     */
+    public void saveMachineData(MachineData data) {
+    	Main.currentData.appendMachineData(data);
     }
 }

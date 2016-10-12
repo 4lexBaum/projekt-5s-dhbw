@@ -10,7 +10,10 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import app.Constants;
+import app.Main;
 import converter.XMLConverter;
+import model.dataModels.ErpData;
+import model.dataModels.ManufacturingData;
 
 /**
  * Class AmqConsumer.
@@ -61,8 +64,6 @@ public class AmqConsumer implements Consumer, Runnable {
 	
 	@Override
 	public void run() {
-		XMLConverter xmlConverter = new XMLConverter();
-		
 		try {
 			//create session and destination
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -84,8 +85,9 @@ public class AmqConsumer implements Consumer, Runnable {
 					}
 					
 					//convert xml message
-					System.out.println(text);
-					System.out.println(xmlConverter.convert(text));
+					Main.previousData = Main.currentData;
+					saveErpData(text);
+					
 				} else {
 					System.out.println("Received: " + message);
 				}
@@ -93,6 +95,14 @@ public class AmqConsumer implements Consumer, Runnable {
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	
+	/**
+	 * Saves ErpData in ManufacturingData object.
+	 * @param text
+	 */
+	public void saveErpData(String text) {
+		XMLConverter xmlConverter = new XMLConverter();
+		Main.currentData = new ManufacturingData((ErpData) xmlConverter.convert(text));
 	}
 }

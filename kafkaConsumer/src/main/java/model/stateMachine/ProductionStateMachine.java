@@ -4,7 +4,7 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
 import db.DatabaseManager;
-import model.dataModels.ManufacturingData;
+import model.dataModels.MachineData;
 
 /**
  * Class ProductionStateMachine.
@@ -94,7 +94,7 @@ public class ProductionStateMachine {
 	 * determins the next state.
 	 * @param data
 	 */
-	public void trigger(ManufacturingData event) {
+	public void trigger(MachineData event) {
 		switch(event.getItemName()) {
 		case "L1":
 			if(event.getValue().equals("false") && counter > 0 ){

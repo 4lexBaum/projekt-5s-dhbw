@@ -1,64 +1,94 @@
 package model.dataModels;
 
 /**
- * Class ProductionData.
- * The JSON data is converted into
- * objects of this class.
+ * Class ManufacturingData.
  * @author Daniel
  *
  */
-public class ManufacturingData extends Data {
-	private String value;
-	private String status;
-	private String itemName;
-	private long timestamp;
+public class ManufacturingData {
+	private String customerNumber;
+	private String materialNumber;
+	private String orderNumber;
+	private String timeStamp;
+	
+	private MachineData[] machineData;
+	private SpectralAnalysisData analysisData;
 	
 	/**
-	 * Empty constructor.
+	 * Constructor ManufacturingData.
+	 * @param data
 	 */
-	public ManufacturingData() {}
-	
-	/**
-	 * toString method.
-	 */
-	@Override
-	public String toString() {
-		return value + " " + status + " " + itemName + " " + timestamp;
+	public ManufacturingData(ErpData data) {
+		this.customerNumber = data.getCustomerNumber();
+		this.materialNumber = data.getMaterialNumber();
+		this.orderNumber = data.getOrderNumber();
+		this.timeStamp = data.getTimeStamp();
 	}
-
+	
 	/*
 	 * Getters and Setters. 
 	 */
 	
-	public String getValue() {
-		return value;
+	public String getCustomerNumber() {
+		return customerNumber;
 	}
-
-	public void setValue(String value) {
-		this.value = value;
+	
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
 	}
-
-	public String getStatus() {
-		return status;
+	
+	public String getMaterialNumber() {
+		return materialNumber;
 	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	
+	public void setMaterialNumber(String materialNumber) {
+		this.materialNumber = materialNumber;
 	}
-
-	public String getItemName() {
-		return itemName;
+	
+	public String getOrderNumber() {
+		return orderNumber;
 	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
-
-	public long getTimestamp() {
-		return timestamp;
+	
+	public String getTimeStamp() {
+		return timeStamp;
 	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
+	
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+	
+	public MachineData[] getMachineData() {
+		return machineData;
+	}
+	
+	/**
+	 * Appends machineData to the array.
+	 * @param data
+	 */
+	public void appendMachineData(MachineData data) {
+		if(this.machineData == null) {
+			this.machineData = new MachineData[1];
+		} else {
+			int length = this.machineData.length;
+			MachineData[] temp = new MachineData[length + 1];
+			
+			for(int i = 0; i < length; i++) {
+				temp[i] = this.machineData[i];
+			}
+			temp[length + 1] = data;
+			this.machineData = temp;
+		}
+	}
+	
+	public SpectralAnalysisData getAnalysisData() {
+		return analysisData;
+	}
+	
+	public void setAnalysisData(SpectralAnalysisData analysisData) {
+		this.analysisData = analysisData;
 	}
 }

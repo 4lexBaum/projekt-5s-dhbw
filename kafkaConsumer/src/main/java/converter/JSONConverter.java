@@ -1,6 +1,7 @@
 package converter;
 
-import model.dataModels.ManufacturingData;
+import model.dataModels.MachineData;
+import model.dataModels.SpectralAnalysisData;
 
 import com.google.gson.Gson;
 
@@ -16,8 +17,18 @@ public class JSONConverter implements Converter {
 	
 	/**
 	 * Converts JSON to Java object.
+	 * @return
 	 */
-	public ManufacturingData convert(String msg) {
-		return gson.fromJson(msg, ManufacturingData.class);
+	public MachineData convert(String msg) {
+		return gson.fromJson(msg, MachineData.class);
+	}
+	
+	/**
+	 * Converts JSON into SpectralAnalysisData.
+	 * @param msg
+	 * @return
+	 */
+	public SpectralAnalysisData convertSpecData(String msg) {
+		return gson.fromJson(msg, SpectralAnalysisData.class);
 	}
 }

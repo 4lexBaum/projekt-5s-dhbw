@@ -17,6 +17,9 @@ public class Constants {
 	public static final int AMQ_PORT = 32774;
 	public static final String AMQ_TOPIC = "m_orders";
 	
+	//file system
+	public static final String PATH_SPECTRAL_ANALYSIS = "../../tmp";
+	
 	/**
 	 * Returns ip address according
 	 * to the operating system.

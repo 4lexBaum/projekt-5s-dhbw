@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import db.DatabaseManager;
+import app.Main;
+import model.dataModels.SpectralAnalysisData;
 
 /**
  * Class SpectralAnalysisConsumer.
@@ -46,7 +47,7 @@ public class SpectralAnalysisConsumer implements Consumer {
 	
 	/**
 	 * Save latest spectralanalysis file
-	 * Stores spectralanalysis file from filesystem to database.
+	 * in ManufacturingData object.
 	 */
 	public void saveSpectralanalysis() {
 		InputStream in;
@@ -62,8 +63,8 @@ public class SpectralAnalysisConsumer implements Consumer {
 	            out.append(line);
 	        }
 	        
-	        System.out.println("saved spectralanalysis");
-	        DatabaseManager.getManager().insertDocument("spectralanalysis", out.toString());
+	        SpectralAnalysisData data = null;
+	        Main.previousData.setAnalysisData(data);
 	        reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

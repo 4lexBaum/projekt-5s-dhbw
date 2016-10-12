@@ -2,6 +2,7 @@ package app;
 
 import consumer.AmqConsumer;
 import consumer.KafkaConsumer;
+import model.dataModels.ManufacturingData;
 import model.stateMachine.ProductionStateMachine;
 
 /**
@@ -12,6 +13,9 @@ import model.stateMachine.ProductionStateMachine;
  */
 @SuppressWarnings("all")
 public class Main {
+	
+	public static ManufacturingData currentData;
+	public static ManufacturingData previousData;
 	
 	/**
 	 * Main method.
