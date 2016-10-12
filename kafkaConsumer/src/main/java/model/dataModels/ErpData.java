@@ -1,5 +1,16 @@
 package model.dataModels;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Class ErpData.
+ * The XMl data is converted into
+ * objects of this class.
+ * @author Daniel
+ *
+ */
+@XmlRootElement
 public class ErpData extends Data {
 	String customerNumber;
 	String materialNumber;
@@ -23,6 +34,7 @@ public class ErpData extends Data {
 		return customerNumber;
 	}
 	
+	@XmlElement
 	public void setCustomerNumber(String customerNumber) {
 		this.customerNumber = customerNumber;
 	}
@@ -31,6 +43,7 @@ public class ErpData extends Data {
 		return materialNumber;
 	}
 	
+	@XmlElement
 	public void setMaterialNumber(String materialNumber) {
 		this.materialNumber = materialNumber;
 	}
@@ -39,6 +52,7 @@ public class ErpData extends Data {
 		return orderNumber;
 	}
 	
+	@XmlElement
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
@@ -47,6 +61,7 @@ public class ErpData extends Data {
 		return timeStamp;
 	}
 	
+	@XmlElement
 	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
 	}
