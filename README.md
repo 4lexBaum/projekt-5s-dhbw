@@ -58,7 +58,14 @@ mongo
 ```shell
 > show collections
 ```
-* Eine Collection auf einer ausgewählten Datenbank durchsuchen: 
+* Alle Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben: 
 ```shell
 > db.collection_name.find()
+```
+```shell
+> db.collection_name.find().pretty()
+```
+*  Bestimmte Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben: 
+```shell
+> db.collection_name.find({name:"mongoDB", nummer:1})
 ```
