@@ -12,7 +12,7 @@ import com.google.gson.Gson;
  * @author Daniel
  *
  */
-public class JSONConverter implements Converter {
+public class MachineDataConverter implements Converter {
 	Gson gson = new Gson();
 	
 	/**
@@ -21,14 +21,5 @@ public class JSONConverter implements Converter {
 	 */
 	public MachineData convert(String msg) {
 		return gson.fromJson(msg, MachineData.class);
-	}
-	
-	/**
-	 * Converts JSON into SpectralAnalysisData.
-	 * @param msg
-	 * @return
-	 */
-	public SpectralAnalysisData convertSpecData(String msg) {
-		return gson.fromJson(msg, SpectralAnalysisData.class);
 	}
 }

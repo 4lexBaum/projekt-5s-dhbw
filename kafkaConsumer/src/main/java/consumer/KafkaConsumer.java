@@ -21,7 +21,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import converter.JSONConverter;
+import converter.MachineDataConverter;
 
 /**
  * Class Consumer.
@@ -34,7 +34,7 @@ import converter.JSONConverter;
 public class KafkaConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
     private String topicName;
-    private JSONConverter converter = new JSONConverter();
+    private MachineDataConverter converter = new MachineDataConverter();
     
     private static KafkaConsumer consumer;
    
@@ -107,7 +107,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             			
             			if(data.getItemName().equals("L1") && data.getValue().equals("false")) {
             				if(finishedFirstProduction) {
-            					SpectralAnalysisConsumer.getConsumer(Constants.PATH_SPECTRAL_ANALYSIS).saveSpectralanalysis();
+            					SpectralAnalysisConsumer.getConsumer(Constants.PATH_SPECTRAL_ANALYSIS).saveSpectralAnalysisData();
             				} else {
             					finishedFirstProduction = true;
             				}

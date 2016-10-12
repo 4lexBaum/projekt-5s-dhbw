@@ -14,7 +14,7 @@ import model.dataModels.ErpData;
  * @author Daniel
  *
  */
-public class XMLConverter implements Converter {
+public class ErpDataConverter implements Converter {
 	
 	/**
 	 * Converts XML data.

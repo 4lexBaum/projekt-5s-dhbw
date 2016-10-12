@@ -11,7 +11,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import app.Constants;
 import app.Main;
-import converter.XMLConverter;
+import converter.ErpDataConverter;
 import model.dataModels.ErpData;
 import model.dataModels.ManufacturingData;
 
@@ -102,7 +102,7 @@ public class AmqConsumer implements Consumer, Runnable {
 	 * @param text
 	 */
 	public void saveErpData(String text) {
-		XMLConverter xmlConverter = new XMLConverter();
+		ErpDataConverter xmlConverter = new ErpDataConverter();
 		Main.currentData = new ManufacturingData((ErpData) xmlConverter.convert(text));
 	}
 }

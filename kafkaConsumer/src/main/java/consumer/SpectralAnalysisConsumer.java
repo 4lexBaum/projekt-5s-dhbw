@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import app.Main;
+import converter.SpectralAnalysisDataConverter;
+import converter.MachineDataConverter;
 import model.dataModels.SpectralAnalysisData;
 
 /**
@@ -49,26 +51,27 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 * Save latest spectralanalysis file
 	 * in ManufacturingData object.
 	 */
-	public void saveSpectralanalysis() {
+	public String readSpectralAnalysisFile() {
 		InputStream in;
 		File spectralAnalysis = getLatestFile();
+		StringBuilder out = null;
 		
 		try {
 			in = new FileInputStream(spectralAnalysis);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-	        StringBuilder out = new StringBuilder();
+	        out = new StringBuilder();
 	        String line;
 	        
 	        while ((line = reader.readLine()) != null) {
 	            out.append(line);
 	        }
 	        
-	        SpectralAnalysisData data = null;
-	        Main.previousData.setAnalysisData(data);
 	        reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return out.toString();
 	}
 	
 	/**
@@ -93,5 +96,15 @@ public class SpectralAnalysisConsumer implements Consumer {
 	        }
 	    }
 	    return choice;
+	}
+	
+	/**
+	 * Convert and save the incoming message from the file system
+	 * @param msg
+	 */
+	public void saveSpectralAnalysisData(){
+		SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
+		SpectralAnalysisData data = (SpectralAnalysisData) converter.convert(readSpectralAnalysisFile());
+		Main.previousData.setAnalysisData(data);
 	}
 }
