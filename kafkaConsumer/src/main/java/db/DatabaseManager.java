@@ -42,6 +42,7 @@ public class DatabaseManager {
 		}
 		return dbManager;
 	}
+	// des is ein test
 	
 	/**
 	 * Insert method
