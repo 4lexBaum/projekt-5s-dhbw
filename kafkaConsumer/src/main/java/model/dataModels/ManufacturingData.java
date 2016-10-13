@@ -70,8 +70,10 @@ public class ManufacturingData {
 	 * @param data
 	 */
 	public void appendMachineData(MachineData data) {
+
 		if(this.machineData == null) {
 			this.machineData = new MachineData[1];
+			machineData[0] = data;
 		} else {
 			int length = this.machineData.length;
 			MachineData[] temp = new MachineData[length + 1];
@@ -79,7 +81,7 @@ public class ManufacturingData {
 			for(int i = 0; i < length; i++) {
 				temp[i] = this.machineData[i];
 			}
-			temp[length + 1] = data;
+			temp[length] = data;
 			this.machineData = temp;
 		}
 	}

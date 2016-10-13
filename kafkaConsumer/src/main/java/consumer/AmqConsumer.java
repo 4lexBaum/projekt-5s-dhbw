@@ -104,5 +104,6 @@ public class AmqConsumer implements Consumer, Runnable {
 	public void saveErpData(String text) {
 		ErpDataConverter xmlConverter = new ErpDataConverter();
 		Main.currentData = new ManufacturingData((ErpData) xmlConverter.convert(text));
+		System.out.println("a new document was created for the current production line");
 	}
 }
