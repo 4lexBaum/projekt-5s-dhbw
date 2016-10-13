@@ -97,12 +97,9 @@ public class ProductionStateMachine {
 	public void trigger(MachineData event) {
 		switch(event.getItemName()) {
 		case "L1":
-			if(event.getValue().equals("false") && counter > 0 ){
+			if(event.getValue().equals("false"))
 				productionLine.fire(Trigger.L1Close);
-			}else if(event.getValue().equals("false")){
-				counter++;
-				productionLine.fire(Trigger.L1Close);
-			}else
+			else
 				productionLine.fire(Trigger.L1Open);
 			break;
 		case "L2":

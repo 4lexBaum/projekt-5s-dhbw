@@ -37,7 +37,6 @@ public class DatabaseManager {
 	 * @return
 	 */
 	public static DatabaseManager getManager() {
-		
 		if(dbManager == null) {
 			dbManager = new DatabaseManager();
 		}

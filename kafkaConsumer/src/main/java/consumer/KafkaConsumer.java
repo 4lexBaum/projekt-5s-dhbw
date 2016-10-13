@@ -105,9 +105,11 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
             			
             			saveMachineData(data);
             			
-            			if(data.getItemName().equals("L1") && data.getValue().equals("false")) {
+            			if(data.getItemName().equals("L2") && data.getValue().equals("false")) {
+            				System.out.println("entered L2");
             				if(finishedFirstProduction) {
             					SpectralAnalysisConsumer.getConsumer(Constants.PATH_SPECTRAL_ANALYSIS).saveSpectralAnalysisData();
+            					System.out.println("new document of previous product was stored into mongoDB");
             				} else {
             					finishedFirstProduction = true;
             				}

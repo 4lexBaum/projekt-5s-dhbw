@@ -18,7 +18,7 @@ public class Constants {
 	public static final String AMQ_TOPIC = "m_orders";
 	
 	//file system
-	public static final String PATH_SPECTRAL_ANALYSIS = "../../tmp";
+	public static final String PATH_SPECTRAL_ANALYSIS = "/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData";
 	
 	/**
 	 * Returns ip address according
