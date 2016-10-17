@@ -2,7 +2,7 @@ package model.dataModels;
 
 /**
  * Class ProductionData.
- * The JSON data is converted into
+ * The json data is converted into
  * objects of this class.
  * @author Daniel
  *
