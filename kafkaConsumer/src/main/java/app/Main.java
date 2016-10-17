@@ -3,7 +3,7 @@ package app;
 import consumer.AmqConsumer;
 import consumer.MachineDataConsumer;
 import consumer.SpectralAnalysisConsumer;
-import model.dataModels.ManufacturingData;
+
 import model.stateMachine.ProductionStateMachine;
 
 /**
@@ -12,7 +12,6 @@ import model.stateMachine.ProductionStateMachine;
  * @author Daniel
  *
  */
-@SuppressWarnings("all")
 public class Main {
 
 	/**

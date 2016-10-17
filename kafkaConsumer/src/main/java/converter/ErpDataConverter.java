@@ -10,14 +10,14 @@ import model.dataModels.Data;
 import model.dataModels.ErpData;
 
 /**
- * Class XMLConverter.
+ * Class ErpDataConverter.
  * @author Daniel
  *
  */
 public class ErpDataConverter implements Converter {
 	
 	/**
-	 * Converts XML data.
+	 * Converts xml data.
 	 */
 	@Override
 	public Data convert(String msg) {

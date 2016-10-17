@@ -5,9 +5,7 @@ import model.dataModels.MachineData;
 import com.google.gson.Gson;
 
 /**
- * Class JSONConverter.
- * A JSONConverter object converts JSON data
- * into Java objects.
+ * Class MachineDataConverter.
  * @author Daniel
  *
  */
@@ -15,7 +13,7 @@ public class MachineDataConverter implements Converter {
 	Gson gson = new Gson();
 	
 	/**
-	 * Converts JSON to Java object.
+	 * Converts json to java object.
 	 * @return
 	 */
 	public MachineData convert(String msg) {

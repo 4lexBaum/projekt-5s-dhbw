@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class ErpData.
- * The XMl data is converted into
+ * The xml data is converted into
  * objects of this class.
  * @author Daniel
  *

@@ -1,5 +1,9 @@
 package consumer;
 
-public interface Consumer {
-
-}
+/**
+ * Interface Consumer.
+ * All consumers implement this interface.
+ * @author Daniel
+ *
+ */
+public interface Consumer {}

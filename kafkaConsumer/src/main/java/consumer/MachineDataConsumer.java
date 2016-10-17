@@ -38,7 +38,7 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     //singleton instance
     private static MachineDataConsumer consumer;
     
-    //list of listeners
+    //list of listeners to be notified in case of an event
     private static ArrayList<MachineDataListener> listeners;
    
     /**
@@ -108,26 +108,31 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
      */
     @Override
     public void run() {
+    	
+    	//connect to kafka
         ConsumerConnector connector = kafka.consumer.Consumer.createJavaConsumerConnector(consumerConfig);
         Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(ImmutableMap.of(topicName, 1));
         List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(topicName);
         ExecutorService executorService = Executors.newFixedThreadPool(messageStreams.size());
 
+        //iterate over streams
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
-            executorService.submit(new Runnable() {
-            	
-            	@Override
-            	public void run() {
-            		MachineDataConverter converter = new MachineDataConverter();
-            		
-            		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-            			MachineData data = converter.convert(new String(messageAndMetadata.message()));
-            			
-            			//notify all other listeners
-            			propagateEvent(data);
-            			DataHandler.getDataHandler().addConsumerData(data);
-            		}
-            	}
+            executorService.submit(() -> {
+        		MachineDataConverter converter = new MachineDataConverter();
+        		
+        		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
+        			
+        			//convert message to string
+        			MachineData data = converter.convert(
+    					new String(messageAndMetadata.message())
+					);
+        			
+        			//notify all other listeners
+        			propagateEvent(data);
+        			
+        			//pass machine data to data handler
+        			DataHandler.getDataHandler().addConsumerData(data);
+        		}
             });
         }
     }

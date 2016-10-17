@@ -19,6 +19,7 @@ public class DatabaseManager {
 	private MongoDatabase db;
 	private Gson gson;
 	
+	//singleton instance
 	private static DatabaseManager dbManager;
 			
 	/**

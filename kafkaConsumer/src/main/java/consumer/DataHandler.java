@@ -7,6 +7,13 @@ import model.dataModels.MachineData;
 import model.dataModels.ManufacturingData;
 import model.dataModels.SpectralAnalysisData;
 
+/**
+ * Class DataHandler.
+ * Receives the data from the consumers and
+ * stores them into the database.
+ * @author Daniel
+ *
+ */
 public class DataHandler {
 	private ManufacturingData currentData;
 	private ManufacturingData previousData;

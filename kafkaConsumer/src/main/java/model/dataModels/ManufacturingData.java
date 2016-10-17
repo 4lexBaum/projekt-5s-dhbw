@@ -5,6 +5,7 @@ package model.dataModels;
  * @author Daniel
  *
  */
+@SuppressWarnings("all")
 public class ManufacturingData {
 	private String customerNumber;
 	private String materialNumber;
@@ -15,8 +16,7 @@ public class ManufacturingData {
 	private SpectralAnalysisData analysisData;
 	
 	/**
-	 * Constructor ManufacturingData.
-	 * @param data
+	 * Empty constructor.
 	 */
 	public ManufacturingData() {}
 	
@@ -24,42 +24,10 @@ public class ManufacturingData {
 	 * Getters and Setters. 
 	 */
 	
-	public String getCustomerNumber() {
-		return customerNumber;
-	}
-	
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
-	}
-	
-	public String getMaterialNumber() {
-		return materialNumber;
-	}
-	
-	public void setMaterialNumber(String materialNumber) {
-		this.materialNumber = materialNumber;
-	}
-	
-	public String getOrderNumber() {
-		return orderNumber;
-	}
-	
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
-	}
-	
-	public String getTimeStamp() {
-		return timeStamp;
-	}
-	
-	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-	
-	public MachineData[] getMachineData() {
-		return machineData;
-	}
-	
+	/**
+	 * Adds erp data.
+	 * @param data
+	 */
 	public void setErpData(ErpData data) {
 		this.customerNumber = data.getCustomerNumber();
 		this.materialNumber = data.getMaterialNumber();
@@ -68,11 +36,10 @@ public class ManufacturingData {
 	}
 	
 	/**
-	 * Appends machineData to the array.
+	 * Appends machine data to the array.
 	 * @param data
 	 */
 	public void appendMachineData(MachineData data) {
-
 		if(this.machineData == null) {
 			this.machineData = new MachineData[1];
 			machineData[0] = data;
@@ -88,10 +55,10 @@ public class ManufacturingData {
 		}
 	}
 	
-	public SpectralAnalysisData getAnalysisData() {
-		return analysisData;
-	}
-	
+	/**
+	 * Adds spectral analysis data.
+	 * @param analysisData
+	 */
 	public void setAnalysisData(SpectralAnalysisData analysisData) {
 		this.analysisData = analysisData;
 	}

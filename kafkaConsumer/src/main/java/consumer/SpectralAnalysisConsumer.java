@@ -21,7 +21,6 @@ import model.dataModels.SpectralAnalysisData;
  *
  */
 public class SpectralAnalysisConsumer implements Consumer {
-	private String path;
 	
 	//singleton instance
 	private static SpectralAnalysisConsumer consumer;
@@ -30,20 +29,19 @@ public class SpectralAnalysisConsumer implements Consumer {
 	/**
 	 * Constructor SpectralAnalysisConsumer.
 	 * Singleton-Pattern! => private constructor.
-	 * @param path
 	 */
-	private SpectralAnalysisConsumer(String path) {
-		this.path = path;
+	private SpectralAnalysisConsumer() {
 		MachineDataConsumer.setOnMachineDataListener(data -> {
-			
-			
 			if(data.getItemName().equals("L2") && data.getValue().equals("false")) {
 				if(finishedFirstProduction) {
 					SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
+					
+					//convert spectral analysis data and pass it to the data handler
 					DataHandler.getDataHandler().addConsumerData(
 						(SpectralAnalysisData) converter.convert(readSpectralAnalysisFile())
 					);
-					System.out.println("new document of previous product was stored into mongoDB");
+					
+					System.out.println("stored data in mongodb");
 				} else {
 					finishedFirstProduction = true;
 				}
@@ -59,7 +57,7 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 */
 	public static SpectralAnalysisConsumer getConsumer() {
 		if(consumer == null) {
-			consumer = new SpectralAnalysisConsumer(Constants.PATH_SPECTRAL_ANALYSIS);
+			consumer = new SpectralAnalysisConsumer();
 		}
 		return consumer;
 	}
@@ -96,7 +94,7 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 * Returns the latest spectralanalysis file.
 	 */	
 	public File getLatestFile() {
-	    File dir = new File(path);
+	    File dir = new File(Constants.PATH_SPECTRAL_ANALYSIS);
 	    File[] files = dir.listFiles(file -> {
 	    	return file.isFile();
 	    });

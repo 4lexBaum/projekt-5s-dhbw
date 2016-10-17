@@ -38,6 +38,7 @@ public class AmqConsumer implements Consumer, Runnable {
 		this.topicname = topicname; 
 		String server = "tcp://" + Constants.getIPAddress() + ":" + port;
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("demo1", "demo1", server);
+		
 		try {
 			connection = connectionFactory.createConnection();
 			connection.start();
@@ -66,7 +67,9 @@ public class AmqConsumer implements Consumer, Runnable {
 			//create session and destination
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			
+			//create destination
 			Destination destination = session.createTopic(topicname);
+			
 			//create consumer
 			MessageConsumer consumer = session.createConsumer(destination);
 			
@@ -82,12 +85,11 @@ public class AmqConsumer implements Consumer, Runnable {
 						e.printStackTrace();
 					}
 					
-					//convert xml message and save
+					//convert xml message and pass data to data handler
 					ErpDataConverter xmlConverter = new ErpDataConverter();
 					DataHandler.getDataHandler().addConsumerData(
 						(ErpData) xmlConverter.convert(text)
 					);
-					
 				} else {
 					System.out.println("Received: " + message);
 				}
