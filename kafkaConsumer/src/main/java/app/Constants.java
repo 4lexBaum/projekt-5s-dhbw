@@ -14,11 +14,11 @@ public class Constants {
 	public static final String KAFKA_TOPIC = "prodData";
 	
 	//activeMQ constants
-	public static final int AMQ_PORT = 32768;
+	public static final int AMQ_PORT = 32786;
 	public static final String AMQ_TOPIC = "m_orders";
 	
 	//file system
-	public static final String PATH_SPECTRAL_ANALYSIS = "/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData";
+	public static final String PATH_SPECTRAL_ANALYSIS = "/Users/Daniel/Documents/tmp"; //"/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData";
 	
 	/**
 	 * Returns ip address according

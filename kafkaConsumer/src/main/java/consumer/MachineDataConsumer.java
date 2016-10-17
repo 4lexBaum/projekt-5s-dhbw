@@ -4,17 +4,17 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import app.Constants;
-import app.Main;
+
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
 import model.dataModels.MachineData;
-import model.stateMachine.ProductionStateMachine;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -31,11 +31,15 @@ import converter.MachineDataConverter;
  * @author Daniel
  *
  */
-public class KafkaConsumer extends AbstractExecutionThreadService implements Consumer {
+public class MachineDataConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
     private String topicName;
     
-    private static KafkaConsumer consumer;
+    //singleton instance
+    private static MachineDataConsumer consumer;
+    
+    //list of listeners
+    private static ArrayList<MachineDataListener> listeners;
    
     /**
      * Constructor Consumer.
@@ -44,7 +48,7 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
      * @param port
      * @param topicName
      */
-    private KafkaConsumer(int port, String topicName) {
+    private MachineDataConsumer(int port, String topicName) {
     	String server = Constants.getIPAddress() + ":" + port;
     	
     	//config kafka
@@ -59,6 +63,9 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
         
         this.consumerConfig = new ConsumerConfig(properties);
         this.topicName = topicName;
+        
+        //init listeners list
+        listeners = new ArrayList<>();
     }
     
     /**
@@ -69,11 +76,29 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
      * @param stateMachine
      * @return
      */
-    public static KafkaConsumer getConsumer(int port, String topicname) {
+    public static MachineDataConsumer getConsumer(int port, String topicname) {
     	if(consumer == null) {
-    		consumer = new KafkaConsumer(port, topicname);
+    		consumer = new MachineDataConsumer(port, topicname);
     	}
     	return consumer;
+    }
+    
+    /**
+     * Saves a listener object.
+     * @param listener
+     */
+    public static void setOnMachineDataListener(MachineDataListener listener) {
+    	listeners.add(listener);
+    }
+    
+    /**
+     * Notifies all listeners.
+     * @param data
+     */
+    private void propagateEvent(MachineData data) {
+    	for(MachineDataListener listener : listeners) {
+    		listener.onMachineData(data);
+    	}
     }
 
     /**
@@ -91,40 +116,19 @@ public class KafkaConsumer extends AbstractExecutionThreadService implements Con
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
             executorService.submit(new Runnable() {
             	
-            	/**
-            	 * Run method.
-            	 * Iterate messageStream.
-            	 */
+            	@Override
             	public void run() {
             		MachineDataConverter converter = new MachineDataConverter();
-            		boolean finishedFirstProduction = false;
             		
             		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
             			MachineData data = converter.convert(new String(messageAndMetadata.message()));
-            			ProductionStateMachine.getStateMachine().trigger(data);
             			
-            			saveMachineData(data);
-            			
-            			if(data.getItemName().equals("L2") && data.getValue().equals("false")) {
-            				System.out.println("entered L2");
-            				if(finishedFirstProduction) {
-            					SpectralAnalysisConsumer.getConsumer(Constants.PATH_SPECTRAL_ANALYSIS).saveSpectralAnalysisData();
-            					System.out.println("new document of previous product was stored into mongoDB");
-            				} else {
-            					finishedFirstProduction = true;
-            				}
-            			}
+            			//notify all other listeners
+            			propagateEvent(data);
+            			DataHandler.getDataHandler().addConsumerData(data);
             		}
             	}
             });
         }
-    }
-    
-    /**
-     * Saves MachineData in ManufacturingData object.
-     * @param data
-     */
-    public void saveMachineData(MachineData data) {
-    	Main.currentData.appendMachineData(data);
     }
 }

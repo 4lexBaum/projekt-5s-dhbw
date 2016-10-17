@@ -6,15 +6,15 @@ package model.dataModels;
  *
  */
 public class SpectralAnalysisData extends Data {
-	double em1;
-	double em2;
-	double a1;
-	double a2;
-	double b1;
-	double b2;
-	String overallStatus;
-	long ts_start;
-	long ts_stop;
+	private double em1;
+	private double em2;
+	private double a1;
+	private double a2;
+	private double b1;
+	private double b2;
+	private String overallStatus;
+	private long ts_start;
+	private long ts_stop;
 	
 	/**
 	 * Constructor SpectralAnalysisData.

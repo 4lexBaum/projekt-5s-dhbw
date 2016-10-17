@@ -2,15 +2,15 @@ package consumer;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import app.Main;
+import app.Constants;
+
 import converter.SpectralAnalysisDataConverter;
-import db.DatabaseManager;
+
 import model.dataModels.SpectralAnalysisData;
 
 /**
@@ -23,7 +23,9 @@ import model.dataModels.SpectralAnalysisData;
 public class SpectralAnalysisConsumer implements Consumer {
 	private String path;
 	
+	//singleton instance
 	private static SpectralAnalysisConsumer consumer;
+	private boolean finishedFirstProduction = false;
 	
 	/**
 	 * Constructor SpectralAnalysisConsumer.
@@ -32,6 +34,21 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 */
 	private SpectralAnalysisConsumer(String path) {
 		this.path = path;
+		MachineDataConsumer.setOnMachineDataListener(data -> {
+			
+			
+			if(data.getItemName().equals("L2") && data.getValue().equals("false")) {
+				if(finishedFirstProduction) {
+					SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
+					DataHandler.getDataHandler().addConsumerData(
+						(SpectralAnalysisData) converter.convert(readSpectralAnalysisFile())
+					);
+					System.out.println("new document of previous product was stored into mongoDB");
+				} else {
+					finishedFirstProduction = true;
+				}
+			}
+		});
 	}
 	
 	/**
@@ -40,9 +57,9 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 * @param path
 	 * @return
 	 */
-	public static SpectralAnalysisConsumer getConsumer(String path) {
+	public static SpectralAnalysisConsumer getConsumer() {
 		if(consumer == null) {
-			consumer = new SpectralAnalysisConsumer(path);
+			consumer = new SpectralAnalysisConsumer(Constants.PATH_SPECTRAL_ANALYSIS);
 		}
 		return consumer;
 	}
@@ -80,34 +97,19 @@ public class SpectralAnalysisConsumer implements Consumer {
 	 */	
 	public File getLatestFile() {
 	    File dir = new File(path);
-	    File[] files = dir.listFiles(new FileFilter() {          
-	        public boolean accept(File file) {
-	            return file.isFile();
-	        }
+	    File[] files = dir.listFiles(file -> {
+	    	return file.isFile();
 	    });
 	    
 	    long lastMod = Long.MIN_VALUE;
 	    File choice = null;
 	    
-	    for (File file : files) {
-	        if (file.lastModified() > lastMod) {
+	    for(File file : files) {
+	        if(file.lastModified() > lastMod) {
 	            choice = file;
 	            lastMod = file.lastModified();
 	        }
 	    }
 	    return choice;
-	}
-	
-	/**
-	 * Convert and save the incoming message from the file system
-	 * @param msg
-	 */
-	public void saveSpectralAnalysisData() {
-		SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
-		SpectralAnalysisData data = (SpectralAnalysisData) converter.convert(readSpectralAnalysisFile());
-		Main.previousData.setAnalysisData(data);
-		
-		//save ManufacturingData in database
-		DatabaseManager.getManager().insertManifacturingDocument(Main.previousData);
 	}
 }

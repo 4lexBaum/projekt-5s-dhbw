@@ -10,10 +10,8 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import app.Constants;
-import app.Main;
 import converter.ErpDataConverter;
 import model.dataModels.ErpData;
-import model.dataModels.ManufacturingData;
 
 /**
  * Class AmqConsumer.
@@ -23,10 +21,10 @@ import model.dataModels.ManufacturingData;
  *
  */
 public class AmqConsumer implements Consumer, Runnable {
-	
 	private Connection connection;
 	private String topicname;
 	
+	//singleton instance
 	private static AmqConsumer consumer;
 	
 	/**
@@ -84,9 +82,11 @@ public class AmqConsumer implements Consumer, Runnable {
 						e.printStackTrace();
 					}
 					
-					//convert xml message
-					Main.previousData = Main.currentData;
-					saveErpData(text);
+					//convert xml message and save
+					ErpDataConverter xmlConverter = new ErpDataConverter();
+					DataHandler.getDataHandler().addConsumerData(
+						(ErpData) xmlConverter.convert(text)
+					);
 					
 				} else {
 					System.out.println("Received: " + message);
@@ -95,15 +95,5 @@ public class AmqConsumer implements Consumer, Runnable {
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Saves ErpData in ManufacturingData object.
-	 * @param text
-	 */
-	public void saveErpData(String text) {
-		ErpDataConverter xmlConverter = new ErpDataConverter();
-		Main.currentData = new ManufacturingData((ErpData) xmlConverter.convert(text));
-		System.out.println("a new document was created for the current production line");
 	}
 }

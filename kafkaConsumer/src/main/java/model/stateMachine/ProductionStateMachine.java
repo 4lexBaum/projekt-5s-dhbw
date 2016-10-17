@@ -3,6 +3,7 @@ package model.stateMachine;
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
+import consumer.MachineDataConsumer;
 import db.DatabaseManager;
 import model.dataModels.MachineData;
 
@@ -26,6 +27,11 @@ public class ProductionStateMachine {
 	 */
 	private ProductionStateMachine() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
+		
+		//listen to events from machine
+		MachineDataConsumer.setOnMachineDataListener(data -> {
+			trigger(data);
+		});
 		
 		//configure states and transitions
 		machineConfig.configure(State.EnterL1)

@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ErpData extends Data {
-	String customerNumber;
-	String materialNumber;
-	String orderNumber;
-	String timeStamp;
+	private String customerNumber;
+	private String materialNumber;
+	private String orderNumber;
+	private String timeStamp;
 	
 	/**
 	 * Print string representation of object.

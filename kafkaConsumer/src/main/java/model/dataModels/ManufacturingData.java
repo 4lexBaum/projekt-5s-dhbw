@@ -18,12 +18,7 @@ public class ManufacturingData {
 	 * Constructor ManufacturingData.
 	 * @param data
 	 */
-	public ManufacturingData(ErpData data) {
-		this.customerNumber = data.getCustomerNumber();
-		this.materialNumber = data.getMaterialNumber();
-		this.orderNumber = data.getOrderNumber();
-		this.timeStamp = data.getTimeStamp();
-	}
+	public ManufacturingData() {}
 	
 	/*
 	 * Getters and Setters. 
@@ -63,6 +58,13 @@ public class ManufacturingData {
 	
 	public MachineData[] getMachineData() {
 		return machineData;
+	}
+	
+	public void setErpData(ErpData data) {
+		this.customerNumber = data.getCustomerNumber();
+		this.materialNumber = data.getMaterialNumber();
+		this.orderNumber = data.getOrderNumber();
+		this.timeStamp = data.getTimeStamp();
 	}
 	
 	/**
