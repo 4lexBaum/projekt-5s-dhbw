@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/',index);
-app.use('/api',api);
+app.use('/API',api);
 
 
 

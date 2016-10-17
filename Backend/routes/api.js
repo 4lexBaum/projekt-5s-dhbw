@@ -1,25 +1,18 @@
 /**
  * Created by Philip on 09.09.16.
  */
-var student = require('../models/student');
+var manufacturingData = require('../models/manufacturingData.js');
 var express = require('express');
 var router = express.Router();
+var assert = require('assert');
 
-router.get('/student',function(req,res){
+router.get('/ManufacturingData/Latest/:count',function(req,res){
 
-    student.find(function (err, data) {
-
-        if(err) res.send(err);
-        res.json(data);
+    manufacturingData.find({}).sort({_id:-1}).limit(parseInt(req.params.count)).exec(function(err, docs){
+        assert.equal(err, null);
+        //res.json(docs);
+        res.json(docs);
 
     });
-
 });
-router.get('/student/:name', function (req, res, next) {
-    student.findOne({"name":req.params.name}, function(err, data){
-        if(err) res.send("no student found");
-        res.json(data);
-    });
-});
-
 module.exports = router;
