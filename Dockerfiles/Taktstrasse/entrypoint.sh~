@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# start simulation
+java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://172.17.0.16:32772 -d 1000 -kafka 172.17.0.15:9092 -o /tmp -topic prodData & 
+# wait for process
+sleep 2 
+
+# run endless loop to keep alive
+/usr/bin/tail -f /dev/null
