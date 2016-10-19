@@ -13,7 +13,7 @@ WORKDIR /jarfile
 
 # copy simulation on docker and set permissions 
 COPY TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar /jarfile
-RUN chmod u+x /TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar
+RUN chmod u+x TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar
 
 # create directory for the temporary file
 RUN mkdir -p /jarfile/temp
