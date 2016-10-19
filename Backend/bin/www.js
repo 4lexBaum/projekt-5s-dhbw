@@ -5,7 +5,7 @@ var index = require('../routes/index');
 var api = require('../routes/api');
 
 var app = express();
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3500);
 app.set('views','./views');
 app.set('view engine','pug');
 app.use(bodyParser.json());
