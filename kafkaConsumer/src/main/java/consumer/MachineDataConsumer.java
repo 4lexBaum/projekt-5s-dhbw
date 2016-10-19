@@ -92,6 +92,14 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     }
     
     /**
+     * Removes a listener object.
+     * @param listener
+     */
+    public static void removeMachineDataListener(MachineDataListener listener) {
+    	listeners.remove(listener);
+    }
+    
+    /**
      * Notifies all listeners.
      * @param data
      */

@@ -1,5 +1,7 @@
 package consumer;
 
+import java.util.ArrayList;
+
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -14,18 +16,21 @@ import converter.ErpDataConverter;
 import model.dataModels.ErpData;
 
 /**
- * Class AmqConsumer.
+ * Class ErpDataConsumer.
  * Creates a thread which connects to the
- * AMQP server.
+ * amqp server.
  * @author Daniel
  *
  */
-public class AmqConsumer implements Consumer, Runnable {
+public class ErpDataConsumer implements Consumer, Runnable {
 	private Connection connection;
 	private String topicname;
 	
 	//singleton instance
-	private static AmqConsumer consumer;
+	private static ErpDataConsumer consumer;
+	
+	//list of listeners to be notified in case of an event
+    private static ArrayList<ErpDataListener> listeners;
 	
 	/**
 	 * Constructor AmqConsumer.
@@ -34,7 +39,7 @@ public class AmqConsumer implements Consumer, Runnable {
 	 * @param port
 	 * @param topicname
 	 */
-	private AmqConsumer(int port, String topicname) {
+	private ErpDataConsumer(int port, String topicname) {
 		this.topicname = topicname; 
 		String server = "tcp://" + Constants.getIPAddress() + ":" + port;
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("demo1", "demo1", server);
@@ -45,7 +50,27 @@ public class AmqConsumer implements Consumer, Runnable {
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
+		
+		listeners = new ArrayList<>();
 	}
+	
+	public static void setOnErpDataListener(ErpDataListener listener) {
+		listeners.add(listener);
+	}
+	
+	public static void removeErpDataListener(ErpDataListener listener) {
+		listeners.remove(listener);
+	}
+	
+	/**
+     * Notifies all listeners.
+     * @param data
+     */
+    private void propagateEvent(ErpData data) {
+    	for(ErpDataListener listener : listeners) {
+    		listener.onErpData(data);
+    	}
+    }
 	
 	/**
 	 * getConsumer method.
@@ -54,9 +79,9 @@ public class AmqConsumer implements Consumer, Runnable {
 	 * @param topicname
 	 * @return
 	 */
-	public static AmqConsumer getConsumer(int port, String topicname) {
+	public static ErpDataConsumer getConsumer(int port, String topicname) {
 		if(consumer == null) {
-			consumer = new AmqConsumer(port, topicname);
+			consumer = new ErpDataConsumer(port, topicname);
 		}
 		return consumer;
 	}
@@ -75,7 +100,7 @@ public class AmqConsumer implements Consumer, Runnable {
 			
 			//print messages
 			consumer.setMessageListener(message -> {
-				if (message instanceof TextMessage) {
+				if(message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = "";
 					
@@ -87,9 +112,7 @@ public class AmqConsumer implements Consumer, Runnable {
 					
 					//convert xml message and pass data to data handler
 					ErpDataConverter xmlConverter = new ErpDataConverter();
-					DataHandler.getDataHandler().addConsumerData(
-						(ErpData) xmlConverter.convert(text)
-					);
+					propagateEvent((ErpData) xmlConverter.convert(text));
 				} else {
 					System.out.println("Received: " + message);
 				}

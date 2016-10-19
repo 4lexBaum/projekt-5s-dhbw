@@ -20,21 +20,6 @@ public class ManufacturingData {
 	 */
 	public ManufacturingData() {}
 	
-	/**
-	 * Constructor ManufacturingData.
-	 * This constructor is used for cloning an object.
-	 * @param data
-	 */
-	public ManufacturingData(ManufacturingData data) {
-		this.customerNumber = data.getCustomerNumber();
-		this.materialNumber = data.getMaterialNumber();
-		this.orderNumber = data.getOrderNumber();
-		this.timeStamp = data.getTimeStamp();
-		
-		this.machineData = data.getMachineData();
-		this.analysisData = data.getAnalysisData();
-	}
-	
 	/*
 	 * Getters and Setters. 
 	 */

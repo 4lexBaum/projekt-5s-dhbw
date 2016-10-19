@@ -10,7 +10,8 @@ import java.io.InputStreamReader;
 import app.Constants;
 
 import converter.SpectralAnalysisDataConverter;
-
+import db.DatabaseManager;
+import model.dataModels.ManufacturingData;
 import model.dataModels.SpectralAnalysisData;
 
 /**
@@ -20,25 +21,40 @@ import model.dataModels.SpectralAnalysisData;
  * @author Daniel
  *
  */
-public class SpectralAnalysisConsumer implements Consumer {
+public class SpectralAnalysisConsumer implements Consumer, Runnable {
 	
 	//singleton instance
 	private static SpectralAnalysisConsumer consumer;
-	private boolean finishedFirstProduction = false;
+	private ManufacturingData manufacturingData;
+	
+	SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
+	
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(20000);
+			manufacturingData.setAnalysisData(
+				(SpectralAnalysisData) converter.convert(readSpectralAnalysisFile())
+			);
+			DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);	
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Constructor SpectralAnalysisConsumer.
 	 * Singleton-Pattern! => private constructor.
 	 */
 	private SpectralAnalysisConsumer() {
-		MachineDataConsumer.setOnMachineDataListener(data -> {
+		/*MachineDataConsumer.setOnMachineDataListener(data -> {
 			if(data.getItemName().equals("L2") && data.getValue().equals("false")) {
 				if(finishedFirstProduction) {
-					SpectralAnalysisDataConverter converter = new SpectralAnalysisDataConverter();
+					
 					
 					//convert spectral analysis data and pass it to the data handler
 					DataHandler.getDataHandler().addConsumerData(
-						(SpectralAnalysisData) converter.convert(readSpectralAnalysisFile())
+						
 					);
 					
 					System.out.println("stored data in mongodb");
@@ -46,7 +62,11 @@ public class SpectralAnalysisConsumer implements Consumer {
 					finishedFirstProduction = true;
 				}
 			}
-		});
+		});*/
+	}
+	
+	public void setManufacturingData(ManufacturingData manufacturingData) {
+		this.manufacturingData = manufacturingData;
 	}
 	
 	/**

@@ -53,7 +53,7 @@ public class DataHandler {
 			currentData.appendMachineData((MachineData) data);
 		} else if(data instanceof SpectralAnalysisData) {
 			previousData.setAnalysisData((SpectralAnalysisData) data);
-			DatabaseManager.getManager().insertManifacturingDocument(previousData);	
+			
 		}
 	}
 	
