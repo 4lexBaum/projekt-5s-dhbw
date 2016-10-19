@@ -1,0 +1,21 @@
+version: '2'
+
+services: 
+    Kafka: 
+        build: ./Kafka
+        ports:
+            - "2181:2181"
+            - "9092:9092"
+    Takstrasse: 
+        build: ./Takstrasse
+        ports:
+            - "2181:2181"
+            - "9092:9092"
+#    Spark:
+#        build: ./Spark
+#        ports: 
+#            - "8080:8080"
+#            - "7077:7077"
+#        environment:
+#            - SPARK_OPTS="--driver-memory=5g --executor-memory=5g"
+#            - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G

@@ -1,0 +1,18 @@
+FROM ubuntu:16.04
+MAINTAINER Fabian Otto
+
+# install java
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jre
+
+# copy entrypoint script on docker and set permissions 
+COPY entrypoint.sh /
+RUN chmod u+x /entrypoint.sh
+
+# install activemq
+ADD http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.14.1/apache-activemq-5.14.1-bin.tar.gz&action=download /activemq.tar.gz
+RUN tar -xzf /activemq.tar.gz && mv /apache-activemq-5.14.1 /activemq 
+RUN chmod 755 /bin/activemq
+
+# expose port
+EXPOSE 61616
