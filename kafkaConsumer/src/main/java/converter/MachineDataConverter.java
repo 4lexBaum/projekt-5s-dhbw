@@ -10,13 +10,22 @@ import com.google.gson.Gson;
  *
  */
 public class MachineDataConverter implements Converter {
-	Gson gson = new Gson();
+	Gson gson;
 	
 	/**
-	 * Converts json to java object.
+	 * Constructor.
+	 */
+	public MachineDataConverter() {
+		gson = new Gson();
+	}
+	
+	/**
+	 * Converts machine data.
+	 * @param rawData
 	 * @return
 	 */
-	public MachineData convert(String msg) {
-		return gson.fromJson(msg, MachineData.class);
+	@Override
+	public MachineData convert(String rawData) {
+		return gson.fromJson(rawData, MachineData.class);
 	}
 }

@@ -3,14 +3,18 @@ package db;
 import org.bson.Document;
 
 import com.google.gson.Gson;
+
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+
+import app.Constants;
 
 import model.dataModels.ManufacturingData;
 
 /**
  * Class DatabaseManager.
- * Interact with the mongoDB and store the JSON-Documents.
+ * This class is responsible for
+ * interacting with the mongodb.
  * @author Philip
  *
  */
@@ -23,18 +27,16 @@ public class DatabaseManager {
 	private static DatabaseManager dbManager;
 			
 	/**
-	 * Constructor DatabaseManger.
-	 * Singleton-Pattern! => private constructor.	
+	 * Constructor.
 	 */
 	private DatabaseManager() {
 		mongoClient = new MongoClient();
-		db = mongoClient.getDatabase("oip_taktstrasse");
+		db = mongoClient.getDatabase(Constants.DATABASE_NAME);
 		gson = new Gson();
 	}
 	
 	/**
-	 * getManager method.
-	 * Is used to obtain an instance of the dbManager.
+	 * Returns the database manager object.
 	 * @return
 	 */
 	public static DatabaseManager getManager() {
@@ -45,13 +47,13 @@ public class DatabaseManager {
 	}
 	
 	/**
-	 * Insert method
-	 * Stores JSON formatted String message to the specified database collection.
-	 * @param collection, message
+	 * Stores the json formatted string message
+	 * in the database collection specified.
+	 * @param data
 	 */
 	public void insertManifacturingDocument(ManufacturingData data) {
 		String json = gson.toJson(data);
         Document doc = Document.parse(json);
-		db.getCollection("manufacturingData").insertOne(doc);
+		db.getCollection(Constants.DATABASE_COLLECTION_NAME).insertOne(doc);
 	}
 }

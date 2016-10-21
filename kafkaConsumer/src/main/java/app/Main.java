@@ -1,13 +1,16 @@
 package app;
 
+//import org.apache.log4j.BasicConfigurator;
+
 import consumer.ErpDataConsumer;
 import consumer.MachineDataConsumer;
 import consumer.SpectralAnalysisConsumer;
+
 import model.stateMachine.ProductionMonitor;
 
 /**
  * Main class.
- * Entry point for application.
+ * Entry point for the application.
  * @author Daniel
  *
  */
@@ -18,14 +21,15 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//execute kafka consumer
-		MachineDataConsumer.getConsumer(Constants.KAFKA_PORT, Constants.KAFKA_TOPIC).start();
+		//BasicConfigurator.configure();
+		//execute erp data consumer
+		ErpDataConsumer.initialize();
+				
+		//execute machine data consumer
+		MachineDataConsumer.initialize();
 		
-		//execute activeMQ consumer
-		new Thread(ErpDataConsumer.getConsumer(Constants.AMQ_PORT, Constants.AMQ_TOPIC)).start();
-		
-		//initializes spectral analysis consumer
-		SpectralAnalysisConsumer.getConsumer();
+		//initialize spectral analysis consumer
+		SpectralAnalysisConsumer.initialize();
 		
 		//initialize production monitor
 		ProductionMonitor.initialize();

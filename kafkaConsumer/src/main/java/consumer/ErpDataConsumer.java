@@ -12,80 +12,82 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import app.Constants;
+
+import consumer_listener.ErpDataListener;
+
 import converter.ErpDataConverter;
+
 import model.dataModels.ErpData;
 
 /**
  * Class ErpDataConsumer.
- * Creates a thread which connects to the
- * amqp server.
+ * This class is responsible for connecting
+ * and reading the amqp stream providing the erp data.
  * @author Daniel
  *
  */
 public class ErpDataConsumer implements Consumer, Runnable {
 	private Connection connection;
-	private String topicname;
+	
+	//converter to convert the raw data into pojos
+	ErpDataConverter converter;
 	
 	//singleton instance
 	private static ErpDataConsumer consumer;
 	
-	//list of listeners to be notified in case of an event
+	//list of listeners to be notified
     private static ArrayList<ErpDataListener> listeners;
 	
 	/**
-	 * Constructor AmqConsumer.
-	 * Singleton-Pattern! => private constructor.
-	 * Creates connection.
-	 * @param port
-	 * @param topicname
+	 * Constructor.
 	 */
-	private ErpDataConsumer(int port, String topicname) {
-		this.topicname = topicname; 
-		String server = "tcp://" + Constants.getIPAddress() + ":" + port;
+	private ErpDataConsumer() {
+		listeners = new ArrayList<>();
+		converter = new ErpDataConverter();
+		
+		String server = "tcp://" + Constants.getIPAddress() + ":" + Constants.AMQ_PORT;
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("demo1", "demo1", server);
 		
+		//create connection to amqp server
 		try {
 			connection = connectionFactory.createConnection();
 			connection.start();
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-		
-		listeners = new ArrayList<>();
 	}
 	
+	/**
+	 * Initializes the erp data consumer.
+	 */
+	public static void initialize() {
+		if(consumer == null) {
+			consumer = new ErpDataConsumer();
+		}
+		new Thread(consumer).start();
+	}
+	
+	/**
+	 * Registers a listener object
+	 * for the erp data event.
+	 * @param listener listener to be registered.
+	 */
 	public static void setOnErpDataListener(ErpDataListener listener) {
 		listeners.add(listener);
 	}
 	
+	/**
+	 * Removes a listener object
+	 * from the listeners collection.
+	 * @param listener listener to be removed.
+	 */
 	public static void removeErpDataListener(ErpDataListener listener) {
 		listeners.remove(listener);
 	}
 	
 	/**
-     * Notifies all listeners.
-     * @param data
-     */
-    private void propagateEvent(ErpData data) {
-    	for(ErpDataListener listener : listeners) {
-    		listener.onErpData(data);
-    	}
-    }
-	
-	/**
-	 * getConsumer method.
-	 * Is used to obtain an instance of the AmqConsumer.
-	 * @param port
-	 * @param topicname
-	 * @return
+	 * Starts the thread.
 	 */
-	public static ErpDataConsumer getConsumer(int port, String topicname) {
-		if(consumer == null) {
-			consumer = new ErpDataConsumer(port, topicname);
-		}
-		return consumer;
-	}
-	
 	@Override
 	public void run() {
 		try {
@@ -93,7 +95,7 @@ public class ErpDataConsumer implements Consumer, Runnable {
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			
 			//create destination
-			Destination destination = session.createTopic(topicname);
+			Destination destination = session.createTopic(Constants.AMQ_TOPIC);
 			
 			//create consumer
 			MessageConsumer consumer = session.createConsumer(destination);
@@ -111,8 +113,7 @@ public class ErpDataConsumer implements Consumer, Runnable {
 					}
 					
 					//convert xml message and pass data to data handler
-					ErpDataConverter xmlConverter = new ErpDataConverter();
-					propagateEvent((ErpData) xmlConverter.convert(text));
+					propagateEvent(converter.convert(text));
 				} else {
 					System.out.println("Received: " + message);
 				}
@@ -121,4 +122,14 @@ public class ErpDataConsumer implements Consumer, Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+     * Notifies all listeners that have registered.
+     * @param data
+     */
+    private void propagateEvent(ErpData data) {
+    	for(ErpDataListener listener : listeners) {
+    		listener.onErpData(data);
+    	}
+    }
 }

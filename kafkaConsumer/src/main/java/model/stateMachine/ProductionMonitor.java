@@ -1,24 +1,23 @@
 package model.stateMachine;
 
-import java.util.ArrayList;
-
 import consumer.ErpDataConsumer;
 
+/**
+ * Class ProductionMonitor.
+ * This class is responsible for
+ * creating a new state machine as soon as
+ * a new production begins.
+ * @author Daniel
+ *
+ */
 public class ProductionMonitor {
-	
 	//singleton instance
 	private static ProductionMonitor productionMonitor;
 	
-	private static ArrayList<ProductionStateMachine> stateMachines;
-	
 	/**
 	 * Constructor.
-	 * This constructor is private
-	 * because of the singleton pattern.
 	 */
-	private ProductionMonitor() {
-		stateMachines = new ArrayList<>();
-	}
+	private ProductionMonitor() {}
 	
 	/**
 	 * Initializes the production monitor.
@@ -31,7 +30,7 @@ public class ProductionMonitor {
 			ErpDataConsumer.setOnErpDataListener(data -> {
 			
 				//create new state machine if new production begins
-				stateMachines.add(new ProductionStateMachine(data));
+				new ProductionStateMachine(data);
 			});
 		}
 	}

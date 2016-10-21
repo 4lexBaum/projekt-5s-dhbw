@@ -5,7 +5,6 @@ package model.dataModels;
  * @author Daniel
  *
  */
-@SuppressWarnings("all")
 public class ManufacturingData {
 	private String customerNumber;
 	private String materialNumber;
@@ -16,7 +15,7 @@ public class ManufacturingData {
 	private SpectralAnalysisData analysisData;
 	
 	/**
-	 * Empty constructor.
+	 * Constructor.
 	 */
 	public ManufacturingData() {}
 	

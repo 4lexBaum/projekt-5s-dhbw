@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class ErpData.
- * The xml data is converted into
- * objects of this class.
  * @author Daniel
  *
  */
@@ -18,7 +16,8 @@ public class ErpData extends Data {
 	private String timeStamp;
 	
 	/**
-	 * Print string representation of object.
+	 * Creates a string representation
+	 * of this object.
 	 * @return
 	 */
 	public String toString() {

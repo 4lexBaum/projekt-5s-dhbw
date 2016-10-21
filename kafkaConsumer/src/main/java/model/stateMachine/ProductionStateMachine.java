@@ -4,107 +4,30 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
 import consumer.MachineDataConsumer;
-import consumer.MachineDataListener;
 import consumer.SpectralAnalysisConsumer;
+
+import consumer_listener.MachineDataListener;
+import consumer_listener.SpectralAnalysisListener;
+
+import db.DatabaseManager;
+
 import model.dataModels.ErpData;
 import model.dataModels.MachineData;
 import model.dataModels.ManufacturingData;
+import model.dataModels.SpectralAnalysisData;
 
 /**
  * Class ProductionStateMachine.
- * Virtual representation of the production line.
  * @author Daniel
  *
  */
-@SuppressWarnings("all")
-public class ProductionStateMachine {
-	private StateMachine<State, Trigger> productionLine;
-	
+public class ProductionStateMachine implements MachineDataListener, SpectralAnalysisListener {
+	private StateMachine<State, Trigger> stateMachine;
 	private ManufacturingData manufacturingData;
+	private int serialNumber;
 	
-	//machine data listener
-	private MachineDataListener machineDataListener = (data) -> {
-		trigger(data);
-		
-		//save machine data
-		manufacturingData.appendMachineData(data);
-	};
-	
-	/**
-	 * Constructor ProductionStateMachine.
-	 * Configures states and transitions of the state machine.
-	 * @param erpData
-	 */
-	public ProductionStateMachine(ErpData erpData) {
-		this.config();
-		manufacturingData = new ManufacturingData();
-		
-		manufacturingData.setErpData(erpData);
-		
-		//listen to events
-		MachineDataConsumer.setOnMachineDataListener(machineDataListener);
-	}
-	
-	/**
-	 * Trigger method.
-	 * Receives the production data and
-	 * determins the next state.
-	 * @param data
-	 */
-	public void trigger(MachineData event) {
-		switch(event.getItemName()) {
-		case "L1":
-			if(event.getValue().equals("false"))
-				productionLine.fire(Trigger.L1Close);
-			else
-				productionLine.fire(Trigger.L1Open);
-			break;
-		case "L2":
-			if(event.getValue().equals("false")) 
-				productionLine.fire(Trigger.L2Close);
-			else
-				productionLine.fire(Trigger.L2Open);
-			break;
-		case "L3":
-			if(event.getValue().equals("false"))
-				productionLine.fire(Trigger.L3Close);
-			else
-				productionLine.fire(Trigger.L3Open);
-			break;
-		case "L4":
-			if(event.getValue().equals("false"))
-				productionLine.fire(Trigger.L4Close);
-			else
-				productionLine.fire(Trigger.L4Open);
-			break;
-		case "L5":
-			if(event.getValue().equals("false"))
-				productionLine.fire(Trigger.L5Close);
-			else {
-				productionLine.fire(Trigger.L5Open);
-				MachineDataConsumer.removeMachineDataListener(machineDataListener);
-				SpectralAnalysisConsumer consumer = SpectralAnalysisConsumer.getConsumer();
-				consumer.setManufacturingData(manufacturingData);
-				
-				new Thread(consumer).start();
-			}
-			break;
-		case "MILLING":
-			if(event.getValue().equals("true"))
-				productionLine.fire(Trigger.MillingStart);
-			else
-				productionLine.fire(Trigger.MillingStop);
-			break;
-		case "DRILLING":
-			if(event.getValue().equals("true"))
-				productionLine.fire(Trigger.DrillingStart);
-			else
-				productionLine.fire(Trigger.DrillingStop);
-			break;
-		}
-		
-		System.out.println(productionLine.getState());
-	}
+	//counter for serial number
+	private static int counter = 0;
 	
 	/**
 	 * Enum State.
@@ -129,14 +52,98 @@ public class ProductionStateMachine {
 		L4Open, L4Close, L5Open, L5Close,
 		MillingStart, DrillingStart, MillingStop, DrillingStop
 	}
-
+	
+	/**
+	 * Constructor ProductionStateMachine.
+	 * Configures states and transitions of the state machine.
+	 * @param erpData
+	 */
+	public ProductionStateMachine(ErpData erpData) {
+		//listen to events
+		MachineDataConsumer.setOnMachineDataListener(this);
+		SpectralAnalysisConsumer.setOnSpectralAnalysisListener(this);
+				
+		//configure state machine
+		this.config();
+		
+		manufacturingData = new ManufacturingData();
+		manufacturingData.setErpData(erpData);
+		
+		this.serialNumber = counter++;
+	}
+	
+	/**
+	 * Gets the serial number of the product.
+	 * @return
+	 */
+	public int getSerialNumber() {
+		return this.serialNumber;
+	}
+	
+	/**
+	 * Trigger method.
+	 * Receives the production data and
+	 * determins the next state.
+	 * @param event
+	 */
+	private void trigger(MachineData event) {
+		switch(event.getItemName()) {
+		case "L1":
+			if(event.getValue().equals("false"))
+				stateMachine.fire(Trigger.L1Close);
+			else
+				stateMachine.fire(Trigger.L1Open);
+			break;
+		case "L2":
+			if(event.getValue().equals("false")) 
+				stateMachine.fire(Trigger.L2Close);
+			else
+				stateMachine.fire(Trigger.L2Open);
+			break;
+		case "L3":
+			if(event.getValue().equals("false"))
+				stateMachine.fire(Trigger.L3Close);
+			else
+				stateMachine.fire(Trigger.L3Open);
+			break;
+		case "L4":
+			if(event.getValue().equals("false"))
+				stateMachine.fire(Trigger.L4Close);
+			else
+				stateMachine.fire(Trigger.L4Open);
+			break;
+		case "L5":
+			if(event.getValue().equals("false"))
+				stateMachine.fire(Trigger.L5Close);
+			else {
+				stateMachine.fire(Trigger.L5Open);
+				MachineDataConsumer.removeMachineDataListener(this);
+			}
+			break;
+		case "MILLING":
+			if(event.getValue().equals("true"))
+				stateMachine.fire(Trigger.MillingStart);
+			else
+				stateMachine.fire(Trigger.MillingStop);
+			break;
+		case "DRILLING":
+			if(event.getValue().equals("true"))
+				stateMachine.fire(Trigger.DrillingStart);
+			else
+				stateMachine.fire(Trigger.DrillingStop);
+			break;
+		}
+		
+		System.out.println(stateMachine.getState());
+	}
+	
 	/**
 	 * Configures and creates state machine.
 	 */
 	private void config() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
 		
-		//configure states and transitions
+		//configure states and transitions of state machine
 		machineConfig.configure(State.EnterL1)
 			.permit(Trigger.L1Open, State.ExitL1)
 			.permitReentry(Trigger.L1Close);
@@ -177,14 +184,38 @@ public class ProductionStateMachine {
 		machineConfig.configure(State.EnterL5)
 			.permit(Trigger.L5Open, State.ExitL5);
 		
-		//restart production, fired when L1 is closed
-		/*machineConfig.configure(State.ExitL5)
-			.permit(Trigger.L1Close, State.EnterL1);*/
-		
 		//create state machine
-		productionLine = new StateMachine<>(State.EnterL1, machineConfig);
+		stateMachine = new StateMachine<>(State.EnterL1, machineConfig);
+	}
+
+	/**
+	 * Actions to be executed
+	 * as soon as spectral analysis data
+	 * arrives.
+	 * @param data
+	 */
+	@Override
+	public void onSpectralAnalysisData(SpectralAnalysisData data) {
+		SpectralAnalysisConsumer.removeSpectralAnalysisListener(this);
+		manufacturingData.setAnalysisData(data);
+		DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
+	}
+
+	/**
+	 * Actions to be executed
+	 * as soon as machine data
+	 * arrives.
+	 * @param data
+	 */
+	@Override
+	public void onMachineData(MachineData data) {
+		trigger(data);
+		
+		//save machine data
+		manufacturingData.appendMachineData(data);
 	}
 	
+	/*
 	private void adjustMillingSpeed() {}
 	
 	private void adjustDrillingSpeed() {}
@@ -200,4 +231,5 @@ public class ProductionStateMachine {
 	private void stopGlobalTimer() {}
 	
 	private void saveSpectralAnalysis() {}
+	*/
 }
