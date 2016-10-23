@@ -1,6 +1,6 @@
 package consumer;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -36,13 +36,13 @@ public class ErpDataConsumer implements Consumer, Runnable {
 	private static ErpDataConsumer consumer;
 	
 	//list of listeners to be notified
-    private static ArrayList<ErpDataListener> listeners;
+    private static CopyOnWriteArrayList<ErpDataListener> listeners;
 	
 	/**
 	 * Constructor.
 	 */
 	private ErpDataConsumer() {
-		listeners = new ArrayList<>();
+		listeners = new CopyOnWriteArrayList<>();
 		converter = new ErpDataConverter();
 		
 		String server = "tcp://" + Constants.getIPAddress() + ":" + Constants.AMQ_PORT;
@@ -108,17 +108,18 @@ public class ErpDataConsumer implements Consumer, Runnable {
 					
 					try {
 						text = textMessage.getText();
-					} catch (JMSException e) {
+					} catch(JMSException e) {
 						e.printStackTrace();
 					}
 					
 					//convert xml message and pass data to data handler
 					propagateEvent(converter.convert(text));
+					//System.out.println(converter.convert(text));
 				} else {
 					System.out.println("Received: " + message);
 				}
 			});
-		} catch (JMSException e) {
+		} catch(JMSException e) {
 			e.printStackTrace();
 		}
 	}

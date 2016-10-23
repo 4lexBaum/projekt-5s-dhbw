@@ -61,13 +61,14 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 	public ProductionStateMachine(ErpData erpData) {
 		//listen to events
 		MachineDataConsumer.setOnMachineDataListener(this);
-		SpectralAnalysisConsumer.setOnSpectralAnalysisListener(this);
-				
+		
 		//configure state machine
 		this.config();
 		
 		manufacturingData = new ManufacturingData();
 		manufacturingData.setErpData(erpData);
+		
+		System.out.println("Received erp data");
 		
 		this.serialNumber = counter++;
 	}
@@ -113,8 +114,10 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 				stateMachine.fire(Trigger.L4Open);
 			break;
 		case "L5":
-			if(event.getValue().equals("false"))
+			if(event.getValue().equals("false")) {
 				stateMachine.fire(Trigger.L5Close);
+				SpectralAnalysisConsumer.setOnSpectralAnalysisListener(this);
+			}
 			else {
 				stateMachine.fire(Trigger.L5Open);
 				MachineDataConsumer.removeMachineDataListener(this);
@@ -196,9 +199,16 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 	 */
 	@Override
 	public void onSpectralAnalysisData(SpectralAnalysisData data) {
+		//remove spectral analysis listener
 		SpectralAnalysisConsumer.removeSpectralAnalysisListener(this);
+		
+		//save analysis data in manufacturingData
 		manufacturingData.setAnalysisData(data);
+		
+		//save manufacturing data in db
 		DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
+		System.out.println("Received spectral analysis data");
+		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");
 	}
 
 	/**
@@ -213,6 +223,16 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		
 		//save machine data
 		manufacturingData.appendMachineData(data);
+	}
+	
+	/**
+	 * Creates a string representation
+	 * of this object.
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return "Statemachine " + this.serialNumber;
 	}
 	
 	/*

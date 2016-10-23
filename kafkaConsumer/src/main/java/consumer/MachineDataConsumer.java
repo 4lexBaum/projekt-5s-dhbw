@@ -18,10 +18,10 @@ import model.dataModels.MachineData;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,13 +43,13 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     private static MachineDataConsumer consumer;
     
     //list of listeners to be notified
-    private static ArrayList<MachineDataListener> listeners;
+    private static CopyOnWriteArrayList<MachineDataListener> listeners;
    
     /**
      * Constructor Consumer.
      */
     private MachineDataConsumer() {
-    	listeners = new ArrayList<>();
+    	listeners = new CopyOnWriteArrayList<>();
     	converter = new MachineDataConverter();
     	
     	String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
@@ -118,11 +118,6 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
         			MachineData data = converter.convert(
     					new String(messageAndMetadata.message())
 					);
-        			
-        			if(data.getItemName().equals("L1") && data.getValue().equals("true"))
-						try {
-							Thread.sleep(2000);
-						} catch (InterruptedException e) {}
         			
         			//notify all other listeners
         			propagateEvent(data);

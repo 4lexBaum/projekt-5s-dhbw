@@ -30,7 +30,8 @@ public class ProductionMonitor {
 			ErpDataConsumer.setOnErpDataListener(data -> {
 			
 				//create new state machine if new production begins
-				new ProductionStateMachine(data);
+				int serialNumber = new ProductionStateMachine(data).getSerialNumber();
+				System.out.println("Production Monitor: Created new state machine: " + serialNumber);
 			});
 		}
 	}

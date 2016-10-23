@@ -12,7 +12,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import app.Constants;
 
@@ -43,20 +43,20 @@ public class SpectralAnalysisConsumer implements Consumer, Runnable {
 	private static SpectralAnalysisConsumer consumer;
 	
 	//list of listeners to be notified
-	private static ArrayList<SpectralAnalysisListener> listeners;
+	private static CopyOnWriteArrayList<SpectralAnalysisListener> listeners;
 	
 	/**
 	 * Constructor.
 	 */
 	private SpectralAnalysisConsumer() {
-		listeners = new ArrayList<>();
+		listeners = new CopyOnWriteArrayList<>();
 		converter = new SpectralAnalysisDataConverter();
 		
 		try {
 			//register the directory
 			watcher = FileSystems.getDefault().newWatchService();
 			dir.register(watcher, ENTRY_CREATE);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -107,7 +107,7 @@ public class SpectralAnalysisConsumer implements Consumer, Runnable {
 			try {
 				//wait for key to be signaled
 				key = watcher.take();
-			} catch (InterruptedException e) {
+			} catch(InterruptedException e) {
 				e.printStackTrace();
 				return;
 			}
@@ -156,14 +156,15 @@ public class SpectralAnalysisConsumer implements Consumer, Runnable {
 			
 			//propagate event to all registered listeners
 			propagateEvent(converter.convert(content));
-		} catch (FileNotFoundException e) {
+			//System.out.println(converter.convert(content));
+		} catch(FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if(reader != null) reader.close();
-			} catch (IOException e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
