@@ -104,6 +104,7 @@ public class SpectralAnalysisConsumer implements Consumer, Runnable {
 	private void monitorDir() {
 		while(true) {
 			WatchKey key;
+			
 			try {
 				//wait for key to be signaled
 				key = watcher.take();
