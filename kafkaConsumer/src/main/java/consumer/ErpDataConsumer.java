@@ -114,7 +114,6 @@ public class ErpDataConsumer implements Consumer, Runnable {
 					
 					//convert xml message and pass data to data handler
 					propagateEvent(converter.convert(text));
-					//System.out.println(converter.convert(text));
 				} else {
 					System.out.println("Received: " + message);
 				}

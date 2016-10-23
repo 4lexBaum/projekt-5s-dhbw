@@ -157,7 +157,6 @@ public class SpectralAnalysisConsumer implements Consumer, Runnable {
 			
 			//propagate event to all registered listeners
 			propagateEvent(converter.convert(content));
-			//System.out.println(converter.convert(content));
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		} catch(IOException e) {
