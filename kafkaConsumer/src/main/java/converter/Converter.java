@@ -8,5 +8,5 @@ import model.dataModels.Data;
  *
  */
 public interface Converter {
-	public Data convert(String msg);
+	public Data convert(String rawData);
 }

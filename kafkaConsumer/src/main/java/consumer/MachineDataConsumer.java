@@ -5,19 +5,23 @@ import com.google.common.util.concurrent.AbstractExecutionThreadService;
 
 import app.Constants;
 
+import consumer_listener.MachineDataListener;
+
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
+
 import kafka.javaapi.consumer.ConsumerConnector;
+
 import kafka.message.MessageAndMetadata;
 
 import model.dataModels.MachineData;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,31 +29,30 @@ import converter.MachineDataConverter;
 
 /**
  * Class Consumer.
- * Creates a thread which connects to the
- * kafka server. The messages are then converted into
- * Java objects using a Converter object.
+ * This class is responsible for connecting
+ * and reading the kafka stream providing the machine data.
  * @author Daniel
  *
  */
 public class MachineDataConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
-    private String topicName;
+    
+    private MachineDataConverter converter;
     
     //singleton instance
     private static MachineDataConsumer consumer;
     
-    //list of listeners to be notified in case of an event
-    private static ArrayList<MachineDataListener> listeners;
+    //list of listeners to be notified
+    private static CopyOnWriteArrayList<MachineDataListener> listeners;
    
     /**
      * Constructor Consumer.
-     * Singleton-Pattern! => private constructor.
-     * Creates the properties for the kafka server.
-     * @param port
-     * @param topicName
      */
-    private MachineDataConsumer(int port, String topicName) {
-    	String server = Constants.getIPAddress() + ":" + port;
+    private MachineDataConsumer() {
+    	listeners = new CopyOnWriteArrayList<>();
+    	converter = new MachineDataConverter();
+    	
+    	String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
     	
     	//config kafka
         Properties properties = new Properties();
@@ -61,65 +64,54 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
         properties.put("value.deserializer", StringDeserializer.class.getName());
         properties.put("partition.assignment.strategy", "range");
         
+        //create config
         this.consumerConfig = new ConsumerConfig(properties);
-        this.topicName = topicName;
-        
-        //init listeners list
-        listeners = new ArrayList<>();
     }
     
     /**
-     * getConsumer method.
-     * Is used to obtain an instance of the KafkaConsumer.
-     * @param port
-     * @param topicname
-     * @param stateMachine
-     * @return
+     * Initializes the machien data consumer.
      */
-    public static MachineDataConsumer getConsumer(int port, String topicname) {
+    public static void initialize() {
     	if(consumer == null) {
-    		consumer = new MachineDataConsumer(port, topicname);
+    		consumer = new MachineDataConsumer();
     	}
-    	return consumer;
+    	consumer.start();
     }
     
     /**
-     * Saves a listener object.
-     * @param listener
+     * Registers a listener object
+     * for the machine data event.
+     * @param listener listener to be registered.
      */
     public static void setOnMachineDataListener(MachineDataListener listener) {
     	listeners.add(listener);
     }
     
     /**
-     * Notifies all listeners.
-     * @param data
+     * Removes a listener object
+     * from the listeners collection.
+     * @param listener
      */
-    private void propagateEvent(MachineData data) {
-    	for(MachineDataListener listener : listeners) {
-    		listener.onMachineData(data);
-    	}
+    public static void removeMachineDataListener(MachineDataListener listener) {
+    	listeners.remove(listener);
     }
-
+    
     /**
-     * Run method.
-     * Connects to kafka and starts
-     * reading from the kafka broker.
+     * Starts the thread.
      */
     @Override
     public void run() {
-    	
     	//connect to kafka
         ConsumerConnector connector = kafka.consumer.Consumer.createJavaConsumerConnector(consumerConfig);
-        Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(ImmutableMap.of(topicName, 1));
-        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(topicName);
+        Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(
+    		ImmutableMap.of(Constants.KAFKA_TOPIC, 1)
+		);
+        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_TOPIC);
         ExecutorService executorService = Executors.newFixedThreadPool(messageStreams.size());
 
-        //iterate over streams
+        //iterate streams
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
             executorService.submit(() -> {
-        		MachineDataConverter converter = new MachineDataConverter();
-        		
         		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
         			
         			//convert message to string
@@ -129,11 +121,18 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
         			
         			//notify all other listeners
         			propagateEvent(data);
-        			
-        			//pass machine data to data handler
-        			DataHandler.getDataHandler().addConsumerData(data);
         		}
             });
         }
+    }
+    
+    /**
+     * Notifies all listeners that have registered.
+     * @param data
+     */
+    private void propagateEvent(MachineData data) {
+    	for(MachineDataListener listener : listeners) {
+    		listener.onMachineData(data);
+    	}
     }
 }

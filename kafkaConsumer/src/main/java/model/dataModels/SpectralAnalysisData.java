@@ -17,7 +17,7 @@ public class SpectralAnalysisData extends Data {
 	private long ts_stop;
 	
 	/**
-	 * Constructor SpectralAnalysisData.
+	 * Constructor.
 	 */
 	public SpectralAnalysisData() {}
 	
