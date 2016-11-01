@@ -4,7 +4,18 @@
 
 [![Build Status](https://travis-ci.org/4lexBaum/projekt-5s-dhbw.svg?branch=master)](https://travis-ci.org/4lexBaum/projekt-5s-dhbw)
 
-## Anwendung starten
+## Anwendung mittels docker-compose starten
+
+### 1. Docker Image builden
+* Voraussetzung: Du befindest dich im Ordner mit der docker-compose.yml
+```shell
+docker-compose build
+```
+### 2. Docker Image starten
+```shell
+docker-compose up
+```
+## Anwendung manuell starten
 
 ### Docker installieren
 * [Docker](https://docs.docker.com/engine/installation/) (normale Installation auf Linux)
