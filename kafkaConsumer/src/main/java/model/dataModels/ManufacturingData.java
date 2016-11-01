@@ -5,7 +5,6 @@ package model.dataModels;
  * @author Daniel
  *
  */
-@SuppressWarnings("all")
 public class ManufacturingData {
 	private String customerNumber;
 	private String materialNumber;
@@ -16,24 +15,9 @@ public class ManufacturingData {
 	private SpectralAnalysisData analysisData;
 	
 	/**
-	 * Empty constructor.
+	 * Constructor.
 	 */
 	public ManufacturingData() {}
-	
-	/**
-	 * Constructor ManufacturingData.
-	 * This constructor is used for cloning an object.
-	 * @param data
-	 */
-	public ManufacturingData(ManufacturingData data) {
-		this.customerNumber = data.getCustomerNumber();
-		this.materialNumber = data.getMaterialNumber();
-		this.orderNumber = data.getOrderNumber();
-		this.timeStamp = data.getTimeStamp();
-		
-		this.machineData = data.getMachineData();
-		this.analysisData = data.getAnalysisData();
-	}
 	
 	/*
 	 * Getters and Setters. 

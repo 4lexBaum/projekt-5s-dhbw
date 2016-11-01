@@ -2,8 +2,8 @@ package app;
 
 /**
  * Class Constants.
- * Contains all constants used for initialization
- * of the application.
+ * Contains all constants used
+ * in the application.
  * @author Daniel
  *
  */
@@ -14,11 +14,15 @@ public class Constants {
 	public static final String KAFKA_TOPIC = "prodData";
 	
 	//activeMQ constants
-	public static final int AMQ_PORT = 32768;
+	public static final int AMQ_PORT = 32852;
 	public static final String AMQ_TOPIC = "m_orders";
 	
-	//file system
-	public static final String PATH_SPECTRAL_ANALYSIS = "/Users/Daniel/Documents/tmp"; //"/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData";
+	//file system constants
+	public static final String PATH_SPECTRAL_ANALYSIS = "/Users/Daniel/Documents/tmp/"; //"/Users/Philip/Documents/Studium/5. Semester/IndustrielleProzesse/TestData";
+	
+	//mongodb constants
+	public static final String DATABASE_NAME = "oip_taktstrasse";
+	public static final String DATABASE_COLLECTION_NAME = "manufacturingData";
 	
 	/**
 	 * Returns ip address according

@@ -2,8 +2,6 @@ package model.dataModels;
 
 /**
  * Class ProductionData.
- * The json data is converted into
- * objects of this class.
  * @author Daniel
  *
  */
@@ -14,12 +12,14 @@ public class MachineData extends Data {
 	private long timestamp;
 	
 	/**
-	 * Empty constructor.
+	 * Constructor.
 	 */
 	public MachineData() {}
 	
 	/**
-	 * toString method.
+	 * Creates a string representation
+	 * of this object.
+	 * @return
 	 */
 	@Override
 	public String toString() {

@@ -10,16 +10,22 @@ import model.dataModels.SpectralAnalysisData;
  *
  */
 public class SpectralAnalysisDataConverter implements Converter {
-	Gson gson = new Gson();
+	Gson gson;
 	
 	/**
-	 * Converts spectral analysis data
-	 * into json data.
-	 * @param msg
+	 * Constructor.
+	 */
+	public SpectralAnalysisDataConverter() {
+		gson = new Gson();
+	}
+	
+	/**
+	 * Converts spectral analysis data.
+	 * @param rawData
 	 * @return
 	 */
 	@Override
-	public SpectralAnalysisData convert(String msg) {
-		return gson.fromJson(msg, SpectralAnalysisData.class);
+	public SpectralAnalysisData convert(String rawData) {
+		return gson.fromJson(rawData, SpectralAnalysisData.class);
 	}
 }

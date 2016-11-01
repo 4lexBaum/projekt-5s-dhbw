@@ -6,7 +6,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import model.dataModels.Data;
 import model.dataModels.ErpData;
 
 /**
@@ -15,19 +14,31 @@ import model.dataModels.ErpData;
  *
  */
 public class ErpDataConverter implements Converter {
+	private Unmarshaller unmarshaller;
 	
 	/**
-	 * Converts xml data.
+	 * Constructor.
+	 */
+	public ErpDataConverter() {
+		try {
+			JAXBContext context = JAXBContext.newInstance(ErpData.class);
+			this.unmarshaller = context.createUnmarshaller();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Converts erp data.
+	 * @param rawData
+	 * @return
 	 */
 	@Override
-	public Data convert(String msg) {
+	public ErpData convert(String rawData) {
 		ErpData data = null;
 		
 		try {
-			JAXBContext context = JAXBContext.newInstance(ErpData.class);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			
-			StringReader reader = new StringReader(msg);
+			StringReader reader = new StringReader(rawData);
 			data = (ErpData) unmarshaller.unmarshal(reader);
 		} catch (JAXBException e) {
 			e.printStackTrace();
