@@ -10,10 +10,8 @@ COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
 # install activemq
-ADD http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.14.1/apache-activemq-5.14.1-bin.tar.gz&action=download /activemq.tar.gz
-RUN tar -xzf /activemq.tar.gz
-# && mv /apache-activemq-5.14.1 /activemq
-# RUN chmod 755 /activemq/bin/activemq
+ADD http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.14.1/apache-activemq-5.14.1-bin.tar.gz&action=download /activemq.tgz
+RUN tar -xzf /activemq.tgz && mv /apache-activemq-5.14.1 /activemq
 
 # expose port
 EXPOSE 8161

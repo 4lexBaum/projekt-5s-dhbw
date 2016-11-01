@@ -18,13 +18,15 @@ services:
     taktstrasse:
         build: ./taktstrasse
         links:
-            - kafka:kafka
-            - activemq:activemq
-#    spark:
-#        build: ./spark
-#        ports:
-#            - "8080:8080"
-#            - "7077:7077"
-#        environment:
-#            - SPARK_OPTS="--driver-memory=5g --executor-memory=5g"
-#            - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+            - kafka
+            - activemq
+    spark:
+        build: ./spark
+        links:
+            - kafka
+        ports:
+            - "8080:8080"
+            - "7077:7077"
+        environment:
+            - SPARK_OPTS="--driver-memory=5g --executor-memory=5g"
+            - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G

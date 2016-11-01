@@ -5,13 +5,13 @@ MAINTAINER Fabian Otto
 RUN apt-get update
 RUN apt-get install -y openjdk-8-jre
 
-# copy entrypoint script on docker and set permissions 
+# copy entrypoint script on docker and set permissions
 COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
 # install spark
-ADD http://ftp.fau.de/apache/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz /spark.tgz
-RUN tar -xzf /spark.tgz && mv /spark-2.0.0-bin-hadoop2.7 /spark
+ADD http://www-eu.apache.org/dist/spark/spark-2.0.1/spark-2.0.1-bin-hadoop2.7.tgz /spark.tgz
+RUN tar -xzf /spark.tgz && mv /spark-2.0.1-bin-hadoop2.7 /spark
 
 # expose spark webui and master port
 EXPOSE 8080
