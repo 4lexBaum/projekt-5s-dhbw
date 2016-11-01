@@ -1,10 +1,12 @@
 package converter;
 
+import model.dataModels.Data;
+
 /**
  * Interface Converter.
  * @author Daniel
  *
  */
 public interface Converter {
-	public void convert(String msg);
+	public Data convert(String msg);
 }

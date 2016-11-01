@@ -4,6 +4,6 @@
 var server = require("./bin/www.js");
 var mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost/dummydata');
+mongoose.connect('mongodb://localhost/oip_taktstrasse');
 
 server.start();

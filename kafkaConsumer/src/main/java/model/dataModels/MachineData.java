@@ -1,13 +1,13 @@
-package consumer;
+package model.dataModels;
 
 /**
  * Class ProductionData.
- * The JSON data is converted into
+ * The json data is converted into
  * objects of this class.
  * @author Daniel
  *
  */
-public class ProductionData {
+public class MachineData extends Data {
 	private String value;
 	private String status;
 	private String itemName;
@@ -16,7 +16,7 @@ public class ProductionData {
 	/**
 	 * Empty constructor.
 	 */
-	public ProductionData() {}
+	public MachineData() {}
 	
 	/**
 	 * toString method.
@@ -26,6 +26,10 @@ public class ProductionData {
 		return value + " " + status + " " + itemName + " " + timestamp;
 	}
 
+	/*
+	 * Getters and Setters. 
+	 */
+	
 	public String getValue() {
 		return value;
 	}

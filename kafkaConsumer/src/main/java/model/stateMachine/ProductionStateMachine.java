@@ -1,9 +1,11 @@
-package statemachine;
+package model.stateMachine;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 
-import consumer.ProductionData;
+import consumer.MachineDataConsumer;
+import db.DatabaseManager;
+import model.dataModels.MachineData;
 
 /**
  * Class ProductionStateMachine.
@@ -11,15 +13,25 @@ import consumer.ProductionData;
  * @author Daniel
  *
  */
+@SuppressWarnings("all")
 public class ProductionStateMachine {
 	private StateMachine<State, Trigger> productionLine;
+	private int counter = 0;
+	
+	private static ProductionStateMachine stateMachine;
 	
 	/**
 	 * Constructor ProductionStateMachine.
+	 * Singleton-Pattern! => private constructor.
 	 * Configures states and transitions of the state machine.
 	 */
-	public ProductionStateMachine() {
+	private ProductionStateMachine() {
 		StateMachineConfig<State, Trigger> machineConfig = new StateMachineConfig<>();
+		
+		//listen to events from machine
+		MachineDataConsumer.setOnMachineDataListener(data -> {
+			trigger(data);
+		});
 		
 		//configure states and transitions
 		machineConfig.configure(State.EnterL1)
@@ -39,7 +51,6 @@ public class ProductionStateMachine {
 			.permit(Trigger.MillingStart, State.Milling);
 		
 		machineConfig.configure(State.Milling)
-			.onEntry(this::onStartMilling)
 			.permit(Trigger.MillingStop, State.MillingCompleted);
 		
 		machineConfig.configure(State.MillingCompleted)
@@ -52,7 +63,6 @@ public class ProductionStateMachine {
 			.permit(Trigger.DrillingStart, State.Drilling);
 		
 		machineConfig.configure(State.Drilling)
-			.onEntry(this::onStartDrilling)
 			.permit(Trigger.DrillingStop, State.DrillingCompleted);
 		
 		machineConfig.configure(State.DrillingCompleted)
@@ -73,15 +83,27 @@ public class ProductionStateMachine {
 	}
 	
 	/**
+	 * getStateMachine method.
+	 * Is used to obtain an instance of the ProductionStateMachine.
+	 * @return
+	 */
+	public static ProductionStateMachine getStateMachine() {
+		if(stateMachine == null) {
+			stateMachine = new ProductionStateMachine();
+		}
+		return stateMachine;
+	}
+	
+	/**
 	 * Trigger method.
 	 * Receives the production data and
 	 * determins the next state.
 	 * @param data
 	 */
-	public void trigger(ProductionData event) {
+	public void trigger(MachineData event) {
 		switch(event.getItemName()) {
 		case "L1":
-			if(event.getValue().equals("false")) 
+			if(event.getValue().equals("false"))
 				productionLine.fire(Trigger.L1Close);
 			else
 				productionLine.fire(Trigger.L1Open);
@@ -127,21 +149,23 @@ public class ProductionStateMachine {
 		System.out.println(productionLine.getState());
 	}
 	
-	/**
-	 * onStartMilling.
-	 * Entry method for state milling.
-	 */
-	private void onStartMilling() {
-		System.out.println("Started milling");
-	}
+
 	
-	/**
-	 * onStartDrilling.
-	 * Entry method for state drilling.
-	 */
-	private void onStartDrilling() {
-		System.out.println("Started drilling");
-	}
+	private void adjustMillingSpeed() {}
+	
+	private void adjustDrillingSpeed() {}
+	
+	private void startTimer() {}
+	
+	private void stopTimer() {}
+	
+	private void trackTemperature() {}
+	
+	private void startGlobalTimer() {}
+	
+	private void stopGlobalTimer() {}
+	
+	private void saveSpectralAnalysis() {}
 	
 	/**
 	 * Enum State.
