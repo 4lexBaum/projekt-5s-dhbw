@@ -2,3 +2,5 @@ node_modules
 kafkaConsumer/.settings
 kafkaConsumer/target
 .idea
+.project
+.settings
