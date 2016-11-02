@@ -9,12 +9,13 @@ import consumer.SpectralAnalysisConsumer;
 import consumer_listener.MachineDataListener;
 import consumer_listener.SpectralAnalysisListener;
 
-import db.DatabaseManager;
+//import db.DatabaseManager;
 
 import model.dataModels.ErpData;
 import model.dataModels.MachineData;
 import model.dataModels.ManufacturingData;
 import model.dataModels.SpectralAnalysisData;
+import producer.KafkaProducer;
 
 /**
  * Class ProductionStateMachine.
@@ -205,10 +206,13 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		//save analysis data in manufacturingData
 		manufacturingData.setAnalysisData(data);
 		
+		//put data to kafka broker
+		new KafkaProducer().send(manufacturingData);
+		
 		//save manufacturing data in db
-		DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
+		/*DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
 		System.out.println("Received spectral analysis data");
-		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");
+		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");*/
 	}
 
 	/**

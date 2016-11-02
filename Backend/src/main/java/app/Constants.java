@@ -13,6 +13,10 @@ public class Constants {
 	public static final int KAFKA_PORT = 2181;
 	public static final String KAFKA_TOPIC = "prodData";
 	
+	//kafka producer constants
+	public static final int KAFKA_BROKER_PORT = 9092;
+	public static final String KAFKA_PRODUCER_TOPIC = "manufacturingData";
+	
 	//activeMQ constants
 	public static final int AMQ_PORT = 32852;
 	public static final String AMQ_TOPIC = "m_orders";
