@@ -5,7 +5,7 @@ package app;
 import consumer.ErpDataConsumer;
 import consumer.MachineDataConsumer;
 import consumer.SpectralAnalysisConsumer;
-
+import consumer.TestConsumer;
 import model.stateMachine.ProductionMonitor;
 
 /**
@@ -27,6 +27,8 @@ public class Main {
 				
 		//execute machine data consumer
 		MachineDataConsumer.initialize();
+		
+		TestConsumer.initialize();
 		
 		//initialize spectral analysis consumer
 		SpectralAnalysisConsumer.initialize();

@@ -18,12 +18,16 @@ import model.dataModels.MachineData;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.swing.JOptionPane;
 
 import converter.MachineDataConverter;
 
@@ -34,13 +38,13 @@ import converter.MachineDataConverter;
  * @author Daniel
  *
  */
-public class MachineDataConsumer extends AbstractExecutionThreadService implements Consumer {
+public class TestConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
     
     private MachineDataConverter converter;
     
     //singleton instance
-    private static MachineDataConsumer consumer;
+    private static TestConsumer consumer;
     
     //list of listeners to be notified
     private static CopyOnWriteArrayList<MachineDataListener> listeners;
@@ -48,7 +52,7 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     /**
      * Constructor Consumer.
      */
-    private MachineDataConsumer() {
+    private TestConsumer() {
     	listeners = new CopyOnWriteArrayList<>();
     	converter = new MachineDataConverter();
     	
@@ -74,7 +78,7 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
      */
     public static void initialize() {
     	if(consumer == null) {
-    		consumer = new MachineDataConsumer();
+    		consumer = new TestConsumer();
     	}
     	consumer.start();
     }
@@ -105,23 +109,23 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     	//connect to kafka
         ConsumerConnector connector = kafka.consumer.Consumer.createJavaConsumerConnector(consumerConfig);
         Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(
-    		ImmutableMap.of(Constants.KAFKA_TOPIC, 1)
+    		ImmutableMap.of(Constants.KAFKA_PRODUCER_TOPIC, 1)
 		);
-        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_TOPIC);
+        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_PRODUCER_TOPIC);
         ExecutorService executorService = Executors.newFixedThreadPool(messageStreams.size());
 
         //iterate streams
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
             executorService.submit(() -> {
         		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-        			
-        			//convert message to string
-        			MachineData data = converter.convert(
-    					new String(messageAndMetadata.message())
-					);
-        			
-        			//notify all other listeners
-        			propagateEvent(data);
+        			JOptionPane.showMessageDialog(null, new String(messageAndMetadata.message()));
+        			/*try {
+						PrintWriter writer = new PrintWriter("./test.txt");
+						writer.println(new String(messageAndMetadata.message()));
+						writer.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}*/
         		}
             });
         }
