@@ -14,6 +14,6 @@ COPY TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar /
 RUN chmod u+x /TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar
 
 # create directory for the temporary file
-RUN mkdir -p /temp
+RUN mkdir -p /spektralData
 
 ENTRYPOINT /entrypoint.sh
