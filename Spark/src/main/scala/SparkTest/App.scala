@@ -30,11 +30,13 @@ object App {
       PreferConsistent,
       Subscribe[String, String](topicsSet, kafkaParams))
 
-    stream.map(record => printToConsole(record.key, record.value))
+    while (true) {
+      stream.map(record => (record.key, record.value)).print()
+    }
 
-  def printToConsole(key:String ,value:String): Unit ={
-    print("Key: " + key + ", Value:" + value)
-  }
+    //  def printToConsole(key:String ,value:String): Unit ={
+    //    print("Key: " + key + ", Value:" + value)
+    //  }
 
 
 }

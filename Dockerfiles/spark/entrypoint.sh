@@ -15,7 +15,7 @@ sleep 10
 ./spark/bin/spark-submit \
   --class SparkTest.App \
   --master spark://spark:7077 \
-  /jarFiles/SparkTest-1.0-SNAPSHOT.jar
+  /jarFiles/SparkTest.jar
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null
