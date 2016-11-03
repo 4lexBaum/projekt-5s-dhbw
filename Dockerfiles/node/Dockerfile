@@ -20,6 +20,6 @@ apt-get install nodejs-legacy; apt-get install npm
 RUN cd /SetupFiles; npm install
 
 # expose nodejs port
-EXPOSE 8080
+EXPOSE 3000
 
 ENTRYPOINT /entrypoint.sh
