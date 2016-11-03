@@ -12,11 +12,10 @@ sleep 5
 sleep 10
 
 #submit job to cluster
-./spark/bin/spark-submit
+./spark/bin/spark-submit \
   --class SparkTest.App \
   --master spark://spark:7077 \
-  /jarFiles/SparkTest-1.0-SNAPSHOT.jar \
-  100
+  /jarFiles/SparkTest-1.0-SNAPSHOT.jar
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null

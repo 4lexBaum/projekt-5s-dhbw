@@ -14,8 +14,10 @@ RUN chmod u+x /jsFiles/that_js_file
 COPY package.json /SetupFiles
 
 # install nodejs and npm
-RUN apt-get update; apt-get install nodejs;
-apt-get install nodejs-legacy; apt-get install npm
+RUN apt-get update
+RUN apt-get install nodejs
+RUN apt-get install nodejs-legacy
+RUN apt-get install npm
 
 RUN cd /SetupFiles; npm install
 
