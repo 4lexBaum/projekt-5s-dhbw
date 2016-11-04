@@ -1,6 +1,8 @@
 node_modules
-kafkaConsumer/.settings
-kafkaConsumer/target
+Backend/.settings
+Backend/target
+Backend/.DS_Store
+Backend/.project
 .idea
 .project
 .settings

@@ -9,7 +9,6 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 import model.dataModels.ErpData;
-import model.dataModels.ManufacturingData;
 
 /**
  * Class KafkaProducer.
@@ -18,13 +17,13 @@ import model.dataModels.ManufacturingData;
  * @author Daniel
  *
  */
-public class KafkaProducer {
+public class KafkaProducerSpark {
 	private Producer<String, String> producer;
 	
 	/**
 	 * Constructor.
 	 */
-	public KafkaProducer() {
+	public KafkaProducerSpark() {
 		Properties props = new Properties();
 		props.put("zk.connect", Constants.getIPAddress() + ":" + Constants.KAFKA_PORT);
         //props.put("zk.connect", "kafka:" + Constants.KAFKA_PORT);
@@ -33,17 +32,16 @@ public class KafkaProducer {
         //props.put("metadata.broker.list", "kafka:" + Constants.KAFKA_BROKER_PORT);
  
         ProducerConfig config = new ProducerConfig(props);
- 
         producer = new Producer<>(config);
 	}
 	
 	/**
 	 * Sends messages (manufacturingData) to the kafka broker.
-	 * @param manufacturingData
+	 * @param manufacturingData (json string)
 	 */
-	public void send(ManufacturingData manufacturingData) {
+	public void send(String manufacturingData) {
 		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PRODUCER_TOPIC, manufacturingData.toString()
+			Constants.KAFKA_PRODUCER_TOPIC, manufacturingData
 		);
 		
         producer.send(data);

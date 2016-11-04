@@ -14,22 +14,14 @@ import kafka.javaapi.consumer.ConsumerConnector;
 
 import kafka.message.MessageAndMetadata;
 
-import model.dataModels.MachineData;
-
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import javax.swing.JOptionPane;
-
-import converter.MachineDataConverter;
 
 /**
  * Class Consumer.
@@ -40,8 +32,6 @@ import converter.MachineDataConverter;
  */
 public class TestConsumer extends AbstractExecutionThreadService implements Consumer {
     private ConsumerConfig consumerConfig;
-    
-    private MachineDataConverter converter;
     
     //singleton instance
     private static TestConsumer consumer;
@@ -54,7 +44,6 @@ public class TestConsumer extends AbstractExecutionThreadService implements Cons
      */
     private TestConsumer() {
     	listeners = new CopyOnWriteArrayList<>();
-    	converter = new MachineDataConverter();
     	
     	//String server = "kafka:" + Constants.KAFKA_PORT;
     	String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
@@ -118,26 +107,9 @@ public class TestConsumer extends AbstractExecutionThreadService implements Cons
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
             executorService.submit(() -> {
         		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-        			JOptionPane.showMessageDialog(null, new String(messageAndMetadata.message()));
-        			/*try {
-						PrintWriter writer = new PrintWriter("./test.txt");
-						writer.println(new String(messageAndMetadata.message()));
-						writer.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}*/
+        			System.out.println(new String(messageAndMetadata.message()));
         		}
             });
         }
-    }
-    
-    /**
-     * Notifies all listeners that have registered.
-     * @param data
-     */
-    private void propagateEvent(MachineData data) {
-    	for(MachineDataListener listener : listeners) {
-    		listener.onMachineData(data);
-    	}
     }
 }

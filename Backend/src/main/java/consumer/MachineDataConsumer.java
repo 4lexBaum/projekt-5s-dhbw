@@ -9,9 +9,7 @@ import consumer_listener.MachineDataListener;
 
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
-
 import kafka.javaapi.consumer.ConsumerConnector;
-
 import kafka.message.MessageAndMetadata;
 
 import model.dataModels.MachineData;

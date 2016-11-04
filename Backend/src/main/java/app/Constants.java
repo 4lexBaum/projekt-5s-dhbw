@@ -18,7 +18,7 @@ public class Constants {
 	public static final String KAFKA_PRODUCER_TOPIC = "manufacturingData";
 	
 	//activeMQ constants
-	public static final int AMQ_PORT = 32798;
+	public static final int AMQ_PORT = 32768; //61616
 	public static final String AMQ_TOPIC = "m_orders";
 	
 	//file system constants
