@@ -3,6 +3,7 @@ Backend/.settings
 Backend/target
 Backend/.DS_Store
 Backend/.project
+Dockerfiles/taktstrasse/.DS_Store
 .DS_Store
 .idea
 .project
