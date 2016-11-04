@@ -25,11 +25,11 @@ public class KafkaProducerSpark {
 	 */
 	public KafkaProducerSpark() {
 		Properties props = new Properties();
-		props.put("zk.connect", Constants.getIPAddress() + ":" + Constants.KAFKA_PORT);
-        //props.put("zk.connect", "kafka:" + Constants.KAFKA_PORT);
+		//props.put("zk.connect", Constants.getIPAddress() + ":" + Constants.KAFKA_PORT);
+        props.put("zk.connect", "kafka:" + Constants.KAFKA_PORT);
         props.put("serializer.class", "kafka.serializer.StringEncoder");
-        props.put("metadata.broker.list", Constants.getIPAddress() + ":" + Constants.KAFKA_BROKER_PORT);
-        //props.put("metadata.broker.list", "kafka:" + Constants.KAFKA_BROKER_PORT);
+        //props.put("metadata.broker.list", Constants.getIPAddress() + ":" + Constants.KAFKA_BROKER_PORT);
+        props.put("metadata.broker.list", "kafka:" + Constants.KAFKA_BROKER_PORT);
  
         ProducerConfig config = new ProducerConfig(props);
         producer = new Producer<>(config);

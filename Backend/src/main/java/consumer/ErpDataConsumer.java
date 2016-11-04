@@ -45,8 +45,8 @@ public class ErpDataConsumer implements Consumer, Runnable {
 		listeners = new CopyOnWriteArrayList<>();
 		converter = new ErpDataConverter();
 		
-		//String server = "tcp://activemq:" + Constants.AMQ_PORT;
-		String server = "tcp://" + Constants.getIPAddress() + ":" + Constants.AMQ_PORT;
+		String server = "tcp://activemq:" + Constants.AMQ_PORT;
+		//String server = "tcp://" + Constants.getIPAddress() + ":" + Constants.AMQ_PORT;
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("demo1", "demo1", server);
 		
 		//create connection to amqp server

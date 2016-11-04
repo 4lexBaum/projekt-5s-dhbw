@@ -50,8 +50,8 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     	listeners = new CopyOnWriteArrayList<>();
     	converter = new MachineDataConverter();
     	
-    	//String server = "kafka:" + Constants.KAFKA_PORT;
-    	String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
+    	String server = "kafka:" + Constants.KAFKA_PORT;
+    	//String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
     	
     	//config kafka
         Properties properties = new Properties();
