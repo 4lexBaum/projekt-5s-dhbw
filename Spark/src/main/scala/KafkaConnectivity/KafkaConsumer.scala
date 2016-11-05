@@ -1,6 +1,5 @@
 package KafkaConnectivity
 
-import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -8,51 +7,52 @@ import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
-import org.apache.log4j.{Level, Logger}
-
-import scala.collection.mutable.ListBuffer
-
 object KafkaConsumer {
 
-  var dataList = new ListBuffer[ManufacturingData]()
-  val kafka = ProducerForKafka.getProducer(ProducerForKafka.mandatoryOptions)
+  val kafkaParams: Map[String, Object] = Map(
+    "bootstrap.servers" -> "kafka:9092",
+    "key.deserializer" -> classOf[StringDeserializer],
+    "value.deserializer" -> classOf[StringDeserializer],
+    "group.id" -> "GroupID",
+    "auto.offset.reset" -> "latest",
+    "enable.auto.commit" -> (false: java.lang.Boolean)
+  )
 
-  def main(args: Array[String]) {
+  /**
+    * Create Spark StreamingContext and set checkpoint
+    * Batch interval ist set to 32s
+    * @return Spark StreamingContext
+    */
 
+  def getStreamingContext(): StreamingContext = {
     val sparkConf = new SparkConf().setAppName("KafkaConsumer")
-    val ssc = new StreamingContext(sparkConf, Seconds(1))
-    ssc.checkpoint("checkpoint")
+    val streamingContext = new StreamingContext(sparkConf, Seconds(32))
+    streamingContext.checkpoint("checkpoint")
+    streamingContext
+  }
 
-    val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "kafka:9092",
-      "key.deserializer" -> classOf[StringDeserializer],
-      "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "example",
-      "auto.offset.reset" -> "latest",
-      "enable.auto.commit" -> (false: java.lang.Boolean)
-    )
+  /**
+    * start Kafka Inputstream
+    * @param streamingContext Spark StreamingContext
+    * @param topics Set of topics to listen to
+    * @param params Kafka Params for zookeeper, groupID, etc.
+    * @param processValue Function for processing the incoming records
+    */
 
-    val topicsSet = List("prodData").toSet
+  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => Unit): Unit = {
     val stream = KafkaUtils.createDirectStream[String, String](
-      ssc,
+      streamingContext,
       PreferConsistent,
-      Subscribe[String, String](topicsSet, kafkaParams))
+      Subscribe[String, String](topics, kafkaParams))
 
-    stream.map(record => record.value)
-      .foreachRDD(dataRDD => dataRDD.foreach{
-        production => appendList(production)
-      })
+    stream.map(record => processValue(record.value())).print()
 
-    ssc.start()
-    ssc.awaitTermination()
+    streamingContext.start()
+    streamingContext.awaitTermination()
   }
 
-  def appendList(data: String): Unit = {
-    val manufacturingData = new ManufacturingData(data)
-    dataList += manufacturingData
-    print("############################################################################################################################################\n" + data +
-      "\n############################################################################################################################################")
-    ProducerForKafka.send(kafka, "kafkatest", data)
-    println("Message sent")
-  }
+
+  //    stream.map(record => record.value)
+  //      .foreachRDD(rddData => rddData.foreach{element =>
+  //        AnalysisController.addValue(element)})
 }

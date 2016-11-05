@@ -13,7 +13,7 @@ sleep 10
 
 #submit job to cluster
 ./spark/bin/spark-submit \
-  --class KafkaConnectivity.KafkaConsumer \
+  --class KafkaConnectivity.KafkaController \
   --master spark://spark:7077 \
   /jarFiles/Spark.jar
 

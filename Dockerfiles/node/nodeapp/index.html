@@ -15,7 +15,7 @@
     socket.on("test", function(value) {
         array.push(value);
         x++;
-        $("#output").text(value);
+        $("#output").text(JSON.stringify(value));
         console.log(array);
     });
 </script>
