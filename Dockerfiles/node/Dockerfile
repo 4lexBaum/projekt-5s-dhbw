@@ -17,5 +17,3 @@ COPY nodeapp/. /usr/src/app
 EXPOSE 3000
 
 CMD [ "npm", "start" ]
-
-# ENTRYPOINT /entrypoint.sh
