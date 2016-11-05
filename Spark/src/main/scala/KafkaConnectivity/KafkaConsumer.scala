@@ -1,4 +1,4 @@
-package SparkTest
+package KafkaConnectivity
 
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
@@ -7,12 +7,14 @@ import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
-object App {
+object KafkaConsumer {
 
   def main(args: Array[String]) {
 
-    val sparkConf = new SparkConf().setAppName("App").setMaster("local[2]")
+    val logFile = "/home/fabian/Documents/output.md"
+    val sparkConf = new SparkConf().setAppName("KafkaConsumer")
     val ssc = new StreamingContext(sparkConf, Seconds(2))
+    val logData = ssc.textFileStream(logFile).cache()
     ssc.checkpoint("checkpoint")
 
     val kafkaParams = Map[String, Object](
@@ -24,20 +26,23 @@ object App {
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
 
-    val topicsSet = List("prodData").toSet
+    val topicsSet = List("prodData", "moreTopics").toSet
     val stream = KafkaUtils.createDirectStream[String, String](
       ssc,
       PreferConsistent,
       Subscribe[String, String](topicsSet, kafkaParams))
 
-    while (true) {
-      stream.map(record => (record.key, record.value)).print()
-    }
+    val kafka = ProducerForKafka.getProducer(ProducerForKafka.mandatoryOptions)
+    //val data = stream.map(record => record.value)
+    //ProducerForKafka.send(kafka, "kafkatest", data)
 
-    //  def printToConsole(key:String ,value:String): Unit ={
-    //    print("Key: " + key + ", Value:" + value)
-    //  }
+    ssc.start()
+    ssc.awaitTermination()
+  }
 
 
-}
+  //  def createString(data: String): String ={
+  //
+  //    return " "
+  //  }
 }
