@@ -1,6 +1,7 @@
 node_modules
 Backend/.settings
 Backend/target
+Backend/target/classes/
 Backend/.DS_Store
 Backend/.project
 Dockerfiles/taktstrasse/.DS_Store

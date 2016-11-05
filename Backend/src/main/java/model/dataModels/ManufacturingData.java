@@ -5,7 +5,7 @@ package model.dataModels;
  * @author Daniel
  *
  */
-public class ManufacturingData {
+public class ManufacturingData extends Data {
 	private String customerNumber;
 	private String materialNumber;
 	private String orderNumber;

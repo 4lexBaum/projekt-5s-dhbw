@@ -10,7 +10,7 @@ package app;
 public class Constants {
 	
 	//testing
-	public static boolean TEST_LOCAL = false;
+	public static boolean TEST_LOCAL = true;
 
 	//kafka constants
 	public static final int KAFKA_PORT = 2181;
@@ -21,11 +21,11 @@ public class Constants {
 	public static final String KAFKA_PRODUCER_TOPIC = "manufacturingData";
 	
 	//activeMQ constants
-	public static final int AMQ_PORT = TEST_LOCAL ? 32768 : 61616;
+	public static final int AMQ_PORT = TEST_LOCAL ? 32798 : 61616;
 	public static final String AMQ_TOPIC = "m_orders";
 	
 	//file system constants
-	public static final String PATH_SPECTRAL_ANALYSIS = TEST_LOCAL ? "/Users/Daniel/Documents/tmp/" : "/spektralData/";
+	public static final String PATH_SPECTRAL_ANALYSIS = TEST_LOCAL ? "/Users/Daniel/Documents/tmp/" : "/temp/";
 	
 	//mongodb constants
 	public static final String DATABASE_NAME = "oip_taktstrasse";
