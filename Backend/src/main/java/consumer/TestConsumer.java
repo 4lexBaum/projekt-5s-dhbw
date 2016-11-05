@@ -16,14 +16,14 @@ import kafka.message.MessageAndMetadata;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import javax.swing.JOptionPane;
 
 /**
  * Class Consumer.
@@ -110,7 +110,11 @@ public class TestConsumer extends AbstractExecutionThreadService implements Cons
         for(final KafkaStream<byte[], byte[]> messageStream : messageStreams) {
             executorService.submit(() -> {
         		for(MessageAndMetadata<byte[], byte[]> messageAndMetadata : messageStream) {
-        			JOptionPane.showMessageDialog(null, new String(messageAndMetadata.message()));
+        			try {
+						PrintWriter writer = new PrintWriter("./test.txt");
+						writer.println(new String(messageAndMetadata.message()));
+						writer.close();
+					} catch (FileNotFoundException e) {}
         		}
             });
         }
