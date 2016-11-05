@@ -25,7 +25,7 @@ public class Constants {
 	public static final String AMQ_TOPIC = "m_orders";
 	
 	//file system constants
-	public static final String PATH_SPECTRAL_ANALYSIS = TEST_LOCAL ? "/Users/Daniel/Documents/tmp/" : "/temp/";
+	public static final String PATH_SPECTRAL_ANALYSIS = TEST_LOCAL ? "/Users/Daniel/Documents/tmp/" : "/spektralData/";
 	
 	//mongodb constants
 	public static final String DATABASE_NAME = "oip_taktstrasse";
