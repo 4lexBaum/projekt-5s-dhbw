@@ -10,7 +10,7 @@ package app;
 public class Constants {
 	
 	//testing
-	public static boolean TEST_LOCAL = true;
+	public static boolean TEST_LOCAL = false;
 
 	//kafka constants
 	public static final int KAFKA_PORT = 2181;
