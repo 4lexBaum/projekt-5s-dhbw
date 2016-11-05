@@ -57,7 +57,7 @@ object KafkaController {
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
     sendStringViaKafka("Hello I am funny", kafkaTopicsSend)
-    KafkaConsumer.startStream(KafkaConsumer.getStreamingContext(),
+    KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
       kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
 
   }
