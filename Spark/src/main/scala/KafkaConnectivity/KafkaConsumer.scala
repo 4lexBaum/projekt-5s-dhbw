@@ -24,7 +24,7 @@ object KafkaConsumer {
     * @return Spark StreamingContext
     */
 
-  def getStreamingContext(): StreamingContext = {
+  def getStreamingContext: StreamingContext = {
     val sparkConf = new SparkConf().setAppName("KafkaConsumer")
     val streamingContext = new StreamingContext(sparkConf, Seconds(32))
     streamingContext.checkpoint("checkpoint")
@@ -50,7 +50,6 @@ object KafkaConsumer {
     streamingContext.start()
     streamingContext.awaitTermination()
   }
-
 
   //    stream.map(record => record.value)
   //      .foreachRDD(rddData => rddData.foreach{element =>
