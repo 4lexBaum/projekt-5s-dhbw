@@ -7,8 +7,15 @@ sleep 5
 /spark/sbin/start-slave.sh spark://spark:7077
 
 # set spark memory
-# cp /spark/conf/spark-defaults.conf.template /spark/conf/spark-defaults.conf
-# echo "spark.driver.memory5g" >> /spark/conf/spark-defaults.conf
+ cp /spark/conf/spark-defaults.conf.template /spark/conf/spark-defaults.conf
+ echo "spark.driver.memory5g" >> /spark/conf/spark-defaults.conf
+sleep 10
+
+#submit job to cluster
+./spark/bin/spark-submit \
+  --class KafkaConnectivity.KafkaConsumer \
+  --master spark://spark:7077 \
+  /jarFiles/Spark.jar
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null

@@ -9,6 +9,12 @@ RUN apt-get install -y openjdk-8-jre
 COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
+# copy spark jar on docker and set permissions
+RUN mkdir -p /jarFiles
+COPY Spark.jar /jarFiles
+RUN chmod u+x /jarFiles/Spark.jar
+
+
 # install spark
 ADD http://www-eu.apache.org/dist/spark/spark-2.0.1/spark-2.0.1-bin-hadoop2.7.tgz /spark.tgz
 RUN tar -xzf /spark.tgz && mv /spark-2.0.1-bin-hadoop2.7 /spark
