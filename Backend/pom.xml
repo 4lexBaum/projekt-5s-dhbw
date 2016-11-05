@@ -2,7 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dhbw</groupId>
 	<artifactId>Backend-Application</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<jdk.version>1.8</jdk.version>
+	</properties>
 	<dependencies>
 		<dependency>
 		    <groupId>org.apache.kafka</groupId>
@@ -28,7 +32,12 @@
 		    <groupId>org.apache.activemq</groupId>
 		    <artifactId>activemq-openwire-legacy</artifactId>
 		    <version>5.14.1</version>
-		</dependency> 
+		</dependency>
+		<!-- <dependency>
+    		<groupId>org.apache.activemq</groupId>
+    		<artifactId>activemq-core</artifactId>
+    		<version>5.7.0</version>
+		</dependency>-->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
@@ -49,5 +58,55 @@
 			<artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		<dependency>
+    	    <groupId>javax</groupId>
+       	 	<artifactId>javaee-api</artifactId>
+        	<version>6.0</version>
+        	<scope>runtime</scope>
+    	</dependency>
 	</dependencies>
+	<build>
+		<!-- name of jar -->
+		<finalName>Backend-Application-0.0.1-SNAPSHOT</finalName>
+		<plugins>
+			<!-- download source code in eclipse, best practice -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<!-- set jdk compiler level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<!-- Make this jar executable -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+				  <!-- do not include log4j.properties file in your jar -->
+				  <excludes>
+					<exclude>**/log4j.properties</exclude>
+				  </excludes>
+				  <archive>
+					<manifest>
+						<!-- jar file entry point -->
+						<mainClass>app.Main</mainClass>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>

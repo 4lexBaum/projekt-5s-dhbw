@@ -19,6 +19,18 @@ public class ManufacturingData {
 	 */
 	public ManufacturingData() {}
 	
+	/**
+	 * Creates a string representation
+	 * of this object.
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return customerNumber + " " + materialNumber + " "
+		+ orderNumber + " " + timeStamp + " "
+		+ machineData + " " + analysisData;
+	}
+	
 	/*
 	 * Getters and Setters. 
 	 */

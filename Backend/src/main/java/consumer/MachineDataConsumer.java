@@ -9,9 +9,7 @@ import consumer_listener.MachineDataListener;
 
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
-
 import kafka.javaapi.consumer.ConsumerConnector;
-
 import kafka.message.MessageAndMetadata;
 
 import model.dataModels.MachineData;
@@ -52,7 +50,9 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     	listeners = new CopyOnWriteArrayList<>();
     	converter = new MachineDataConverter();
     	
-    	String server = Constants.getIPAddress() + ":" + Constants.KAFKA_PORT;
+    	String server = Constants.TEST_LOCAL 
+			? Constants.getIPAddress() + ":" + Constants.KAFKA_PORT
+			: "kafka:" + Constants.KAFKA_PORT;
     	
     	//config kafka
         Properties properties = new Properties();

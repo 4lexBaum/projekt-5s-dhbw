@@ -2,6 +2,7 @@ package model.stateMachine;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
+import com.google.gson.Gson;
 
 import consumer.MachineDataConsumer;
 import consumer.SpectralAnalysisConsumer;
@@ -9,12 +10,13 @@ import consumer.SpectralAnalysisConsumer;
 import consumer_listener.MachineDataListener;
 import consumer_listener.SpectralAnalysisListener;
 
-import db.DatabaseManager;
+//import db.DatabaseManager;
 
 import model.dataModels.ErpData;
 import model.dataModels.MachineData;
 import model.dataModels.ManufacturingData;
 import model.dataModels.SpectralAnalysisData;
+import producer.KafkaProducerSpark;
 
 /**
  * Class ProductionStateMachine.
@@ -205,10 +207,13 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		//save analysis data in manufacturingData
 		manufacturingData.setAnalysisData(data);
 		
+		//put data to kafka broker
+		new KafkaProducerSpark().send(new Gson().toJson(manufacturingData));
+		
 		//save manufacturing data in db
-		DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
+		/*DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
 		System.out.println("Received spectral analysis data");
-		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");
+		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");*/
 	}
 
 	/**
