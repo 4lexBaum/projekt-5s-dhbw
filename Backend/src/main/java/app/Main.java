@@ -28,7 +28,9 @@ public class Main {
 		//execute machine data consumer
 		MachineDataConsumer.initialize();
 		
-		TestConsumer.initialize();
+		if(Constants.TEST_LOCAL) {
+			TestConsumer.initialize();
+		}
 		
 		//initialize spectral analysis consumer
 		SpectralAnalysisConsumer.initialize();
