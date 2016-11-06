@@ -11,7 +11,7 @@ setTimeout(function () {
 
     var client = new Client("kafka");
     var topics = [{
-        topic: "kafkatest"
+        topic: "QualityCustomer"
     }];
     var options = {
         autoCommit: false,
@@ -43,4 +43,4 @@ setTimeout(function () {
     });
 
 
-}, 40000);
+}, 10000);

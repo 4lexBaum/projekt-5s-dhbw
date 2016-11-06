@@ -21,4 +21,9 @@ EXPOSE 61613
 EXPOSE 1883
 EXPOSE 61614
 
+# Expose some folders
+VOLUME ["/activemq/data/activemq"]
+VOLUME ["/activemq/var/log/activemq"]
+VOLUME ["/activemq/opt/activemq/conf"]
+
 ENTRYPOINT /entrypoint.sh
