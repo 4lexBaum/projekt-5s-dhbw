@@ -6,14 +6,16 @@ echo "advertised.listeners=PLAINTEXT://kafka:9092" >> /kafka/config/server.prope
 # start kafka
 /kafka/bin/zookeeper-server-start.sh /kafka/config/zookeeper.properties &
 # wait to process
-sleep 2
+SLEEP 2
 /kafka/bin/kafka-server-start.sh /kafka/config/server.properties &
-# wait to process
-sleep 2
+# SLEEP 2
 
 # create topic
-/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic prodData
-/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181
+/kafka/bin/kafka-topics --create --zookeeper kafka:2181/kafka --replication-factor 1 --partitions 1 --topic prodData &
+#/kafka/bin/kafka-topics.sh --list --zookeeper kafka:2181 &
+
+/kafka/bin/kafka-topics --create --zookeeper kafka:2181/kafka --replication-factor 1 --partitions 1 --topic kafkatest &
+#/kafka/bin/kafka-topics.sh --list --zookeeper kafka:2181 &
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null
