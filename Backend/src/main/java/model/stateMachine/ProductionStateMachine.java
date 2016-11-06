@@ -70,6 +70,9 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		manufacturingData = new ManufacturingData();
 		manufacturingData.setErpData(erpData);
 		
+		//send erp data back to kafka
+		new KafkaProducerSpark().send(new Gson().toJson(erpData));
+		
 		System.out.println("Received erp data");
 		
 		this.serialNumber = counter++;

@@ -104,9 +104,9 @@ public class MachineDataConsumer extends AbstractExecutionThreadService implemen
     	//connect to kafka
         ConsumerConnector connector = kafka.consumer.Consumer.createJavaConsumerConnector(consumerConfig);
         Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(
-    		ImmutableMap.of(Constants.KAFKA_TOPIC, 1)
+    		ImmutableMap.of(Constants.KAFKA_CONS_TOPIC_PRODDATA, 1)
 		);
-        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_TOPIC);
+        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_CONS_TOPIC_PRODDATA);
         ExecutorService executorService = Executors.newFixedThreadPool(messageStreams.size());
 
         //iterate streams

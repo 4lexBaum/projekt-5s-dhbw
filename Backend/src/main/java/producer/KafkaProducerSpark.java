@@ -44,7 +44,7 @@ public class KafkaProducerSpark {
 	 */
 	public void send(String manufacturingData) {
 		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PRODUCER_TOPIC, manufacturingData
+			Constants.KAFKA_PROD_TOPIC_MANUFACTURING_DATA, manufacturingData
 		);
 		
         producer.send(data);
@@ -59,7 +59,7 @@ public class KafkaProducerSpark {
 	 */
 	public void send(ErpData erpData) {
 		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PRODUCER_TOPIC, erpData.toString()
+			Constants.KAFKA_PROD_TOPIC_ERP_DATA, erpData.toString()
 		);
 		
         producer.send(data);
