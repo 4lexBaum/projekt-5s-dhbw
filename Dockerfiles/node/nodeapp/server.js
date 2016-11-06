@@ -32,6 +32,7 @@ setTimeout(function () {
             console.log('user disconnected');
         });
         consumer.on('message', function (message) {
+            console.log(message);
             socket.emit("test", message);
         });
 
