@@ -40,10 +40,10 @@ public class KafkaProducerSpark {
 	
 	/**
 	 * Sends messages to the kafka broker.
-	 * @param data (json string to be sent)
 	 * @param topic (topic for the data)
+	 * @param data (json string to be sent)
 	 */
-	public void send(String data, String topic) {
+	public void send(String topic, String data) {
 		KeyedMessage<String, String> msg = new KeyedMessage<>(
 			topic, data
 		);
