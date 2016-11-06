@@ -13,7 +13,7 @@
     var array = [];
 
     socket.on("erpData", function(value) {
-        $("#erpdata").text(JSON.stringify(value));
+        $("#erpData").text(JSON.stringify(value));
     });
 
     socket.on("kafkatest", function(value) {
@@ -26,12 +26,15 @@
 </script>
 
 <body>
+    <h3>Manufacutring Data</h3>
     <p id="manufacutringData">
         Output
     </p>
+    <h3>ERP Data</h3>
     <p id="erpData">
         Output
     </p>
+    <h3>Production Data</h3>
     <p id="prodData">
         Output
     </p>
