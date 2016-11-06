@@ -12,16 +12,27 @@
     var x = 0;
     var array = [];
 
-    socket.on("test", function(value) {
-        array.push(value);
-        x++;
-        $("#output").text(JSON.stringify(value));
-        console.log(array);
+    socket.on("erpData", function(value) {
+        $("#erpdata").text(JSON.stringify(value));
+    });
+
+    socket.on("kafkatest", function(value) {
+        $("#manufacutringData").text(JSON.stringify(value));
+    });
+
+    socket.on("prodData", function(value) {
+        $("#prodData").text(JSON.stringify(value));
     });
 </script>
 
 <body>
-    <p id="output">
+    <p id="manufacutringData">
+        Output
+    </p>
+    <p id="erpData">
+        Output
+    </p>
+    <p id="prodData">
         Output
     </p>
 </body>
