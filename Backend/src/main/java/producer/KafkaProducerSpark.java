@@ -39,30 +39,16 @@ public class KafkaProducerSpark {
 	}
 	
 	/**
-	 * Sends messages (manufacturingData) to the kafka broker.
-	 * @param manufacturingData (json string)
+	 * Sends messages to the kafka broker.
+	 * @param data (json string to be sent)
+	 * @param topic (topic for the data)
 	 */
-	public void send(String manufacturingData) {
-		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PROD_TOPIC_MANUFACTURING_DATA, manufacturingData
+	public void send(String data, String topic) {
+		KeyedMessage<String, String> msg = new KeyedMessage<>(
+			topic, data
 		);
 		
-        producer.send(data);
-        
-        //producer must be closed to flush data
-        producer.close();
-	}
-	
-	/**
-	 * Sends messages (erpData) to the kafka broker.
-	 * @param erpData
-	 */
-	public void send(ErpData erpData) {
-		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PROD_TOPIC_ERP_DATA, erpData.toString()
-		);
-		
-        producer.send(data);
+        producer.send(msg);
         
         //producer must be closed to flush data
         producer.close();
