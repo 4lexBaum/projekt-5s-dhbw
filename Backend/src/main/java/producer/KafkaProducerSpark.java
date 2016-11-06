@@ -17,6 +17,7 @@ import model.dataModels.ErpData;
  * @author Daniel
  *
  */
+@SuppressWarnings("all")
 public class KafkaProducerSpark {
 	private Producer<String, String> producer;
 	
