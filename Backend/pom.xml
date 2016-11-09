@@ -6,17 +6,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
 		<jdk.version>1.8</jdk.version>
+		<kafka.version>0.10.1.0</kafka.version> <!-- <version>0.8.2.1</version> -->
 	</properties>
 	<dependencies>
 		<dependency>
 		    <groupId>org.apache.kafka</groupId>
 		    <artifactId>kafka-clients</artifactId>
-		    <version>0.10.1.0</version>
+		    <version>${kafka.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.kafka</groupId>
 		    <artifactId>kafka_2.10</artifactId>
-		    <version>0.10.1.0</version>
+		    <version>${kafka.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.guava</groupId>
