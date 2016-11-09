@@ -43,5 +43,3 @@ services:
         build: ./mongodb
         ports:
             - "27017:27017"
-        volumes:
-            - /tmp/mongoStorage:/data/db

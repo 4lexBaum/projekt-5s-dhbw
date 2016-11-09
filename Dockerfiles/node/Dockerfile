@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY nodeapp/package.json /usr/src/app/
 RUN npm install
 
-# Build node
+# Copy node application to docker directory
 COPY nodeapp/. /usr/src/app
 
 # Expose port for web UI

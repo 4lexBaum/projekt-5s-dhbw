@@ -42,9 +42,6 @@ setTimeout(function () {
         });
         consumer.on('message', function (message) {
             socket.emit(message.topic, message.value);
-            if (message.topic == 'kafkatest') {
-                storeObject(JSON.parse(message.value));
-            }
         });
 
     });
@@ -55,12 +52,3 @@ setTimeout(function () {
 
 
 }, 20000);
-
-function storeObject(object) {
-    MongoClient.connect(url, function (err, db) {
-        var collection = db.collection('manufacturingData');
-        collection.insert(object, function (err) {
-            db.close();
-        });
-    });
-}
