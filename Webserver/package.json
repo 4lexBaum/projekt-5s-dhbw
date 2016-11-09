@@ -8,6 +8,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "babel-polyfill": "^6.13.0",
     "body-parser": "^1.15.2",
     "connect": "^3.5.0",
@@ -17,6 +18,7 @@
     "jade": "^1.11.0",
     "js-beautify": "^1.6.4",
     "jslint": "^0.10.3",
+    "jsonfile": "^2.4.0",
     "mongodb": "^2.2.9",
     "mongoose": "^4.6.0",
     "pug": "^2.0.0-beta6",

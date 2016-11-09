@@ -4,9 +4,14 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var kafka = require('kafka-node');
+var MongoClient = require('mongodb').MongoClient;
 var Consumer = kafka.Consumer;
 var Client = kafka.Client;
 var Offset = kafka.Offset;
+
+var url = 'mongodb://mongodb/taktstrasse';
+
+
 setTimeout(function () {
 
     var client = new Client("kafka");
@@ -37,6 +42,9 @@ setTimeout(function () {
         });
         consumer.on('message', function (message) {
             socket.emit(message.topic, message.value);
+            if (message.topic == 'kafkatest') {
+                storeObject(JSON.parse(message.value));
+            }
         });
 
     });
@@ -47,3 +55,12 @@ setTimeout(function () {
 
 
 }, 20000);
+
+function storeObject(object) {
+    MongoClient.connect(url, function (err, db) {
+        var collection = db.collection('manufacturingData');
+        collection.insert(object, function (err) {
+            db.close();
+        });
+    });
+}
