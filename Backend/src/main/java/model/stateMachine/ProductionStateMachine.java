@@ -10,6 +10,7 @@ import consumer.SpectralAnalysisConsumer;
 
 import consumer_listener.MachineDataListener;
 import consumer_listener.SpectralAnalysisListener;
+import db.DatabaseManager;
 
 //import db.DatabaseManager;
 
@@ -219,9 +220,9 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		);
 		
 		//save manufacturing data in db
-		/*DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
+		DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);
 		System.out.println("Received spectral analysis data");
-		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");*/
+		System.out.println("Saved data from statemachine " + serialNumber + " in mongodb");
 	}
 
 	/**

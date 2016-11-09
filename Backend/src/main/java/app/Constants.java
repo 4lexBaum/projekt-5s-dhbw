@@ -31,6 +31,7 @@ public class Constants {
 	public static final String PATH_SPECTRAL_ANALYSIS = TEST_LOCAL ? "/Users/Daniel/Documents/tmp/" : "/temp/";
 	
 	//mongodb constants
+	public static final int MONGO_PORT = 27017;
 	public static final String DATABASE_NAME = "oip_taktstrasse";
 	public static final String DATABASE_COLLECTION_NAME = "manufacturingData";
 	
