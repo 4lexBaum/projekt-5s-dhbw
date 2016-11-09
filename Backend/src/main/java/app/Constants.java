@@ -10,6 +10,8 @@ package app;
 public class Constants {
 	
 	//testing
+	//CAUTION: DON'T FORGET TO CHANGE DEPENDENCY.
+	//SPOTIFY/KAFKA DOCKER WORKS WITH KAFKA VERSION 0.8.2.1 ONLY!
 	public static boolean TEST_LOCAL = false;
 
 	//kafka constants
