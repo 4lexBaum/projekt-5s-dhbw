@@ -9,14 +9,15 @@ RUN chmod u+x /entrypoint.sh
 # Include package.json
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY nodeapp/package.json /usr/src/app/
-RUN npm install
 
-# Copy node application to docker directory
-COPY nodeapp/. /usr/src/app
+# Copy the node app to the docker directory
+COPY nodeapp_testing/. /usr/src/app
+
+# Install all dependencies
+RUN npm install
 
 # Expose port for web UI
 EXPOSE 3000
 
 # Set entrypoint on start in package.json
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]

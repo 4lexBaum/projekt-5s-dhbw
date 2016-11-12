@@ -10,7 +10,7 @@ COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
 # install kafka
-ADD http://mirrors.ae-online.de/apache/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz /kafka.tgz
+ADD http://apache.mirror.digionline.de/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz /kafka.tgz
 RUN tar -xzf /kafka.tgz && mv /kafka_2.11-0.10.1.0 /kafka
 
 # expose kafka port
