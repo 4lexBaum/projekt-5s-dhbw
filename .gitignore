@@ -10,3 +10,4 @@ Dockerfiles/taktstrasse/.DS_Store
 .settings
 Spark/Spark.iml
 Spark/SparkAnalysis.iml
+Spark/.idea
