@@ -20,10 +20,12 @@ services:
         links:
             - kafka
             - activemq
+            - mongodb
     spark:
         build: ./spark
         links:
             - kafka
+            - mongodb
         ports:
             - "8080:8080"
             - "7077:7077"
@@ -34,5 +36,10 @@ services:
         build: ./node
         links:
             - kafka
+            - mongodb
         ports:
             - "3000:3000"
+    mongodb:
+        build: ./mongodb
+        ports:
+            - "27017:27017"

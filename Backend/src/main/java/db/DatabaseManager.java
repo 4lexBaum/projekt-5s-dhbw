@@ -30,7 +30,9 @@ public class DatabaseManager {
 	 * Constructor.
 	 */
 	private DatabaseManager() {
-		mongoClient = new MongoClient();
+		mongoClient = Constants.TEST_LOCAL 
+			? new MongoClient() 
+			: new MongoClient("mongodb", Constants.MONGO_PORT);
 		db = mongoClient.getDatabase(Constants.DATABASE_NAME);
 		gson = new Gson();
 	}

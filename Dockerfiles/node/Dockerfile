@@ -1,19 +1,23 @@
 FROM node:argon
 
-# copy entrypoint script on docker and set permissions
+MAINTAINER Philip Riecks
+
+# Copy entrypoint script on docker and set permissions
 COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
-#include package.json
+# Include package.json
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY nodeapp/package.json /usr/src/app/
+
+# Copy the node app to the docker directory
+COPY nodeapp_testing/. /usr/src/app
+
+# Install all dependencies
 RUN npm install
 
-#build node
-COPY nodeapp/. /usr/src/app
-
-# expose port for web UI
+# Expose port for web UI
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+# Set entrypoint on start in package.json
+CMD ["npm", "start"]

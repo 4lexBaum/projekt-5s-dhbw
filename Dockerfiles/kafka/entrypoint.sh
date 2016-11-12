@@ -10,12 +10,14 @@ SLEEP 2
 /kafka/bin/kafka-server-start.sh /kafka/config/server.properties &
 # SLEEP 2
 
-# create topic
-/kafka/bin/kafka-topics --create --zookeeper kafka:2181/kafka --replication-factor 1 --partitions 1 --topic prodData &
-#/kafka/bin/kafka-topics.sh --list --zookeeper kafka:2181 &
+# create topics
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic dummyTest
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic kafkatest
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic prodData
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic manufacutringData
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic erpData
+/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic analysisTest
 
-/kafka/bin/kafka-topics --create --zookeeper kafka:2181/kafka --replication-factor 1 --partitions 1 --topic kafkatest &
-#/kafka/bin/kafka-topics.sh --list --zookeeper kafka:2181 &
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null

@@ -101,9 +101,9 @@ public class TestConsumer extends AbstractExecutionThreadService implements Cons
     	//connect to kafka
         ConsumerConnector connector = kafka.consumer.Consumer.createJavaConsumerConnector(consumerConfig);
         Map<String, List<KafkaStream<byte[], byte[]>>> messages = connector.createMessageStreams(
-    		ImmutableMap.of(Constants.KAFKA_PRODUCER_TOPIC, 1)
+    		ImmutableMap.of(Constants.KAFKA_PROD_TOPIC_MANUFACTURING_DATA, 1)
 		);
-        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_PRODUCER_TOPIC);
+        List<KafkaStream<byte[], byte[]>> messageStreams = messages.get(Constants.KAFKA_PROD_TOPIC_MANUFACTURING_DATA);
         ExecutorService executorService = Executors.newFixedThreadPool(messageStreams.size());
 
         //iterate streams

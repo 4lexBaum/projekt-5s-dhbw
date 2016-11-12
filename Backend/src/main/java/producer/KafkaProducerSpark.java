@@ -17,6 +17,7 @@ import model.dataModels.ErpData;
  * @author Daniel
  *
  */
+@SuppressWarnings("all")
 public class KafkaProducerSpark {
 	private Producer<String, String> producer;
 	
@@ -38,30 +39,16 @@ public class KafkaProducerSpark {
 	}
 	
 	/**
-	 * Sends messages (manufacturingData) to the kafka broker.
-	 * @param manufacturingData (json string)
+	 * Sends messages to the kafka broker.
+	 * @param topic (topic for the data)
+	 * @param data (json string to be sent)
 	 */
-	public void send(String manufacturingData) {
-		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PRODUCER_TOPIC, manufacturingData
+	public void send(String topic, String data) {
+		KeyedMessage<String, String> msg = new KeyedMessage<>(
+			topic, data
 		);
 		
-        producer.send(data);
-        
-        //producer must be closed to flush data
-        producer.close();
-	}
-	
-	/**
-	 * Sends messages (erpData) to the kafka broker.
-	 * @param erpData
-	 */
-	public void send(ErpData erpData) {
-		KeyedMessage<String, String> data = new KeyedMessage<>(
-			Constants.KAFKA_PRODUCER_TOPIC, erpData.toString()
-		);
-		
-        producer.send(data);
+        producer.send(msg);
         
         //producer must be closed to flush data
         producer.close();

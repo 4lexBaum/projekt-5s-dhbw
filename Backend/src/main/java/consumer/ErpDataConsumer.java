@@ -47,7 +47,7 @@ public class ErpDataConsumer implements Consumer, Runnable {
 		
 		String server = Constants.TEST_LOCAL
 			? "tcp://" + Constants.getIPAddress() + ":" + Constants.AMQ_PORT
-			: "tcp://activemq:" + Constants.AMQ_PORT;
+			: "failover:tcp://activemq:" + Constants.AMQ_PORT;
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("demo1", "demo1", server);
 		
 		//create connection to amqp server
