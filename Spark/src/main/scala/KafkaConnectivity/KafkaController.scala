@@ -2,6 +2,7 @@ package KafkaConnectivity
 
 import JsonParser.{JsonParser, ManufacturingData}
 import Analysis.{AnalysisController, AnalysisParent}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by fabian on 05.11.16.
@@ -53,7 +54,9 @@ object KafkaController {
 
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
-    sendStringViaKafka("Hello I am funny", kafkaTopicsSend)
+    val sc = new SparkContext(new SparkConf().setAppName("Name"))
+    sc.textFile("file:///path to the file/")
+
     KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
       kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
 
