@@ -8,7 +8,7 @@ import scala.collection.mutable.Map
 /**
   * Created by fabian on 12.11.16.
   */
-class MaterialDuration extends AnalysisParent{
+object MaterialDuration extends AnalysisParent{
 
   override val kafkaTopicsSend: String = this.getClass.getSimpleName
   private val map: Map[String, Double] = Map()

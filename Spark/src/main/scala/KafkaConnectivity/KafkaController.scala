@@ -4,6 +4,8 @@ import JsonParser.{JsonParser, ManufacturingData}
 import Analysis.{AnalysisController, AnalysisParent}
 import org.apache.spark.{SparkConf, SparkContext}
 
+import scala.io.Source
+
 /**
   * Created by fabian on 05.11.16.
   */
@@ -54,11 +56,13 @@ object KafkaController {
 
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
-    val sc = new SparkContext(new SparkConf().setAppName("Name"))
-    sc.textFile("/home/fabian/Documents/GitProjects/projekt-5s-dhbw/Dockerfiles/spark/")
 
-    KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
-      kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
+
+    val source: String = Source.fromFile("file:///home/fabian/Documents/GitProjects/projekt-5s-dhbw/Spark/JsonTestData").getLines.mkString
+    addValue(source)
+
+    //KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
+    //  kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
 
   }
 
