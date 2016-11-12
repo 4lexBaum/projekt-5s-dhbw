@@ -32,7 +32,7 @@ object MaterialMillingHeat extends AnalysisParent{
     val value = map.get(key)
 
     if(value.isEmpty){
-      map + (key -> avg)
+      map += (key -> avg)
     }else {
       map.update(key, (value.get + avg) / 2)
     }

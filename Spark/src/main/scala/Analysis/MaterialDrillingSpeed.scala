@@ -34,7 +34,7 @@ object MaterialDrillingSpeed extends AnalysisParent {
 
 
     if (value.isEmpty) {
-      map + (key -> avg)
+      map += (key -> avg)
     } else {
       map.update(key, (value.get + avg)/2)
     }

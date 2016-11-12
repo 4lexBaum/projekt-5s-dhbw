@@ -35,7 +35,7 @@ object QualityMaterial extends AnalysisParent{
     val value = map.get(key)
 
     if(value.isEmpty){
-      map + (key -> 0)
+      map += (key -> 0)
     }
 
     if (manuData.analysisData.overallStatus.equals("NOK")) {

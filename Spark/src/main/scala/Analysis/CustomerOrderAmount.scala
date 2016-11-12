@@ -11,7 +11,7 @@ import scala.collection.mutable
 object CustomerOrderAmount extends AnalysisParent{
 
   override val kafkaTopicsSend: String = "CustomerOrderAmount"//this.getClass.getSimpleName.replace("$", "")
-  private val map: mutable.Map[String, Int] = mutable.Map[String,Int]()
+  private val map: mutable.Map[String, Int] = mutable.Map[String,Int]().withDefaultValue(0)
 
   def runAnalysisWithReturn(list: List[ManufacturingData]): mutable.Map[String, Int] = {
 

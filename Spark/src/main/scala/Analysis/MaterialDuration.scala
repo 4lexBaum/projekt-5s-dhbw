@@ -27,7 +27,7 @@ object MaterialDuration extends AnalysisParent{
     val value = map.get(key)
 
     if(value.isEmpty){
-      map + (key -> productionTime)
+      map += (key -> productionTime)
     }else{
       map.update(key, (value.get + productionTime)/2)
     }
