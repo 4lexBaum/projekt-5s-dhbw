@@ -55,7 +55,7 @@ object KafkaController {
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
     val sc = new SparkContext(new SparkConf().setAppName("Name"))
-    sc.textFile("file:///path to the file/")
+    sc.textFile("/home/fabian/Documents/GitProjects/projekt-5s-dhbw/Dockerfiles/spark/")
 
     KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
       kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)

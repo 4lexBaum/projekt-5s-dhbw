@@ -77,22 +77,10 @@
         </dependency>
 
         <!--Json Library-->
-        <!--<dependency>-->
-            <!--<groupId>org.json4s</groupId>-->
-            <!--<artifactId>json4s-native_${scala.binary.version}</artifactId>-->
-            <!--<version>3.4.2</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.json4s</groupId>
             <artifactId>json4s-jackson_${scala.binary.version}</artifactId>
             <version>3.2.10</version>
-        </dependency>
-
-        <!--mongo-->
-        <dependency>
-            <groupId>org.mongodb.mongo-hadoop</groupId>
-            <artifactId>mongo-hadoop-spark</artifactId>
-            <version>2.0.1</version>
         </dependency>
 
 
