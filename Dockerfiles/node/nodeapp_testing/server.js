@@ -29,6 +29,20 @@ setTimeout(function () {
         topic: "MaterialMillingSpeed"
     },{
         topic: "MaterialDuration"
+    },{
+        topic: "CustomerOrderAmount"
+    },{
+        topic: "MaterialDrillingHeat"
+    },{
+        topic: "MaterialDrillingSpeed"
+    },{
+        topic: "MaterialMillingHeat"
+    },{
+        topic: "MaterialProducedAmount"
+    },{
+        topic: "QualityCustomerPercentage"
+    },{
+        topic: "QualityMaterialPercentage"
     }
   ];
     var options = {
@@ -60,4 +74,4 @@ setTimeout(function () {
     });
 
 
-}, 30000);
+}, 80000);

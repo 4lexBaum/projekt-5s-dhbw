@@ -47,6 +47,12 @@ object JsonParser {
     writePretty(tempMap)
   }
 
+  def mapToJsonString(map: mutable.Map[String, String]): String = {
+    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+    implicit val formats = DefaultFormats
+    writePretty(tempMap)
+  }
+
 }
 
 case class MachineData(value: String, status: String, itemName: String, timestamp: String)

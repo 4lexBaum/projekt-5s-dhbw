@@ -11,13 +11,14 @@ import collection.mutable
 object MaterialMillingSpeed extends AnalysisParent{
 
   override val kafkaTopicsSend: String = "MaterialMillingSpeed"// this.getClass.getSimpleName
-  private val map: mutable.Map[String, Double] = mutable.Map[String,Double]().withDefaultValue(0)
+  private val map: mutable.Map[String, Double] = mutable.Map[String,Double]()
 
   override def runAnalysis(list: List[ManufacturingData]): Unit = {
 
     list.foreach(manuData => updateMap(manuData))
     //print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
     KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
+    map.empty
   }
 
   def updateMap(manuData: ManufacturingData): Unit ={
@@ -27,11 +28,12 @@ object MaterialMillingSpeed extends AnalysisParent{
     val speedList = for(elem <- machineData) yield checkElement(elem)
     val filteredList = speedList.filter(v => v > 0)
     val avg = filteredList.sum/filteredList.size.toDouble
+    val value = map.get(key)
 
-    if(map(key) == 0.0){
-      map.update(key, avg)
+    if(value.isEmpty){
+      map + (key -> avg)
     }else {
-      map.update(key, (map(key) + avg) / 2)
+      map.update(key, (value.get + avg)/2)
     }
   }
 

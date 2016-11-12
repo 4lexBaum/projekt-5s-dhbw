@@ -39,6 +39,34 @@
     socket.on("MaterialDuration", function(value) {
         $("#MaterialDuration").text(JSON.stringify(value));
     });
+
+    socket.on("CustomerOrderAmount", function(value) {
+        $("#CustomerOrderAmount").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialDrillingHeat", function(value) {
+        $("#MaterialDrillingHeat").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialDrillingSpeed", function(value) {
+        $("#MaterialDrillingSpeed").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialMillingHeat", function(value) {
+        $("#MaterialMillingHeat").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialProducedAmount", function(value) {
+        $("#MaterialProducedAmount").text(JSON.stringify(value));
+    });
+
+    socket.on("QualityCustomerPercentage", function(value) {
+        $("#QualityCustomerPercentage").text(JSON.stringify(value));
+    });
+
+    socket.on("QualityMaterialPercentage", function(value) {
+        $("#QualityMaterialPercentage").text(JSON.stringify(value));
+    });
 </script>
 
 <body>
@@ -71,6 +99,41 @@
 
     <h3>MaterialDuration</h3>
     <p id="MaterialDuration">
+        Output
+    </p>
+
+    <h3>CustomerOrderAmount</h3>
+    <p id="CustomerOrderAmount">
+        Output
+    </p>
+
+    <h3>MaterialDrillingHeat</h3>
+    <p id="MaterialDrillingHeat">
+        Output
+    </p>
+
+    <h3>MaterialDrillingSpeed</h3>
+    <p id="MaterialDrillingSpeed">
+        Output
+    </p>
+
+    <h3>MaterialMillingHeat</h3>
+    <p id="MaterialMillingHeat">
+        Output
+    </p>
+
+    <h3>MaterialProducedAmount</h3>
+    <p id="MaterialProducedAmount">
+        Output
+    </p>
+
+    <h3>QualityCustomerPercentage</h3>
+    <p id="QualityCustomerPercentage">
+        Output
+    </p>
+
+    <h3>QualityMaterialPercentage</h3>
+    <p id="QualityMaterialPercentage">
         Output
     </p>
 
