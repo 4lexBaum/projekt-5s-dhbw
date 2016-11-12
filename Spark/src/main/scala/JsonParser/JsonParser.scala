@@ -4,6 +4,8 @@ import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.writePretty
 
+import collection.mutable
+
 /**
   * Created by fabian on 05.11.16.
   */
@@ -32,6 +34,19 @@ object JsonParser {
     implicit val formats = DefaultFormats
      writePretty(inputData)
   }
+
+  def mapToJsonInt(map: mutable.Map[String, Int]): String = {
+    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+    implicit val formats = DefaultFormats
+    writePretty(tempMap)
+  }
+
+  def mapToJsonDouble(map: mutable.Map[String, Double]): String = {
+    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+    implicit val formats = DefaultFormats
+    writePretty(tempMap)
+  }
+
 }
 
 case class MachineData(value: String, status: String, itemName: String, timestamp: String)

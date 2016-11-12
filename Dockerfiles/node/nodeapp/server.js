@@ -12,6 +12,10 @@ setTimeout(function () {
     var client = new Client("kafka");
     var topics = [{
         topic: "kafkatest"
+    }, {
+        topic: "erpData"
+    }, {
+        topic: "prodData"
     }];
     var options = {
         autoCommit: false,
@@ -32,8 +36,7 @@ setTimeout(function () {
             console.log('user disconnected');
         });
         consumer.on('message', function (message) {
-            console.log(message);
-            socket.emit("test", message);
+            socket.emit(message.topic, message.value);
         });
 
     });

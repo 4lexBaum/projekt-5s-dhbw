@@ -1,15 +1,16 @@
 package KafkaConnectivity
 
 import JsonParser.{JsonParser, ManufacturingData}
+import Analysis.{AnalysisController, AnalysisParent}
+import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable.ListBuffer
+import scala.io.Source
 
 /**
   * Created by fabian on 05.11.16.
   */
 object KafkaController {
-
-  var dataList = new ListBuffer[ManufacturingData]()
 
   val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
   val kafkaTopicsSend: String = "kafkatest"
@@ -56,9 +57,18 @@ object KafkaController {
 
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
-    sendStringViaKafka("Hello I am funny", kafkaTopicsSend)
-    KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
-      kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
+
+
+    var list: ListBuffer[String] = new ListBuffer[String]()
+    for (line <- Source.fromFile("TestJson.json").getLines()) {
+      if (line.length > 10){
+        list += line
+      }
+    }
+    addValue(list.toList)
+
+    //KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
+    //  kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
 
   }
 
@@ -67,13 +77,15 @@ object KafkaController {
     * @param inputData Json String of ManufacturingData
     */
 
-  def addValue(inputData: String): Unit = {
+  def addValue(inputData: List[String]): Unit = {
 
-    val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
-    dataList += manufacturingData
-    val message = JsonParser.manufacturingDataToJson(manufacturingData)
+    val parsedList = for(element <- inputData) yield JsonParser.jsonToManufacturingData(element)
+    //val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
+    AnalysisController.runAllAnalysis(parsedList)
 
-    sendStringViaKafka(message, kafkaTopicsSend)
+//    val message = JsonParser.manufacturingDataToJson(manufacturingData)
+//
+//    sendStringViaKafka(message, kafkaTopicsSend)
 
   }
 

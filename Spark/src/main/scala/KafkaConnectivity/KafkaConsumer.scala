@@ -25,6 +25,8 @@ object KafkaConsumer {
     */
 
   def getStreamingContext: StreamingContext = {
+
+
     val sparkConf = new SparkConf().setAppName("KafkaConsumer")
     val streamingContext = new StreamingContext(sparkConf, Seconds(32))
     streamingContext.checkpoint("checkpoint")

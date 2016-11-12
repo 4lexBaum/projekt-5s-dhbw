@@ -4,6 +4,7 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import com.google.gson.Gson;
 
+import app.Constants;
 import consumer.MachineDataConsumer;
 import consumer.SpectralAnalysisConsumer;
 
@@ -69,6 +70,11 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		
 		manufacturingData = new ManufacturingData();
 		manufacturingData.setErpData(erpData);
+		
+		//send erp data back to kafka
+		new KafkaProducerSpark().send(
+			Constants.KAFKA_PROD_TOPIC_ERP_DATA, new Gson().toJson(erpData)
+		);
 		
 		System.out.println("Received erp data");
 		
@@ -208,7 +214,9 @@ public class ProductionStateMachine implements MachineDataListener, SpectralAnal
 		manufacturingData.setAnalysisData(data);
 		
 		//put data to kafka broker
-		new KafkaProducerSpark().send(new Gson().toJson(manufacturingData));
+		new KafkaProducerSpark().send(
+			Constants.KAFKA_PROD_TOPIC_MANUFACTURING_DATA, new Gson().toJson(manufacturingData)
+		);
 		
 		//save manufacturing data in db
 		/*DatabaseManager.getManager().insertManifacturingDocument(manufacturingData);

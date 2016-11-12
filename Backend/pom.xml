@@ -33,11 +33,6 @@
 		    <artifactId>activemq-openwire-legacy</artifactId>
 		    <version>5.14.1</version>
 		</dependency>
-		<!-- <dependency>
-    		<groupId>org.apache.activemq</groupId>
-    		<artifactId>activemq-core</artifactId>
-    		<version>5.7.0</version>
-		</dependency>-->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
