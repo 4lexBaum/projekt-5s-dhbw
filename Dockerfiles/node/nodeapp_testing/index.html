@@ -17,17 +17,33 @@
     });
 
     socket.on("kafkatest", function(value) {
-        $("#manufacutringData").text(JSON.stringify(value));
+        $("#manufacturingData").text(JSON.stringify(value));
     });
 
     socket.on("prodData", function(value) {
         $("#prodData").text(JSON.stringify(value));
     });
+
+    socket.on("QualityCustomer", function(value) {
+        $("#QualityCustomer").text(JSON.stringify(value));
+    });
+
+    socket.on("QualityMaterial", function(value) {
+        $("#QualityMaterial").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialMillingSpeed", function(value) {
+        $("#MaterialMillingSpeed").text(JSON.stringify(value));
+    });
+
+    socket.on("MaterialDuration", function(value) {
+        $("#MaterialDuration").text(JSON.stringify(value));
+    });
 </script>
 
 <body>
     <h3>Manufacutring Data</h3>
-    <p id="manufacutringData">
+    <p id="manufacturingData">
         Output
     </p>
     <h3>ERP Data</h3>
@@ -38,6 +54,26 @@
     <p id="prodData">
         Output
     </p>
+    <h3>QualityCustomer</h3>
+    <p id="QualityCustomer">
+        Output
+    </p>
+
+    <h3>MaterialMillingSpeed</h3>
+    <p id="MaterialMillingSpeed">
+        Output
+    </p>
+
+    <h3>QualityMaterial</h3>
+    <p id="QualityMaterial">
+        Output
+    </p>
+
+    <h3>MaterialDuration</h3>
+    <p id="MaterialDuration">
+        Output
+    </p>
+
 </body>
 
-</html>√
+</html>travis.yml √

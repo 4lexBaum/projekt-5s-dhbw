@@ -43,17 +43,14 @@ object KafkaConsumer {
     * @param processValue Function for processing the incoming records
     */
 
-  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (List[String]) => Unit): Unit = {
+  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => Unit): Unit = {
     val stream = KafkaUtils.createDirectStream[String, String](
       streamingContext,
       PreferConsistent,
       Subscribe[String, String](topics, kafkaParams))
 
-    val list = new ListBuffer[String]()
 
-    stream.map(record => list ++ record.value()).print()
-
-    processValue(list.toList)
+    stream.map(record => processValue(record.value())).print()
 
     streamingContext.start()
     streamingContext.awaitTermination()

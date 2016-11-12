@@ -1,6 +1,6 @@
 package KafkaConnectivity
 
-import JsonParser.JsonParser
+import JsonParser._
 import Analysis.AnalysisController
 
 import scala.collection.mutable.ListBuffer
@@ -12,7 +12,9 @@ import scala.io.Source
 object KafkaController {
 
   val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
-  val kafkaTopicsSend: String = "kafkatest"
+  //val kafkaTopicsSend: String = "kafkatest"
+
+  val manufacturingDataObjects: ListBuffer[ManufacturingData] = new ListBuffer[ManufacturingData]()
 
   /**
     * Main method
@@ -74,11 +76,12 @@ object KafkaController {
     * @param inputData Json String of ManufacturingData
     */
 
-  def addValue(inputData: List[String]): Unit = {
+  def addValue(inputData: String): Unit = {
 
-    val parsedList = for(element <- inputData) yield JsonParser.jsonToManufacturingData(element)
+    val json = JsonParser.jsonToManufacturingData(inputData)
+    manufacturingDataObjects += json
     //val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
-    AnalysisController.runAllAnalysis(parsedList)
+    AnalysisController.runAllAnalysis(manufacturingDataObjects.toList)
 
 //    val message = JsonParser.manufacturingDataToJson(manufacturingData)
 //
@@ -94,7 +97,7 @@ object KafkaController {
 
   def sendStringViaKafka(message: String, topic: String): Unit = {
     val kafka = KafkaProd.getProducer(KafkaProd.mandatoryOptions)
-    KafkaProd.send(kafka, kafkaTopicsSend, message)
+    KafkaProd.send(kafka, topic, message)
     kafka.close()
   }
 

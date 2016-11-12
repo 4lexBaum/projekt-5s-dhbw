@@ -10,14 +10,14 @@ import collection.mutable
   */
 object MaterialMillingSpeed extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = this.getClass.getSimpleName
+  override val kafkaTopicsSend: String = "MaterialMillingSpeed"// this.getClass.getSimpleName
   private val map: mutable.Map[String, Double] = mutable.Map[String,Double]().withDefaultValue(0)
 
   override def runAnalysis(list: List[ManufacturingData]): Unit = {
 
     list.foreach(manuData => updateMap(manuData))
-    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    //KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
+    //print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
   }
 
   def updateMap(manuData: ManufacturingData): Unit ={

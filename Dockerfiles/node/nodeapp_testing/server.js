@@ -21,7 +21,16 @@ setTimeout(function () {
         topic: "erpData"
     }, {
         topic: "prodData"
-    }];
+    },{
+        topic: "QualityCustomer"
+    },{
+        topic: "QualityMaterial"
+    },{
+        topic: "MaterialMillingSpeed"
+    },{
+        topic: "MaterialDuration"
+    }
+  ];
     var options = {
         autoCommit: false,
         fetchMaxWaitMs: 1000,
@@ -51,4 +60,4 @@ setTimeout(function () {
     });
 
 
-}, 20000);
+}, 30000);
