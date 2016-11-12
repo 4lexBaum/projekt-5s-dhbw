@@ -1,37 +1,32 @@
 package MongoConnectivity
 
+
+import org.apache.spark.streaming.kafka010.KafkaUtils
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+//import org.mongodb.scala._
+import org.apache.hadoop.conf.Configuration;
+import org.apache.spark.streaming.{ Seconds, StreamingContext }
+import com.mongodb.casbah.Imports._
+
+
 /**
   * Created by fabian on 12.11.16.
+
   */
 object MongoConsumer {
 
-  val sc = new SparkContext("local", "Hello from scala")
+ def main(args: Array[String]) {
 
-  val config = new Configuration()
-  config.set("mongo.input.uri", "mongodb://127.0.0.1:27017/dbName.collectionName")
-  val mongoRDD = sc.newAPIHadoopRDD(config, classOf[com.mongodb.hadoop.MongoInputFormat], classOf[Object], classOf[BSONObject])
-
+     val mongoClient = MongoClient("localhost", 27017)
+     val db = mongoClient("oip_taktstrasse")
+     val coll = db("manufacturingData")
+     val query  = MongoDBObject.empty
+     val fields = MongoDBObject("_id" -> 0)
+     val allDocs = coll.find(query,fields)
+     for(doc <- allDocs) println( doc.toString )
+                  
+ }
 }
 
 
-package Analysis
-
-import JsonParser.ManufacturingData
-import KafkaConnectivity.KafkaController
-
-import scala.collection.mutable.ListBuffer
-
-/**
-  * Created by fabian on 06.11.16.
-  */
-object AnalysisController{
-
-  //val dataList = ListBuffer[ManufacturingData]()
-
-  def runAllAnalysis(list: List[ManufacturingData]): Unit ={
-    //dataList += obj
-    QualityCustomer.runAnalysis(list)
-
-  }
-
-}
