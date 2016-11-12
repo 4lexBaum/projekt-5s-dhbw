@@ -7,6 +7,8 @@ import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
+import scala.collection.mutable.ListBuffer
+
 object KafkaConsumer {
 
   val kafkaParams: Map[String, Object] = Map(
@@ -25,8 +27,10 @@ object KafkaConsumer {
     */
 
   def getStreamingContext: StreamingContext = {
+
+
     val sparkConf = new SparkConf().setAppName("KafkaConsumer")
-    val streamingContext = new StreamingContext(sparkConf, Seconds(32))
+    val streamingContext = new StreamingContext(sparkConf, Seconds(300))
     streamingContext.checkpoint("checkpoint")
     streamingContext
   }
@@ -39,13 +43,17 @@ object KafkaConsumer {
     * @param processValue Function for processing the incoming records
     */
 
-  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => Unit): Unit = {
+  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (List[String]) => Unit): Unit = {
     val stream = KafkaUtils.createDirectStream[String, String](
       streamingContext,
       PreferConsistent,
       Subscribe[String, String](topics, kafkaParams))
 
-    stream.map(record => processValue(record.value())).print()
+    val list = new ListBuffer[String]()
+
+    stream.map(record => list ++ record.value()).print()
+
+    processValue(list.toList)
 
     streamingContext.start()
     streamingContext.awaitTermination()

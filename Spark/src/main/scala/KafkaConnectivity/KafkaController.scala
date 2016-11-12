@@ -1,7 +1,10 @@
 package KafkaConnectivity
 
-import JsonParser.{JsonParser, ManufacturingData}
-import Analysis.{AnalysisController, AnalysisParent}
+import JsonParser.JsonParser
+import Analysis.AnalysisController
+
+import scala.collection.mutable.ListBuffer
+import scala.io.Source
 
 /**
   * Created by fabian on 05.11.16.
@@ -53,7 +56,14 @@ object KafkaController {
 
     //Send random string to make topic available for nodejs server
     //Otherwise topic not found exception.
-    sendStringViaKafka("Hello I am funny", kafkaTopicsSend)
+
+
+//    var list: ListBuffer[String] = new ListBuffer[String]()
+//    for (line <- Source.fromFile("TestJson.json").getLines()) {
+//      list += line
+//    }
+//    addValue(list.toList)
+
     KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
       kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
 
@@ -64,10 +74,11 @@ object KafkaController {
     * @param inputData Json String of ManufacturingData
     */
 
-  def addValue(inputData: String): Unit = {
+  def addValue(inputData: List[String]): Unit = {
 
-    val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
-    AnalysisController.runAllAnalysis(manufacturingData)
+    val parsedList = for(element <- inputData) yield JsonParser.jsonToManufacturingData(element)
+    //val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
+    AnalysisController.runAllAnalysis(parsedList)
 
 //    val message = JsonParser.manufacturingDataToJson(manufacturingData)
 //
