@@ -11,21 +11,24 @@ import scala.collection.mutable.Map
 object MaterialDuration extends AnalysisParent{
 
   override val kafkaTopicsSend: String = this.getClass.getSimpleName
-  private val map: Map[String, Double] = Map()
+  private val map: Map[String, Double] = Map[String, Double]().withDefaultValue(0.0)
 
   override def runAnalysis(list: List[ManufacturingData]): Unit = {
 
     list.foreach(manuData => updateMap(manuData))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
+    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    //KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
   }
 
   def updateMap(manuData: ManufacturingData): Unit ={
-      val key = manuData.materialNumber
-      val productionTime = manuData.machineData.last.timestamp - manuData.machineData.head.timestamp
+    val key = manuData.materialNumber
+    val productionTime = manuData.machineData.last.timestamp.toDouble - manuData.machineData.head.timestamp.toDouble
 
-      val v = map.getOrElseUpdate(key, productionTime)
-      if(v > 1) {
-        map + (key -> (v + productionTime)/2)
-      }
+    if(map(key) == 0.0){
+      map.update(key, productionTime)
+    }else{
+      map.update(key, (map(key) + productionTime)/2)
+    }
   }
+
 }

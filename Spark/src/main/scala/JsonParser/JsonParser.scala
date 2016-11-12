@@ -4,8 +4,7 @@ import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.writePretty
 
-import scala.collection.mutable
-import scala.collection.mutable.ListMap
+import collection.mutable
 
 /**
   * Created by fabian on 05.11.16.
@@ -36,22 +35,22 @@ object JsonParser {
      writePretty(inputData)
   }
 
-  def mapToJsonInt(map: scala.collection.mutable.Map[String, Int]): String = {
-    mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+  def mapToJsonInt(map: mutable.Map[String, Int]): String = {
+    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
     implicit val formats = DefaultFormats
-    writePretty(map)
+    writePretty(tempMap)
   }
 
-  def mapToJsonDouble(map: scala.collection.mutable.Map[String, Double]): String = {
-    mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+  def mapToJsonDouble(map: mutable.Map[String, Double]): String = {
+    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
     implicit val formats = DefaultFormats
-    writePretty(map)
+    writePretty(tempMap)
   }
 
 }
 
-case class MachineData(value: String, status: String, itemName: String, timestamp: Int)
+case class MachineData(value: String, status: String, itemName: String, timestamp: String)
 
 case class AnalysisData(em1: Double, em2: Double, a1: Double, a2: Double, b1: Double, b2: Double, overallStatus: String, ts_start: Int, ts_stop: Int)
 
-case class ManufacturingData(customerNumber: String, materialNumber: String, orderNumber: String, timeStamp: Int, machineData: List[MachineData], analysisData: AnalysisData)
+case class ManufacturingData(customerNumber: String, materialNumber: String, orderNumber: String, timeStamp: String, machineData: List[MachineData], analysisData: AnalysisData)

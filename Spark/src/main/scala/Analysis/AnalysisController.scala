@@ -10,11 +10,11 @@ import scala.collection.mutable.ListBuffer
   */
 object AnalysisController{
 
-  val dataList = ListBuffer[ManufacturingData]()
-
-  def runAllAnalysis(obj: ManufacturingData): Unit ={
-    dataList += obj
-    QualityCustomer.runAnalysis(dataList.toList)
+  def runAllAnalysis(list: List[ManufacturingData]): Unit ={
+    QualityCustomer.runAnalysis(list)
+    MaterialDuration.runAnalysis(list)
+    MaterialMillingSpeed.runAnalysis(list)
+    QualityMaterial.runAnalysis(list)
 
   }
 

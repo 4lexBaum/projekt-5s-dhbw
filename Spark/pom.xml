@@ -83,6 +83,13 @@
             <version>3.2.10</version>
         </dependency>
 
+        <!--ScalaZ-->
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-core_2.11</artifactId>
+            <version>7.3.0-M6</version>
+        </dependency>
+
 
         <!--other-->
         <dependency>

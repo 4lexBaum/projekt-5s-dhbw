@@ -4,6 +4,7 @@ import JsonParser.{JsonParser, ManufacturingData}
 import Analysis.{AnalysisController, AnalysisParent}
 import org.apache.spark.{SparkConf, SparkContext}
 
+import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
 /**
@@ -58,8 +59,13 @@ object KafkaController {
     //Otherwise topic not found exception.
 
 
-    val source: String = Source.fromFile("file:///home/fabian/Documents/GitProjects/projekt-5s-dhbw/Spark/JsonTestData").getLines.mkString
-    addValue(source)
+    var list: ListBuffer[String] = new ListBuffer[String]()
+    for (line <- Source.fromFile("TestJson.json").getLines()) {
+      if (line.length > 10){
+        list += line
+      }
+    }
+    addValue(list.toList)
 
     //KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
     //  kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
@@ -71,10 +77,11 @@ object KafkaController {
     * @param inputData Json String of ManufacturingData
     */
 
-  def addValue(inputData: String): Unit = {
+  def addValue(inputData: List[String]): Unit = {
 
-    val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
-    AnalysisController.runAllAnalysis(manufacturingData)
+    val parsedList = for(element <- inputData) yield JsonParser.jsonToManufacturingData(element)
+    //val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
+    AnalysisController.runAllAnalysis(parsedList)
 
 //    val message = JsonParser.manufacturingDataToJson(manufacturingData)
 //
