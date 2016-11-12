@@ -13,7 +13,7 @@ object MongoConsumer {
   val sc = new SparkContext("local", "Hello from scala")
 
   val config = new Configuration()
-  config.set("mongo.input.uri", "mongodb://mongodb:27017/dbName.collectionName")
+  config.set("mongo.input.uri", "mongodb://mongodb:27017/oip_taktstrasse.manufacturingData")
   val mongoRDD = sc.newAPIHadoopRDD(config, classOf[MongoInputFormat], classOf[Object], classOf[BSONObject])
 
 }
