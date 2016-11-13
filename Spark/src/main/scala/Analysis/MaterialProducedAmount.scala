@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.{JsonParser, ManufacturingData}
+import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
 
 import scala.collection.mutable
@@ -25,7 +25,7 @@ object MaterialProducedAmount extends AnalysisParent{
 
   def updateMap(manuData: ManufacturingData): Unit = {
     val key = manuData.materialNumber
-    map.update(key, map(key) + 1)
+    map.update(key, {map(key) + 1})
   }
 
 }

@@ -1,4 +1,4 @@
-package JsonParser
+package JsonHandling
 
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
@@ -20,8 +20,7 @@ object JsonParser {
   def jsonToManufacturingData(inputData: String): ManufacturingData = {
 
     implicit val formats = DefaultFormats
-    val obj = parse(inputData).extract[ManufacturingData]
-    obj
+    parse(inputData).extract[ManufacturingData]
   }
 
   /**

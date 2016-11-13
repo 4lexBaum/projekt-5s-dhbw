@@ -1,7 +1,9 @@
 package KafkaConnectivity
 
+import JsonHandling.ManufacturingData
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
+import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
@@ -27,8 +29,6 @@ object KafkaConsumer {
     */
 
   def getStreamingContext: StreamingContext = {
-
-
     val sparkConf = new SparkConf().setAppName("KafkaConsumer")
     val streamingContext = new StreamingContext(sparkConf, Seconds(300))
     streamingContext.checkpoint("checkpoint")
@@ -43,17 +43,17 @@ object KafkaConsumer {
     * @param processValue Function for processing the incoming records
     */
 
-  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => Unit): Unit = {
+  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => ManufacturingData): DStream[ManufacturingData] = {
     val stream = KafkaUtils.createDirectStream[String, String](
       streamingContext,
       PreferConsistent,
       Subscribe[String, String](topics, kafkaParams))
 
-
-    stream.map(record => processValue(record.value())).print()
+    val rdd = stream.map(record => processValue(record.value()))
 
     streamingContext.start()
     streamingContext.awaitTermination()
+    rdd
   }
 
   //    stream.map(record => record.value)

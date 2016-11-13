@@ -1,6 +1,6 @@
 package KafkaConnectivity
 
-import JsonParser._
+import JsonHandling._
 import Analysis.AnalysisController
 
 import scala.collection.mutable.ListBuffer
@@ -12,9 +12,9 @@ import scala.io.Source
 object KafkaController {
 
   val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
-  //val kafkaTopicsSend: String = "kafkatest"
+  val analysisController: AnalysisController = new AnalysisController()
 
-  val manufacturingDataObjects: ListBuffer[ManufacturingData] = new ListBuffer[ManufacturingData]()
+  var manufacturingDataObjects: ListBuffer[ManufacturingData] = new ListBuffer[ManufacturingData]()
 
   /**
     * Main method
@@ -66,8 +66,13 @@ object KafkaController {
 //    }
 //    addValue(list.toList)
 
-    KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
-      kafkaTopicsReceive, KafkaConsumer.kafkaParams, addValue)
+    //val mongoList = getMongoData()
+    //analysisController.runAllAnalysis(mongoList)
+
+    val stream = KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
+      kafkaTopicsReceive, KafkaConsumer.kafkaParams, JsonHandling.JsonParser.jsonToManufacturingData)
+
+    //stream.foreachRDD(rddData => analysisController.runAllAnalysis(rddData))
 
   }
 
@@ -80,12 +85,12 @@ object KafkaController {
 
     val json = JsonParser.jsonToManufacturingData(inputData)
     manufacturingDataObjects += json
-    //val manufacturingData = JsonParser.jsonToManufacturingData(inputData)
-    AnalysisController.runAllAnalysis(manufacturingDataObjects.toList)
 
-//    val message = JsonParser.manufacturingDataToJson(manufacturingData)
-//
-//    sendStringViaKafka(message, kafkaTopicsSend)
+    analysisController.runAllAnalysis(manufacturingDataObjects.toList)
+
+
+//  val message = JsonParser.manufacturingDataToJson(manufacturingData)
+//  sendStringViaKafka(message, kafkaTopicsSend)
 
   }
 

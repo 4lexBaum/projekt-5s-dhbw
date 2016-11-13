@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.{JsonParser, MachineData, ManufacturingData}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
 
 import scala.collection.mutable
@@ -8,7 +8,6 @@ import scala.collection.mutable
 /**
   * Created by fabian on 12.11.16.
   */
-
 object MaterialMillingHeat extends AnalysisParent{
 
   override val kafkaTopicsSend: String = "MaterialMillingHeat"// this.getClass.getSimpleName
@@ -27,14 +26,14 @@ object MaterialMillingHeat extends AnalysisParent{
     val machineData = manuData.machineData
 
     val speedList = for(elem <- machineData) yield checkElement(elem)
-    val filteredList = speedList.filter(v => v > 0)
+    val filteredList = speedList.filter(v => v >= 0)
     val avg = filteredList.sum/filteredList.size.toDouble
     val value = map.get(key)
 
     if(value.isEmpty){
       map += (key -> avg)
     }else {
-      map.update(key, (value.get + avg) / 2)
+      map.update(key, {(value.get + avg)/2})
     }
   }
 
@@ -42,7 +41,7 @@ object MaterialMillingHeat extends AnalysisParent{
     if(element.itemName.equals("MILLING_HEAT")){
       return element.value.toDouble
     }
-    0.0
+    -1
   }
 
 }

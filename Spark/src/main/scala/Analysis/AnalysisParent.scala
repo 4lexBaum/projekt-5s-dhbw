@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.ManufacturingData
+import JsonHandling.ManufacturingData
 
 import scala.collection.mutable.ListBuffer
 

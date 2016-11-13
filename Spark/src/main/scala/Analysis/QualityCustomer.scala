@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.{JsonParser, ManufacturingData}
+import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
 
 import collection.mutable
@@ -21,7 +21,7 @@ object QualityCustomer extends AnalysisParent{
 
     list.foreach(manuData => updateMap(manuData))
 
-    val total = CustomerOrderAmount.runAnalysisWithReturn(list)
+    val total :mutable.Map[String,Int] = CustomerOrderAmount.runAnalysisWithReturn(list)
     total.foreach(element => calculatePercentage(element))
 
     //print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
@@ -38,7 +38,6 @@ object QualityCustomer extends AnalysisParent{
     if(value.isEmpty){
       map += (key -> 0)
     }
-
     if (manuData.analysisData.overallStatus.equals("NOK")) {
       map.update(key, map(key) + 1)
     }
@@ -48,9 +47,9 @@ object QualityCustomer extends AnalysisParent{
     val key = keyValue._1
     val value = map.get(key)
     if(value.isEmpty){
-      mapPercentage + (key -> 100 + "%")
+      mapPercentage += (key -> {100 + "%"})
       return
     }
-    mapPercentage + (key -> value.get / keyValue._2 + "%")
+    mapPercentage += (key -> {value.get / keyValue._2 + "%"})
   }
 }

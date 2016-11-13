@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.{JsonParser, MachineData, ManufacturingData}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
 
 import scala.collection.mutable
@@ -26,15 +26,14 @@ object MaterialDrillingHeat extends AnalysisParent{
     val machineData = manuData.machineData
 
     val speedList = for(elem <- machineData) yield checkElement(elem)
-    val filteredList = speedList.filter(v => v > 0)
+    val filteredList = speedList.filter(v => v >= 0)
     val avg = filteredList.sum/filteredList.size.toDouble
     val value = map.get(key)
 
-
-    if (value.isEmpty) {
+    if(value.isEmpty) {
       map += (key -> avg)
     }else {
-      map.update(key, (value.get + avg)/2)
+      map.update(key, {(value.get + avg)/2})
     }
   }
 
@@ -42,7 +41,7 @@ object MaterialDrillingHeat extends AnalysisParent{
     if(element.itemName.equals("DRILLING_SPEED")){
       return element.value.toDouble
     }
-    0.0
+    -1
   }
 
 }

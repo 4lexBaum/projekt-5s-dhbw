@@ -1,6 +1,6 @@
 package Analysis
 
-import JsonParser.{JsonParser, ManufacturingData}
+import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
 
 import scala.collection.mutable
@@ -29,7 +29,7 @@ object MaterialDuration extends AnalysisParent{
     if(value.isEmpty){
       map += (key -> productionTime)
     }else{
-      map.update(key, (value.get + productionTime)/2)
+      map.update(key, {(value.get + productionTime)/2})
     }
   }
 

@@ -1,19 +1,37 @@
 //package MongoConnectivity
 //
-//import org.apache.hadoop.conf.Configuration
-//import org.apache.spark.SparkContext
+//import JsonParser.ManufacturingData
+//import com.mongodb.casbah.MongoClient
+//import com.mongodb.casbah.commons.MongoDBObject
 //
-//import scala.tools.nsc.doc.model.Object
+//import scala.collection.mutable.ListBuffer
+//
+//import JsonParser.JsonParser
 //
 ///**
 //  * Created by fabian on 12.11.16.
 //  */
 //object MongoConsumer {
 //
-//  val sc = new SparkContext("local", "Hello from scala")
+//  def main(args: Array[String]): Unit = {
+//    getMongoData.foreach(elem => println(elem))
+//  }
 //
-//  val config = new Configuration()
-//  config.set("mongo.input.uri", "mongodb://127.0.0.1:27017/dbName.collectionName")
-//  val mongoRDD = sc.newAPIHadoopRDD(config, classOf[com.mongodb.hadoop.MongoInputFormat], classOf[Object], classOf[BSONObject])
+//  val mongoClient = MongoClient("localhost", 28000)
+//  val db = mongoClient("oip_taktstrasse")
+//  val coll = db("manufacturingData")
+//  val query  = MongoDBObject.empty
+//  val fields = MongoDBObject("_id" -> 0)
+//  val manufacturingDataObjects: ListBuffer[ManufacturingData] = ListBuffer[ManufacturingData]()
+//
+//  def getMongoData: List[ManufacturingData] ={
+//    val allDocs = coll.find(query,fields)
+//    for(doc <- allDocs) yield append(doc.toString)
+//    manufacturingDataObjects.toList
+//  }
+//
+//  def append(mongoElem: String): Unit ={
+//    manufacturingDataObjects +=  JsonParser.jsonToManufacturingData(mongoElem)
+//  }
 //
 //}

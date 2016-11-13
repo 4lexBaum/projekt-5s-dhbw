@@ -1,11 +1,11 @@
 package Analysis
 
-import JsonParser.ManufacturingData
+import JsonHandling.ManufacturingData
 
 /**
   * Created by fabian on 06.11.16.
   */
-object AnalysisController{
+class AnalysisController{
 
   def runAllAnalysis(list: List[ManufacturingData]): Unit ={
     QualityCustomer.runAnalysis(list)
@@ -15,7 +15,6 @@ object AnalysisController{
     MaterialMillingHeat.runAnalysis(list)
     MaterialDrillingSpeed.runAnalysis(list)
     MaterialDrillingHeat.runAnalysis(list)
-
   }
 
 }
