@@ -3,7 +3,7 @@ package KafkaConnectivity
 import JsonHandling.ManufacturingData
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.kafka010._
@@ -28,10 +28,10 @@ class KafkaConsumer {
     * @return Spark StreamingContext
     */
 
-  def getStreamingContext: StreamingContext = {
-    val conf = new SparkConf().setAppName("KafkaStream")
-    val streamingContext = new StreamingContext(conf, Seconds(100))
-    streamingContext.checkpoint("checkpoint")
+  def getStreamingContext(sc: SparkContext): StreamingContext = {
+    //val conf = new SparkConf().setAppName("KafkaStream")
+    val streamingContext = new StreamingContext(sc, Seconds(100))
+    streamingContext.checkpoint("KafkaCheckpoint")
     streamingContext
   }
 

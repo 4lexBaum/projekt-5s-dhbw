@@ -4,7 +4,7 @@ import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.writePretty
 
-import collection.mutable
+import collection._
 
 /**
   * Created by fabian on 05.11.16.
@@ -33,22 +33,25 @@ object JsonParser {
      writePretty(inputData)
   }
 
-  def mapToJsonInt(map: mutable.Map[String, Int]): String = {
-    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+  def mapToJsonInt(map: Map[String, Int]): String = {
+    //val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
     implicit val formats = DefaultFormats
-    writePretty(tempMap)
+    writePretty(map)
   }
 
-  def mapToJsonDouble(map: mutable.Map[String, Double]): String = {
-    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+  def mapToJsonDouble(map: Map[String, Double]): String = {
     implicit val formats = DefaultFormats
-    writePretty(tempMap)
+    writePretty(map)
   }
 
-  def mapToJsonString(map: mutable.Map[String, String]): String = {
-    val tempMap = mutable.ListMap(map.toSeq.sortBy(_._2):_*)
+  def mapToJsonString(map: Map[String, String]): String = {
     implicit val formats = DefaultFormats
-    writePretty(tempMap)
+    writePretty(map)
+  }
+
+  def mapToJsonLong(map: Map[java.lang.String, Long]): String = {
+    implicit val formats = DefaultFormats
+    writePretty(map)
   }
 
 }

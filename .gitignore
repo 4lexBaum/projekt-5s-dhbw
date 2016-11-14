@@ -9,3 +9,7 @@ Dockerfiles/taktstrasse/.DS_Store
 .project
 .settings
 Spark/Spark.iml
+Spark/SparkAnalysis.iml
+Dockerfiles/spark/SparkAnalysis.jar
+Spark/target/
+Spark/src/main/scala/META-INF/

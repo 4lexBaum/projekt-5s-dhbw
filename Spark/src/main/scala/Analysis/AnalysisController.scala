@@ -16,6 +16,8 @@ class AnalysisController{
     MaterialMillingHeat.runAnalysis(rdd)
     MaterialDrillingSpeed.runAnalysis(rdd)
     MaterialDrillingHeat.runAnalysis(rdd)
+    CustomerOrderAmount.runAnalysis(rdd)
+    MaterialProducedAmount.runAnalysis(rdd)
   }
 
 }

@@ -1,6 +1,7 @@
 package KafkaConnectivity
 
 import JsonHandling._
+import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
 /**
@@ -17,7 +18,7 @@ object KafkaController {
     * Start Kafka Stream
     */
 
-  def startKafkaInputStream(transformInput: (String) => ManufacturingData, transformForAnalysis: (RDD[ManufacturingData]) => Unit) : Unit = {
+  def startKafkaInputStream(sc: SparkContext, transformInput: (String) => ManufacturingData, transformForAnalysis: (RDD[ManufacturingData]) => Unit) : Unit = {
 
     //    val json = "\n{\"customerNumber\":\"4715\",\"materialNumber\":\"9823\",\"orderNumber\":\"c5cc96a3-208d-48e9-9d7e-6fa50c0494f0\"," +
     //      "\"timeStamp\":\"2016-11-05T16:36:15.122+01:00\",\"machineData\":[{\"value\":\"false\",\"status\":\"GOOD\",\"itemName\":\"L1\"," +
@@ -55,7 +56,7 @@ object KafkaController {
 //      list += line
 //    }
 
-    kafkaConsumer.startStream(kafkaConsumer.getStreamingContext,
+    kafkaConsumer.startStream(kafkaConsumer.getStreamingContext(sc),
       kafkaTopicsReceive, kafkaConsumer.getKafkaParams, JsonHandling.JsonParser.jsonToManufacturingData, transformForAnalysis)
 
   }

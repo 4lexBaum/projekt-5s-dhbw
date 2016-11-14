@@ -12,39 +12,59 @@ import collection.mutable
 
 object MaterialDrillingSpeed extends AnalysisParent {
 
-  override val kafkaTopicSend: String = "MaterialDrillingSpeed"
-  // this.getClass.getSimpleName
-  private val map: mutable.Map[String, Double] = mutable.Map[String, Double]()
+  override val kafkaTopicSend: String = "MaterialDrillingSpeed"// this.getClass.getSimpleName
 
   override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    rdd.foreach(manuData => updateMap(manuData))
+    val map = rdd.map(manuData => mapping(manuData))
+      .groupByKey()
+      .sortByKey()
+      .map(x => (x._1, average(x._2)))
+      .collect().map(elem => elem._1 -> elem._2)
+      .toMap
+
 //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
     KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicSend)
-    map.empty
   }
 
-  def updateMap(manuData: ManufacturingData): Unit = {
-    val key = manuData.materialNumber
-    val machineData = manuData.machineData
+  override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
-    val speedList = for (elem <- machineData) yield checkElement(elem)
-    val filteredList = speedList.filter(v => v >= 0)
-    val avg = filteredList.sum / filteredList.size.toDouble
-    val value = map.get(key)
+    val machineData = manufacturingData.machineData
+    val speedList = for(elem <- machineData) yield checkElement(elem)
+    val filteredList = speedList.filter(_ != -1)
+    val avg = filteredList.sum/filteredList.size.toDouble
 
-    if (value.isEmpty) {
-      map += (key -> avg)
-    } else {
-      map.update(key, {(value.get + avg).toFloat/2})
-    }
+    (manufacturingData.materialNumber, avg)
   }
 
-  def checkElement(element: MachineData): Double = {
-    if (element.itemName.equals("DRILLING_SPEED")) {
+  override def checkElement(element: MachineData): Double ={
+    if(element.itemName.equals("DRILLING_SPEED")){
       return element.value.toDouble
     }
     -1
   }
+
+//  def updateMap(manuData: ManufacturingData): Unit = {
+//    val key = manuData.materialNumber
+//    val machineData = manuData.machineData
+//
+//    val speedList = for (elem <- machineData) yield checkElement(elem)
+//    val filteredList = speedList.filter(v => v >= 0)
+//    val avg = filteredList.sum / filteredList.size.toDouble
+//    val value = map.get(key)
+//
+//    if (value.isEmpty) {
+//      map += (key -> avg)
+//    } else {
+//      map.update(key, {(value.get + avg).toFloat/2})
+//    }
+//  }
+//
+//  def checkElement(element: MachineData): Double = {
+//    if (element.itemName.equals("DRILLING_SPEED")) {
+//      return element.value.toDouble
+//    }
+//    -1
+//  }
 
 }

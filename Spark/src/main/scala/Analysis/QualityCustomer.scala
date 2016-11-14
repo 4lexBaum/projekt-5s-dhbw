@@ -1,11 +1,10 @@
 package Analysis
 
-import JsonHandling.{JsonParser, ManufacturingData}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
 import org.apache.spark.rdd.RDD
 
-import collection.mutable
-
+import collection._
 
 /**
   * Created by fabian on 06.11.16.
@@ -13,47 +12,49 @@ import collection.mutable
 object QualityCustomer extends AnalysisParent{
 
   override val kafkaTopicSend: String = "QualityCustomer"//this.getClass.getSimpleName.replace("$", "")
-  val kafkaTopicsSendPercentage: String = "QualityCustomerPercentage"//this.getClass.getSimpleName.replace("$", "")
-  private val map: mutable.Map[String, Int] = mutable.Map[String,Int]()
-  private val mapPercentage: mutable.Map[String, String] = mutable.Map[String,String]()
-
 
   override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    rdd.foreach(manuData => updateMap(manuData))
-
-    val total :mutable.Map[String,Int] = CustomerOrderAmount.runAnalysisWithReturn(rdd)
-    total.foreach(element => calculatePercentage(element))
+    val map = rdd.map(manuData => mapping(manuData))
+      .groupByKey()
+      .sortByKey()
+      .map(x => (x._1, sum(x._2)))
+      .collect()
+      .map(elem => elem._1 -> elem._2)
+      .toMap
 
 //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
-//    print(kafkaTopicsSendPercentage + " " + JsonParser.mapToJsonString(mapPercentage))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonInt(map), kafkaTopicSend)
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonString(mapPercentage), kafkaTopicsSendPercentage)
-    map.empty
-    mapPercentage.empty
+    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicSend)
   }
 
-  def updateMap(manuData: ManufacturingData): Unit ={
-    val key = manuData.customerNumber
-    val value = map.get(key)
+  override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
-    if(value.isEmpty){
-      map += (key -> 0)
-    }
-    if (manuData.analysisData.overallStatus.equals("NOK")) {
-      map.update(key, map(key) + 1)
+    if (manufacturingData.analysisData.overallStatus.equals("NOK")) {
+      (manufacturingData.materialNumber, 1)
+    }else{
+      (manufacturingData.materialNumber, 0)
+
     }
   }
 
-  def calculatePercentage(keyValue: (String,Int)): Unit ={
-    val key = keyValue._1
-    val value = map.get(key)
-    if(value.isEmpty){
-      mapPercentage += (key -> {0 + "%"})
-      return
-    }
+//  def calculatePercentage(v: (String, Long), map: Map[String, Double]): (String, String) = {
+//    val key = v._1
+//    val value = map.get(key)
+//    if (value.isEmpty) {
+//      key -> (0 + "%")
+//    }
+//    key -> (((value.get/v._2)*100).toString + "%")
+//  }
 
-    mapPercentage += (key -> ((((value.get:Float)/keyValue._2)*100).toString + "%"))
-    println(mapPercentage)
-  }
+//  def updateMap(manuData: ManufacturingData): Unit ={
+//    val key = manuData.customerNumber
+//    val value = map.get(key)
+//
+//    if(value.isEmpty){
+//      map += (key -> 0)
+//    }
+//    if (manuData.analysisData.overallStatus.equals("NOK")) {
+//      map.update(key, map(key) + 1)
+//    }
+//  }
 }
