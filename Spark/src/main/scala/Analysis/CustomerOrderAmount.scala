@@ -13,7 +13,7 @@ object CustomerOrderAmount extends AnalysisParent{
 
   override val kafkaTopicSend: String = "CustomerOrderAmount"//this.getClass.getSimpleName.replace("$", "")
 
-  def runAnalysisWithReturn(rdd: RDD[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .countByKey()

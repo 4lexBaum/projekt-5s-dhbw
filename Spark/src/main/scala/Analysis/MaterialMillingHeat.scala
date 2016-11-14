@@ -19,7 +19,8 @@ object MaterialMillingHeat extends AnalysisParent{
       .groupByKey()
       .sortByKey()
       .map(x => (x._1, average(x._2)))
-      .collect().map(elem => elem._1 -> elem._2)
+      .collect()
+      .map(elem => elem._1 -> elem._2)
       .toMap
 
 //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))

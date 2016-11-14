@@ -18,11 +18,11 @@ trait AnalysisParent {
   }
 
   def average[T]( ts: Iterable[T] )( implicit num: Numeric[T] ) = {
-    num.toDouble( ts.sum ) / ts.size
+    num.toDouble(ts.sum) / ts.size
   }
 
   def sum[T]( ts: Iterable[T] )( implicit num: Numeric[T] ) = {
-    num.toDouble( ts.sum )
+    num.toDouble(ts.sum)
   }
 
   def mapping(manufacturingData: ManufacturingData): (String, Double)={

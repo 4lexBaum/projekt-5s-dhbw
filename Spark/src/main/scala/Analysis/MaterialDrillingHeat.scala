@@ -12,7 +12,6 @@ import scala.collection.mutable
 object MaterialDrillingHeat extends AnalysisParent{
 
   override val kafkaTopicSend: String = "MaterialDrillingHeat"// this.getClass.getSimpleName
-  //private val map: mutable.Map[String, Double] = mutable.Map[String,Double]()
 
   override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
@@ -20,7 +19,8 @@ object MaterialDrillingHeat extends AnalysisParent{
       .groupByKey()
       .sortByKey()
       .map(x => (x._1, average(x._2)))
-      .collect().map(elem => elem._1 -> elem._2)
+      .collect()
+      .map(elem => elem._1 -> elem._2)
       .toMap
 
 //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))

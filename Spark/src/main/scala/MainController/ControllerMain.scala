@@ -22,7 +22,7 @@ object ControllerMain {
     //mongo analysis for first time
     analysisController.runAllAnalysis(mongoConsumer.getMongoData(sc))
 
-    //mit zwei sparkcontexten fuckt spark irgendwie rum, kp warum
+    //mit zwei sparkcontexten fuckt spark rum, also bei mongo und hier übergeben
     KafkaController.startKafkaInputStream(sc: SparkContext, JsonHandling.JsonParser.jsonToManufacturingData, analysisController.runAllAnalysis)
 
   }

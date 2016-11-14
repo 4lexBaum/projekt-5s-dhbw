@@ -1,5 +1,6 @@
 package JsonHandling
 
+import com.fasterxml.jackson.databind.JsonMappingException
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.writePretty
@@ -20,6 +21,7 @@ object JsonParser {
   def jsonToManufacturingData(inputData: String): ManufacturingData = {
     implicit val formats = DefaultFormats
     parse(inputData).extract[ManufacturingData]
+    //TODO: JsonMappingException tritt auf, wenn Daten umvollständig
   }
 
   /**
