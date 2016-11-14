@@ -1,6 +1,7 @@
 package Analysis
 
-import JsonParser.ManufacturingData
+import JsonHandling.ManufacturingData
+import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable.ListBuffer
 
@@ -10,10 +11,14 @@ import scala.collection.mutable.ListBuffer
 
 trait AnalysisParent {
 
-  val kafkaTopicsSend:String
+  val kafkaTopicSend:String
 
-  def runAnalysis(list: List[ManufacturingData]): Unit = {
+  def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
     ()
+  }
+
+  def runAnalysisWithReturn(rdd: RDD[ManufacturingData]): Map[String,Long] = {
+    Map[String,Long]()
   }
 
 }

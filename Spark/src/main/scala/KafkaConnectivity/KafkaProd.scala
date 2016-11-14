@@ -8,10 +8,8 @@ import java.util.Properties
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
-object KafkaProd {
+class KafkaProd {
 
-  val DefaultZookeeperConnection = "kafka:2181"
-  val DefaultKafkaConnection = "kafka:9092"
   val mandatoryOptions: Map[String, Any] = Map(
     "bootstrap.servers" -> "kafka:9092",
     "acks" -> "all",
@@ -61,5 +59,9 @@ object KafkaProd {
     val record = new ProducerRecord(topic, "", message)
     kafkaProducer.send(record)
     kafkaProducer.flush()
+  }
+
+  def getMandatoryOptions: Map[String, Any]={
+    mandatoryOptions
   }
 }

@@ -1,7 +1,8 @@
 package Analysis
 
-import JsonParser.{JsonParser, MachineData, ManufacturingData}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import org.apache.spark.rdd.RDD
 
 import collection.mutable
 
@@ -10,13 +11,13 @@ import collection.mutable
   */
 object MaterialMillingSpeed extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = this.getClass.getSimpleName
+  override val kafkaTopicSend: String = this.getClass.getSimpleName
   private val map: mutable.Map[String, Double] = mutable.Map[String,Double]().withDefaultValue(0)
 
-  override def runAnalysis(list: List[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    list.foreach(manuData => updateMap(manuData))
-    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    rdd.foreach(manuData => updateMap(manuData))
+    print(kafkaTopicSend + " " + JsonParser.mapToJsonDouble(map))
     //KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
   }
 

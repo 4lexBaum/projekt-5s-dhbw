@@ -13,12 +13,12 @@ class AnalysisController{
 //    val rdd = inputRDD.cache()
 
     CustomerOrderAmount.runAnalysisWithReturn(rdd)
-//    QualityCustomer.runAnalysis(rdd)
-//    QualityMaterial.runAnalysis(rdd)
-//    MaterialDuration.runAnalysis(rdd)
-//    MaterialMillingSpeed.runAnalysis(rdd)
+    QualityCustomer.runAnalysis(rdd)
+    QualityMaterial.runAnalysis(rdd)
+    MaterialDuration.runAnalysis(rdd)
+    MaterialMillingSpeed.runAnalysis(rdd)
 //    MaterialMillingHeat.runAnalysis(rdd)
-//    MaterialDrillingSpeed.runAnalysis(rdd)
+    MaterialDrillingSpeed.runAnalysis(rdd)
 //    MaterialDrillingHeat.runAnalysis(rdd)
   }
 

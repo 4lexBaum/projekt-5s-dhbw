@@ -1,7 +1,9 @@
 package Analysis
 
-import JsonParser.{JsonParser, ManufacturingData}
+import JsonHandling.ManufacturingData
 import KafkaConnectivity.KafkaController
+import JsonHandling.{JsonParser, ManufacturingData}
+import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable.Map
 
@@ -10,13 +12,13 @@ import scala.collection.mutable.Map
   */
 object MaterialDuration extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = this.getClass.getSimpleName
+  override val kafkaTopicSend: String = this.getClass.getSimpleName
   private val map: Map[String, Double] = Map[String, Double]().withDefaultValue(0.0)
 
-  override def runAnalysis(list: List[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    list.foreach(manuData => updateMap(manuData))
-    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    rdd.foreach(manuData => updateMap(manuData))
+    print(kafkaTopicSend + " " + JsonParser.mapToJsonDouble(map))
     //KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
   }
 
