@@ -16,7 +16,7 @@ setTimeout(function () {
 
     var client = new Client("kafka");
     var topics = [{
-        topic: "kafkatest"
+        topic: "manufacturingData"
     }, {
         topic: "erpData"
     }, {

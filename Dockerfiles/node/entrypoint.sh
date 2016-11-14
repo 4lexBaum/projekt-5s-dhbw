@@ -4,6 +4,7 @@
 
 cd /usr/src/app
 
-npm start &
+node testData.js &
+npm run start
 
 /usr/bin/tail -f /dev/null
