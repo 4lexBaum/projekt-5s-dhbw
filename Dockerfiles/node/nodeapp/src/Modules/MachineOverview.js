@@ -3,6 +3,7 @@ import React from 'react';
 import { Machine } from '../Components/Machine.js';
 import { MachineData } from '../Components/MachineData.js';
 import { Header } from '../Components/Header.js';
+import { ERPData } from '../Components/ERPData.js';
 
 export class MachineOverview extends React.Component {
 
@@ -14,13 +15,16 @@ export class MachineOverview extends React.Component {
           $('#machineIcon').jrumble();
           var machineIcon = $("#machineIcon");
           var product = $(".product");
+          var areaWidth = $(".area").width() + 4;
+          var move = '+=' + areaWidth + 'px';
+          var moveBack = '-=' + (4 * areaWidth) + 'px';
           socket.on("machine", function(msg){
             switch (msg.itemName) {
               case "L1":
                 if(msg.value){
                   $("#lb1").css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 1000);
                   $("#area1").removeClass("GOOD BAD");
-                  product.animate({marginLeft: '+=200px'}, 2000);
+                  product.animate({marginLeft: move}, 2000);
                 } else{
                   product.css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 500);
                   $("#lb1").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 1000);
@@ -31,7 +35,7 @@ export class MachineOverview extends React.Component {
                 if(msg.value){
                   $("#lb2").css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 1000);
                   $("#area2").removeClass("GOOD BAD");
-                  product.animate({marginLeft: '+=200px'}, 2000);
+                  product.animate({marginLeft: move}, 2000);
                 } else{
                   $("#lb2").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 1000);
                   $("#area2").addClass(msg.status);
@@ -45,7 +49,7 @@ export class MachineOverview extends React.Component {
                 if(msg.value){
                   $("#lb3").css({opacity: 0, visibility: "visible"}).animate({opacity:1.0}, 1000);
                   $("#area3").removeClass("GOOD BAD");
-                  product.animate({marginLeft: '+=200px'}, 2000);
+                  product.animate({marginLeft: move}, 2000);
                 } else{
                   $("#lb3").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 1000);
                   $("#area3").addClass(msg.status);
@@ -61,7 +65,7 @@ export class MachineOverview extends React.Component {
                 if(msg.value){
                   $("#lb4").css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 1000);
                   $("#area4").removeClass("GOOD BAD");
-                  product.animate({marginLeft: '+=200px'}, 2000);
+                  product.animate({marginLeft: move}, 2000);
                 } else{
                   $("#lb4").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 1000);
                   $(".machineValue").effect("highlight", {color:"rgba(17, 120, 149, 0.9)"}, 2000);
@@ -76,7 +80,7 @@ export class MachineOverview extends React.Component {
                   $("#lb5").css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 1000);
                   $("#area5").removeClass("GOOD BAD");
                   product.css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 500);
-                  product.animate({marginLeft: '-=800px'}, 0);
+                  product.css('marginLeft', '4%');
                 } else{
                   $("#lb5").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 1000);
                   $("#area5").addClass(msg.status);
@@ -109,7 +113,11 @@ export class MachineOverview extends React.Component {
               <div>
                 <Header></Header>
                 <MachineData></MachineData>
-                <Machine></Machine>
+                <div className="machineBox">
+                  <ERPData></ERPData>
+                  <Machine></Machine>
+                  <ERPData></ERPData>
+                </div>
               </div>
 
             )

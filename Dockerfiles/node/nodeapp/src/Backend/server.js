@@ -14,7 +14,9 @@ var io = require('socket.io')(http);
 
 app.use('/', express.static(path.join(__dirname, '../../public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 var topics = [{
     topic: "manufacturingData"
@@ -55,7 +57,6 @@ var options = {
 setTimeout(function () {
 
     var client = new Client("kafka");
-
     var consumer = new Consumer(client, topics, options);
     var offset = new Offset(client);
 
@@ -71,7 +72,6 @@ setTimeout(function () {
 
         consumer.on('message', function (message) {
             var msgVal = JSON.parse(message.value)
-            console.log(msgVal);
             switch (message.topic) {
                 case "erpData":
                     socket.emit("erp", msgVal);
@@ -87,9 +87,9 @@ setTimeout(function () {
                         socket.emit("DRILLING_HEAT", Math.floor(msgVal.value));
                     } else if (msgVal.itemName.startsWith("L")) {
                         socket.emit("LIGHT_BARRIER", msgVal.itemName);
-                    } else {
-                        socket.emit("machine", msgVal);
                     }
+                    socket.emit("machine", msgVal);
+
                     break;
                 default:
                     socket.emit(message.topic, msgVal);
@@ -101,4 +101,4 @@ setTimeout(function () {
         console.log('listening on *:3000');
     });
 
-}, 50000);
+}, 70000);

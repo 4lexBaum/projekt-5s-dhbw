@@ -29,7 +29,6 @@
     ]
   },
   "scripts": {
-    "build": "node testData.js",
     "start": "node ./src/Backend/server.js"
   },
   "dependencies": {
