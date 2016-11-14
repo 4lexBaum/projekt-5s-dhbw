@@ -71,7 +71,6 @@ setTimeout(function () {
 
         consumer.on('message', function (message) {
             var msgVal = JSON.parse(message.value)
-            console.log(msgVal);
             switch (message.topic) {
                 case "erpData":
                     socket.emit("erp", msgVal);
@@ -87,9 +86,8 @@ setTimeout(function () {
                         socket.emit("DRILLING_HEAT", Math.floor(msgVal.value));
                     } else if (msgVal.itemName.startsWith("L")) {
                         socket.emit("LIGHT_BARRIER", msgVal.itemName);
-                    } else {
-                        socket.emit("machine", msgVal);
                     }
+                    socket.emit("machine", msgVal);
                     break;
                 default:
                     socket.emit(message.topic, msgVal);

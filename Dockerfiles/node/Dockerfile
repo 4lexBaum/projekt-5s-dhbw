@@ -11,7 +11,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy the node app to the docker directory
-COPY nodeapp/. /usr/src/app
+COPY nodeapp3/. /usr/src/app
 
 # Install all dependencies and build the project
 RUN npm install
