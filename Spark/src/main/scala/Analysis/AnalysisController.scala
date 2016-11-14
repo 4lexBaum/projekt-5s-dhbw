@@ -1,20 +1,21 @@
 package Analysis
 
 import JsonHandling.ManufacturingData
+import org.apache.spark.rdd.RDD
 
 /**
   * Created by fabian on 06.11.16.
   */
 class AnalysisController{
 
-  def runAllAnalysis(list: List[ManufacturingData]): Unit ={
-    QualityCustomer.runAnalysis(list)
-    QualityMaterial.runAnalysis(list)
-    MaterialDuration.runAnalysis(list)
-    MaterialMillingSpeed.runAnalysis(list)
-    MaterialMillingHeat.runAnalysis(list)
-    MaterialDrillingSpeed.runAnalysis(list)
-    MaterialDrillingHeat.runAnalysis(list)
+  def runAllAnalysis(rdd: RDD[ManufacturingData]): Unit ={//list: List[ManufacturingData]
+    QualityCustomer.runAnalysis(rdd)
+    QualityMaterial.runAnalysis(rdd)
+    MaterialDuration.runAnalysis(rdd)
+    MaterialMillingSpeed.runAnalysis(rdd)
+    MaterialMillingHeat.runAnalysis(rdd)
+    MaterialDrillingSpeed.runAnalysis(rdd)
+    MaterialDrillingHeat.runAnalysis(rdd)
   }
 
 }

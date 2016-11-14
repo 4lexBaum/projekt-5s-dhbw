@@ -2,6 +2,7 @@ package Analysis
 
 import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable
 
@@ -10,14 +11,14 @@ import scala.collection.mutable
   */
 object MaterialDuration extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = "MaterialDuration" //this.getClass.getSimpleName
+  override val kafkaTopicSend: String = "MaterialDuration" //this.getClass.getSimpleName
   private val map: mutable.Map[String, Double] = mutable.Map[String, Double]()
 
-  override def runAnalysis(list: List[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    list.foreach(manuData => updateMap(manuData))
-    //print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
+    rdd.foreach(manuData => updateMap(manuData))
+//    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicSend)
     map.empty
   }
 
@@ -29,7 +30,7 @@ object MaterialDuration extends AnalysisParent{
     if(value.isEmpty){
       map += (key -> productionTime)
     }else{
-      map.update(key, {(value.get + productionTime)/2})
+      map.update(key, {(value.get + productionTime).toFloat/2})
     }
   }
 

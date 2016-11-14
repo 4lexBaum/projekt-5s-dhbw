@@ -11,8 +11,8 @@ RUN chmod u+x /entrypoint.sh
 
 # copy spark jar on docker and set permissions
 RUN mkdir -p /jarFiles
-COPY Spark.jar /jarFiles
-RUN chmod u+x /jarFiles/Spark.jar
+COPY SparkAnalysis.jar /jarFiles
+RUN chmod u+x /jarFiles/SparkAnalysis.jar
 
 
 # install spark

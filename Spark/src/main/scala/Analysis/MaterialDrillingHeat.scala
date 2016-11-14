@@ -2,6 +2,7 @@ package Analysis
 
 import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable
 
@@ -10,14 +11,14 @@ import scala.collection.mutable
   */
 object MaterialDrillingHeat extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = "MaterialDrillingHeat"// this.getClass.getSimpleName
+  override val kafkaTopicSend: String = "MaterialDrillingHeat"// this.getClass.getSimpleName
   private val map: mutable.Map[String, Double] = mutable.Map[String,Double]()
 
-  override def runAnalysis(list: List[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    list.foreach(manuData => updateMap(manuData))
-    //print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicsSend)
+    rdd.foreach(manuData => updateMap(manuData))
+//    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
+    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicSend)
     map.empty
   }
 
@@ -33,12 +34,12 @@ object MaterialDrillingHeat extends AnalysisParent{
     if(value.isEmpty) {
       map += (key -> avg)
     }else {
-      map.update(key, {(value.get + avg)/2})
+      map.update(key, {(value.get + avg).toFloat/2})
     }
   }
 
   def checkElement(element: MachineData): Double ={
-    if(element.itemName.equals("DRILLING_SPEED")){
+    if(element.itemName.equals("DRILLING_HEAT")){
       return element.value.toDouble
     }
     -1

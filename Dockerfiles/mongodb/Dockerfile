@@ -18,7 +18,7 @@ COPY historicData.json /data
 COPY entrypoint.sh /
 RUN chmod u+x /entrypoint.sh
 
-# Expose port 27017 from the container to the host
+# Expose ports
 EXPOSE 27017
 
 ENTRYPOINT /entrypoint.sh

@@ -1,27 +1,23 @@
 package KafkaConnectivity
 
 import JsonHandling._
-import Analysis.AnalysisController
-
-import scala.collection.mutable.ListBuffer
-import scala.io.Source
+import org.apache.spark.rdd.RDD
 
 /**
   * Created by fabian on 05.11.16.
   */
 object KafkaController {
 
-  val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
-  val analysisController: AnalysisController = new AnalysisController()
+  private val kafkaConsumer: KafkaConsumer = new KafkaConsumer()
+  private val kafkaProd: KafkaProd = new KafkaProd()
 
-  var manufacturingDataObjects: ListBuffer[ManufacturingData] = new ListBuffer[ManufacturingData]()
+  private val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
 
   /**
-    * Main method
-    * @param args nothing required
+    * Start Kafka Stream
     */
 
-  def main(args: Array[String]): Unit = {
+  def startKafkaInputStream(transformInput: (String) => ManufacturingData, transformForAnalysis: (RDD[ManufacturingData]) => Unit) : Unit = {
 
     //    val json = "\n{\"customerNumber\":\"4715\",\"materialNumber\":\"9823\",\"orderNumber\":\"c5cc96a3-208d-48e9-9d7e-6fa50c0494f0\"," +
     //      "\"timeStamp\":\"2016-11-05T16:36:15.122+01:00\",\"machineData\":[{\"value\":\"false\",\"status\":\"GOOD\",\"itemName\":\"L1\"," +
@@ -54,45 +50,33 @@ object KafkaController {
     //      "\"em2\":36.4468245352747,\"a1\":22.554859129554828,\"a2\":9.473040834413027,\"b1\":14954.869842934473,\"b2\":345.2622571073438," +
     //      "\"overallStatus\":\"NOK\",\"ts_start\":1478360304766,\"ts_stop\":1478360308768}}\n"
 
-    //    val data = addValue(json)
-
-    //Send random string to make topic available for nodejs server
-    //Otherwise topic not found exception.
-
-
 //    var list: ListBuffer[String] = new ListBuffer[String]()
 //    for (line <- Source.fromFile("TestJson.json").getLines()) {
 //      list += line
 //    }
-//    addValue(list.toList)
 
-    //val mongoList = getMongoData()
-    //analysisController.runAllAnalysis(mongoList)
-
-    val stream = KafkaConsumer.startStream(KafkaConsumer.getStreamingContext,
-      kafkaTopicsReceive, KafkaConsumer.kafkaParams, JsonHandling.JsonParser.jsonToManufacturingData)
-
-    //stream.foreachRDD(rddData => analysisController.runAllAnalysis(rddData))
+    kafkaConsumer.startStream(kafkaConsumer.getStreamingContext,
+      kafkaTopicsReceive, kafkaConsumer.getKafkaParams, JsonHandling.JsonParser.jsonToManufacturingData, transformForAnalysis)
 
   }
 
-  /**
-    * Add Json String to ManufacturingData List and send it back to Kafka as Json
-    * @param inputData Json String of ManufacturingData
-    */
+//  /**
+//    * Add Json String to ManufacturingData List and send it back to Kafka as Json
+//    * @param inputData Json String of ManufacturingData
+//    */
 
-  def addValue(inputData: String): Unit = {
-
-    val json = JsonParser.jsonToManufacturingData(inputData)
-    manufacturingDataObjects += json
-
-    analysisController.runAllAnalysis(manufacturingDataObjects.toList)
-
-
-//  val message = JsonParser.manufacturingDataToJson(manufacturingData)
-//  sendStringViaKafka(message, kafkaTopicsSend)
-
-  }
+//  def addValue(inputData: String): Unit = {
+//
+//    val json = JsonParser.jsonToManufacturingData(inputData)
+//    manufacturingDataObjects += json
+//
+//    analysisController.runAllAnalysis(manufacturingDataObjects.toList)
+//
+//
+////  val message = JsonParser.manufacturingDataToJson(manufacturingData)
+////  sendStringViaKafka(message, kafkaTopicsSend)
+//
+//  }
 
   /**
     * Send String via Kafka to topic and close Producer afterwards
@@ -101,9 +85,11 @@ object KafkaController {
     */
 
   def sendStringViaKafka(message: String, topic: String): Unit = {
-    val kafka = KafkaProd.getProducer(KafkaProd.mandatoryOptions)
-    KafkaProd.send(kafka, topic, message)
-    kafka.close()
+    synchronized {
+      val kafka = kafkaProd.getProducer(kafkaProd.getMandatoryOptions)
+      kafkaProd.send(kafka, topic, message)
+      kafka.close()
+    }
   }
 
 }

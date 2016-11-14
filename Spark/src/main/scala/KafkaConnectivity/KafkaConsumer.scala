@@ -1,19 +1,19 @@
 package KafkaConnectivity
 
 import JsonHandling.ManufacturingData
+import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
-import org.apache.spark.streaming.dstream.DStream
+import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
-import scala.collection.mutable.ListBuffer
 
-object KafkaConsumer {
+class KafkaConsumer {
 
-  val kafkaParams: Map[String, Object] = Map(
+  private val kafkaParams: Map[String, Object] = Map(
     "bootstrap.servers" -> "kafka:9092",
     "key.deserializer" -> classOf[StringDeserializer],
     "value.deserializer" -> classOf[StringDeserializer],
@@ -29,8 +29,8 @@ object KafkaConsumer {
     */
 
   def getStreamingContext: StreamingContext = {
-    val sparkConf = new SparkConf().setAppName("KafkaConsumer")
-    val streamingContext = new StreamingContext(sparkConf, Seconds(300))
+    val conf = new SparkConf().setAppName("KafkaStream")
+    val streamingContext = new StreamingContext(conf, Seconds(100))
     streamingContext.checkpoint("checkpoint")
     streamingContext
   }
@@ -40,23 +40,24 @@ object KafkaConsumer {
     * @param streamingContext Spark StreamingContext
     * @param topics Set of topics to listen to
     * @param params Kafka Params for zookeeper, groupID, etc.
-    * @param processValue Function for processing the incoming records
+    * @param transformInput Function for processing the incoming records
     */
 
-  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object], processValue: (String) => ManufacturingData): DStream[ManufacturingData] = {
+  def startStream(streamingContext: StreamingContext, topics: Set[String], params: Map[String, Object],
+                  transformInput: (String) => ManufacturingData, transformForAnalysis: (RDD[ManufacturingData]) => Unit) = {
     val stream = KafkaUtils.createDirectStream[String, String](
       streamingContext,
       PreferConsistent,
       Subscribe[String, String](topics, kafkaParams))
 
-    val rdd = stream.map(record => processValue(record.value()))
+    val tempStream = stream.map(record => transformInput(record.value()))
+    tempStream.foreachRDD(rdd => transformForAnalysis(rdd))
 
     streamingContext.start()
     streamingContext.awaitTermination()
-    rdd
   }
 
-  //    stream.map(record => record.value)
-  //      .foreachRDD(rddData => rddData.foreach{element =>
-  //        AnalysisController.addValue(element)})
+  def getKafkaParams: Map[String, Object] ={
+    kafkaParams
+  }
 }

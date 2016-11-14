@@ -2,6 +2,7 @@ package Analysis
 
 import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable
 import scala.collection.mutable.Map
@@ -11,21 +12,22 @@ import scala.collection.mutable.Map
   */
 object QualityMaterial extends AnalysisParent{
 
-  override val kafkaTopicsSend: String = "QualityMaterial" //this.getClass.getSimpleName.replace("$", "")
+  override val kafkaTopicSend: String = "QualityMaterial" //this.getClass.getSimpleName.replace("$", "")
   val kafkaTopicsSendPercentage: String = "QualityMaterialPercentage"//this.getClass.getSimpleName.replace("$", "")
   private val map: mutable.Map[String, Int] = mutable.Map[String,Int]()
   private val mapPercentage: mutable.Map[String, String] = mutable.Map[String,String]()
 
 
-  override def runAnalysis(list: List[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
 
-    list.foreach(manuData => updateMap(manuData))
+    rdd.foreach(manuData => updateMap(manuData))
 
-    val total :mutable.Map[String,Int] = CustomerOrderAmount.runAnalysisWithReturn(list)
+    val total :mutable.Map[String,Int] = MaterialProducedAmount.runAnalysisWithReturn(rdd)
     total.foreach(element => calculatePercentage(element))
 
-    //print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonInt(map), kafkaTopicsSend)
+//    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
+//    print(kafkaTopicsSendPercentage + " " + JsonParser.mapToJsonString(mapPercentage))
+    KafkaController.sendStringViaKafka(JsonParser.mapToJsonInt(map), kafkaTopicSend)
     KafkaController.sendStringViaKafka(JsonParser.mapToJsonString(mapPercentage), kafkaTopicsSendPercentage)
     map.empty
     mapPercentage.empty
@@ -50,7 +52,7 @@ object QualityMaterial extends AnalysisParent{
       mapPercentage += (key -> {100 + "%"})
       return
     }
-    mapPercentage += (key -> {value.get / keyValue._2 + "%"})
+    mapPercentage += (key -> ((((value.get:Float)/keyValue._2)*100).toString + "%"))
   }
 
 }

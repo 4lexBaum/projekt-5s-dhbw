@@ -18,7 +18,6 @@ object JsonParser {
     */
 
   def jsonToManufacturingData(inputData: String): ManufacturingData = {
-
     implicit val formats = DefaultFormats
     parse(inputData).extract[ManufacturingData]
   }

@@ -13,9 +13,9 @@ sleep 10
 
 #submit job to cluster
 ./spark/bin/spark-submit \
-  --class KafkaConnectivity.KafkaController \
+  --class MainController \
   --master spark://spark:7077 \
-  /jarFiles/Spark.jar
+  /jarFiles/SparkAnalysis.jar
 
 # run endless loop to keep alive
 /usr/bin/tail -f /dev/null

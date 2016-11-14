@@ -2,23 +2,44 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Spark:jar" />
+      <artifact name="SparkAnalysis:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e77e6ad5-ca62-44b7-8ae3-ddec052edd5b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Analysis/AnalysisController$.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/JsonParser/JsonParser.scala" afterPath="$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dockerfiles/spark/Spark.jar" afterPath="$PROJECT_DIR$/../Dockerfiles/spark/Spark.jar" />
+    <list default="true" id="e77e6ad5-ca62-44b7-8ae3-ddec052edd5b" name="Default" comment="Only emtpy String I have no clue why, it way too late now">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TestJson.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/MainController/ControllerMain.scala" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Dockerfiles/spark/Spark.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Dockerfiles/spark/analysisData.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Spark_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/AnalysisData$.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/AnalysisData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/JsonParser$.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/JsonParser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/MachineData$.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/MachineData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/ManufacturingData$.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JsonParser/ManufacturingData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer$.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaController$$anonfun$main$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaProd$.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/AnalysisController.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/AnalysisController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/AnalysisParent$class.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/AnalysisParent$class.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/AnalysisParent.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/AnalysisParent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer$$anonfun$runAnalysis$1.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer$$anonfun$runAnalysis$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer$.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer$.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer.class" afterPath="$PROJECT_DIR$/target/classes/Analysis/QualityCustomer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer$$anonfun$startStream$1.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer$$anonfun$startStream$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer$.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer$.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaConsumer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaController$.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaController$.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaController.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaProd$$anonfun$extractOptions$1.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaProd$$anonfun$extractOptions$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaProd.class" afterPath="$PROJECT_DIR$/target/classes/KafkaConnectivity/KafkaProd.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dockerfiles/mongodb/Dockerfile" afterPath="$PROJECT_DIR$/../Dockerfiles/mongodb/Dockerfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dockerfiles/spark/Dockerfile" afterPath="$PROJECT_DIR$/../Dockerfiles/spark/Dockerfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dockerfiles/spark/entrypoint.sh" afterPath="$PROJECT_DIR$/../Dockerfiles/spark/entrypoint.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SparkAnalysis.iml" afterPath="$PROJECT_DIR$/SparkAnalysis.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala" />
@@ -30,8 +51,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/MaterialProducedAmount.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/MaterialProducedAmount.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala" afterPath="$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala" afterPath="$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala" afterPath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala" afterPath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala" afterPath="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/main/scala/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/MongoConnectivity/MongoConsumer.scala" afterPath="$PROJECT_DIR$/src/main/scala/MongoConnectivity/MongoConsumer.scala" />
     </list>
     <ignored path="Spark.iws" />
@@ -54,12 +78,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MaterialMillingSpeed.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingSpeed.scala">
+      <file leaf-file-name="ControllerMain.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/MainController/ControllerMain.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="162">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +93,8 @@
       <file leaf-file-name="CustomerOrderAmount.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="162">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
               <folding>
                 <element signature="e#18#69#0" expanded="true" />
               </folding>
@@ -76,32 +102,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonParser.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala">
+      <file leaf-file-name="KafkaController.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
-              <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaterialMillingHeat.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingHeat.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaterialDrillingHeat.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingHeat.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="738">
+              <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
+              <folding>
+                <element signature="e#27#48#0" expanded="true" />
+                <element signature="e#531#668#0" expanded="false" />
+                <element signature="e#4863#4870#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +119,8 @@
       <file leaf-file-name="KafkaConsumer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+            <state relative-caret-position="654">
+              <caret line="53" column="59" selection-start-line="53" selection-start-column="59" selection-end-line="53" selection-end-column="59" />
               <folding>
                 <element signature="e#27#64#0" expanded="true" />
               </folding>
@@ -118,45 +128,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KafkaController.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala">
+      <file leaf-file-name="MaterialDuration.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="6" />
+            <state relative-caret-position="288">
+              <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AnalysisController.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
               <folding>
-                <element signature="e#27#48#0" expanded="true" />
-                <element signature="e#575#712#0" expanded="false" />
+                <element signature="e#18#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MongoConsumer.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/MongoConnectivity/MongoConsumer.scala">
+      <file leaf-file-name="TestJson.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TestJson.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+            <state relative-caret-position="0">
+              <caret line="0" column="3528" selection-start-line="0" selection-start-column="3528" selection-end-line="0" selection-end-column="3528" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MaterialDuration.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala">
+      <file leaf-file-name="QualityCustomer.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="31" column="54" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
+            <state relative-caret-position="141">
+              <caret line="20" column="21" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MaterialDrillingSpeed.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingSpeed.scala">
+      <file leaf-file-name="QualityMaterial.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="393">
+              <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+              <folding>
+                <element signature="e#18#69#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -167,6 +188,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Scala Object" />
+        <option value="Package Object" />
       </list>
     </option>
   </component>
@@ -183,6 +205,11 @@
       <projects_view />
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.scala" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.scala" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.scala" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -198,23 +225,28 @@
         <option value="$PROJECT_DIR$/src/main/scala/JsonParser/ManufacturingDataSerializer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/AnalysisController.scala" />
         <option value="$PROJECT_DIR$/../Dockerfiles/node/nodeapp/index.html" />
-        <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/JsonParser/JsonParser.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingHeat.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingSpeed.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingHeat.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingSpeed.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingHeat.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialProducedAmount.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingSpeed.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/MainController/package.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/MainController/Controller.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/MongoConnectivity/MongoConsumer.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/MainController/MainController.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/MainController/ControllerMain.scala" />
       </list>
     </option>
   </component>
@@ -311,10 +343,6 @@
               <option name="myItemId" value="scala" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MongoConnectivity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -335,6 +363,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MainController" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -435,7 +467,117 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Dockerfiles/spark" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
   </component>
-  <component name="RunManager" selected="Application.MongoConsumer">
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/../Dockerfiles/mongodb/historicData.json</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
+  <component name="RunManager" selected="Application.MainController">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -926,9 +1068,9 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="MongoConsumer" type="Application" factoryName="Application">
+    <configuration default="false" name="MainController" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="MongoConnectivity.MongoConsumer" />
+      <option name="MAIN_CLASS_NAME" value="ControllerMain" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -943,7 +1085,7 @@
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.KafkaController" />
-      <item index="1" class="java.lang.String" itemvalue="Application.MongoConsumer" />
+      <item index="1" class="java.lang.String" itemvalue="Application.MainController" />
     </list>
   </component>
   <component name="SbtLocalSettings">
@@ -970,7 +1112,7 @@
       <workItem from="1478449418541" duration="11244000" />
       <workItem from="1478953011233" duration="1835000" />
       <workItem from="1478980615707" duration="13436000" />
-      <workItem from="1479063937940" duration="4486000" />
+      <workItem from="1479063937940" duration="23620000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Scala Kafka cosumer and dependencies">
       <created>1478192063232</created>
@@ -1049,11 +1191,18 @@
       <option name="project" value="LOCAL" />
       <updated>1478993613692</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Mongo Functionality and remodeling analysis">
+      <created>1479068498590</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1479068498590</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87573000" />
+    <option name="totallyTimeSpent" value="106707000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1061,31 +1210,31 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.49811321" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32925585" sideWeight="0.49811321" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5018868" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.49811321" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4464832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24566768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18490566" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45259938" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44036698" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UpdateCopyrightCheckinHandler">
@@ -1116,11 +1265,13 @@
     <MESSAGE value="More Analysis, one Kafka topic not working properly (the las one)" />
     <MESSAGE value="More Analysis, one Kafka topic not working properly (the last one)" />
     <MESSAGE value="Fixed Stupid mistake" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Stupid mistake" />
+    <MESSAGE value="Mongo Functionality and remodeling analysis" />
+    <MESSAGE value="Only emtpy String I have no clue why, it way too late now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Only emtpy String I have no clue why, it way too late now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1129,67 +1280,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="35" selection-start-line="19" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="53" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1278">
-          <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
-          <folding>
-            <element signature="e#27#48#0" expanded="true" />
-            <element signature="e#575#712#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#18#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
@@ -1211,7 +1301,8 @@
           <caret line="59" column="63" selection-start-line="59" selection-start-column="63" selection-end-line="59" selection-end-column="63" />
           <folding>
             <element signature="e#27#48#0" expanded="true" />
-            <element signature="e#575#712#0" expanded="false" />
+            <element signature="e#531#668#0" expanded="false" />
+            <element signature="e#4863#4870#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1245,7 +1336,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#27#48#0" expanded="true" />
-            <element signature="e#575#712#0" expanded="false" />
+            <element signature="e#531#668#0" expanded="false" />
+            <element signature="e#4863#4870#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1279,7 +1371,8 @@
           <caret line="82" column="56" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="56" />
           <folding>
             <element signature="e#27#48#0" expanded="true" />
-            <element signature="e#575#712#0" expanded="false" />
+            <element signature="e#531#668#0" expanded="false" />
+            <element signature="e#4863#4870#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1377,26 +1470,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/JsonParser/ManufacturingDataSerializer.scala" />
     <entry file="file://$PROJECT_DIR$/../Dockerfiles/node/nodeapp/index.html" />
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Dockerfiles/node/nodeapp_testing/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="39" column="6" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1408,112 +1485,166 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/spark/spark-core_2.11/2.0.1/spark-core_2.11-2.0.1-sources.jar!/org/apache/spark/SparkContext.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="20" />
+        <state relative-caret-position="36">
+          <caret line="2088" column="4" selection-start-line="2088" selection-start-column="4" selection-end-line="2088" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mongodb/casbah-core_2.11/3.1.1/casbah-core_2.11-3.1.1-sources.jar!/MongoCollection.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="15" column="71" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
+        <state relative-caret-position="18">
+          <caret line="194" column="72" selection-start-line="194" selection-start-column="72" selection-end-line="194" selection-end-column="72" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/spark/spark-core_2.11/2.0.1/spark-core_2.11-2.0.1-sources.jar!/org/apache/spark/rdd/RDD.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="e#18#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialProducedAmount.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#18#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingSpeed.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state relative-caret-position="18">
+          <caret line="891" column="36" selection-start-line="891" selection-start-column="36" selection-end-line="891" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingHeat.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8-sources.jar!/scala/collection/Iterator.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="31" column="54" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingSpeed.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="192">
+          <caret line="892" column="30" selection-start-line="892" selection-start-column="30" selection-end-line="892" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingHeat.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+        <state relative-caret-position="376">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding>
+            <element signature="e#18#82#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDrillingSpeed.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingHeat.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="288">
+          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialMillingSpeed.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialProducedAmount.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           <folding>
             <element signature="e#18#69#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/MainController/package.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
-          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
+        <state relative-caret-position="396">
+          <caret line="24" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisParent.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding>
+            <element signature="e#18#55#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/MongoConnectivity/MongoConsumer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+        <state relative-caret-position="612">
+          <caret line="34" column="91" selection-start-line="34" selection-start-column="91" selection-end-line="34" selection-end-column="91" />
+          <folding>
+            <element signature="e#27#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaProd.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityCustomer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/JsonHandling/JsonParser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/QualityMaterial.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+          <folding>
+            <element signature="e#18#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/MaterialDuration.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/CustomerOrderAmount.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+          <folding>
+            <element signature="e#18#69#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaConsumer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+        <state relative-caret-position="654">
+          <caret line="53" column="59" selection-start-line="53" selection-start-column="59" selection-end-line="53" selection-end-column="59" />
           <folding>
             <element signature="e#27#64#0" expanded="true" />
           </folding>
@@ -1522,11 +1653,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/KafkaConnectivity/KafkaController.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="6" />
+        <state relative-caret-position="738">
+          <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
           <folding>
             <element signature="e#27#48#0" expanded="true" />
-            <element signature="e#575#712#0" expanded="false" />
+            <element signature="e#531#668#0" expanded="false" />
+            <element signature="e#4863#4870#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Analysis/AnalysisController.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <element signature="e#18#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestJson.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="3528" selection-start-line="0" selection-start-column="3528" selection-end-line="0" selection-end-column="3528" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/MainController/ControllerMain.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1537,7 +1697,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>Spark:jar</last-edited>
+          <last-edited>SparkAnalysis:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
