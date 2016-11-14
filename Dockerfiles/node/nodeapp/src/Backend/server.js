@@ -1,19 +1,21 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var express = require('express');
 var kafka = require('kafka-node');
+var path = require('path');
+var bodyParser = require('body-parser')
 var MongoClient = require('mongodb').MongoClient;
 var Consumer = kafka.Consumer;
 var Client = kafka.Client;
 var Offset = kafka.Offset;
 
+var app = express();
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 app.use('/', express.static(path.join(__dirname, '../../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-var client = new Client("kafka");
 var topics = [{
     topic: "manufacturingData"
 }, {
@@ -52,11 +54,13 @@ var options = {
 
 setTimeout(function () {
 
+    var client = new Client("kafka");
+
     var consumer = new Consumer(client, topics, options);
     var offset = new Offset(client);
 
     app.get('/', function (req, res) {
-        res.sendfile('./public/index.html');
+        res.sendfile('../../public/index.html');
     });
 
     io.on('connection', function (socket) {
@@ -66,27 +70,29 @@ setTimeout(function () {
         });
 
         consumer.on('message', function (message) {
+            var msgVal = JSON.parse(message.value)
+            console.log(msgVal);
             switch (message.topic) {
                 case "erpData":
-                    socket.emit("erp", message.value);
-                    return;
+                    socket.emit("erp", msgVal);
+                    break;
                 case "prodData":
-                    if (message.value.itemName == "MILLING_SPEED") {
-                        socket.emit("MILLING_SPEED", (message.value.value / 1000).toFixed(1));
-                    } else if (message.value.itemName == "MILLING_HEAT") {
-                        socket.emit("MILLING_HEAT", Math.floor(message.value.value));
-                    } else if (message.value.itemName == "DRILLING_SPEED") {
-                        socket.emit("DRILLING_SPEED", (message.value.value / 1000).toFixed(1));
-                    } else if (message.value.itemName == "DRILLING_HEAT") {
-                        socket.emit("DRILLING_HEAT", Math.floor(message.value.value));
-                    } else if (message.value.itemName.startsWith("L")) {
-                        socket.emit("LIGHT_BARRIER", message.value.itemName);
+                    if (msgVal.itemName == "MILLING_SPEED") {
+                        socket.emit("MILLING_SPEED", (msgVal.value / 1000).toFixed(1));
+                    } else if (msgVal.itemName == "MILLING_HEAT") {
+                        socket.emit("MILLING_HEAT", Math.floor(msgVal.value));
+                    } else if (msgVal.itemName == "DRILLING_SPEED") {
+                        socket.emit("DRILLING_SPEED", (msgVal.value / 1000).toFixed(1));
+                    } else if (msgVal.itemName == "DRILLING_HEAT") {
+                        socket.emit("DRILLING_HEAT", Math.floor(msgVal.value));
+                    } else if (msgVal.itemName.startsWith("L")) {
+                        socket.emit("LIGHT_BARRIER", msgVal.itemName);
                     } else {
-                        socket.emit("machine", message.value);
+                        socket.emit("machine", msgVal);
                     }
-                    return;
+                    break;
                 default:
-                    socket.emit(message.topic, message.value);
+                    socket.emit(message.topic, msgVal);
             }
         });
     });
