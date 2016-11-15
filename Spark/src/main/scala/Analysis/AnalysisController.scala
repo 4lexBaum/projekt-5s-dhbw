@@ -8,7 +8,7 @@ import org.apache.spark.rdd.RDD
   */
 class AnalysisController{
 
-  def runAllAnalysis(rdd: RDD[ManufacturingData]): Unit ={//list: List[ManufacturingData]
+  def runAllAnalysis(rdd: RDD[ManufacturingData]): Unit ={
     QualityCustomer.runAnalysis(rdd)
     QualityMaterial.runAnalysis(rdd)
     MaterialDuration.runAnalysis(rdd)

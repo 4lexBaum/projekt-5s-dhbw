@@ -9,14 +9,14 @@ import com.mongodb.util.JSON
   */
 class MongoProducer {
 
-
   def writeToMongo(json: String, collectionName: String): Unit = {
     val dbObject: DBObject = JSON.parse(json).asInstanceOf[DBObject]
     val mongo = MongoClient(MongoClientURI("mongodb://mongodb:27017"))
     val buffer = new java.util.ArrayList[DBObject]()
-    //buffer.add(dbObject)
-    mongo.getDB("iop_taktstrasse").createCollection(collectionName, dbObject) //.insert(buffer)
-    //buffer.clear()
+    buffer.add(dbObject)
+    mongo.getDB("oip_taktstrasse").getCollection(collectionName).insert(buffer)
+    buffer.clear()
+    mongo.close()
   }
 
 }

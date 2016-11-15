@@ -2,6 +2,7 @@ package Analysis
 
 import JsonHandling.{JsonParser, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import MongoConnectivity.MongoProducer
 import org.apache.spark.rdd.RDD
 
 import scala.collection._
@@ -18,8 +19,11 @@ object CustomerOrderAmount extends AnalysisParent{
     val map = rdd.map(manuData => mapping(manuData))
       .countByKey()
 
-//    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonLong(map), kafkaTopicSend)
+    val json = JsonParser.mapToJsonLong(map)
+
+    //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
+    new MongoProducer().writeToMongo(json, kafkaTopicSend)
+    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={

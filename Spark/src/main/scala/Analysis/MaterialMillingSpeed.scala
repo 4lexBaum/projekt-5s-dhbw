@@ -2,6 +2,7 @@ package Analysis
 
 import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import KafkaConnectivity.KafkaController
+import MongoConnectivity.MongoProducer
 import org.apache.spark.rdd.RDD
 
 import collection.mutable
@@ -23,8 +24,11 @@ object MaterialMillingSpeed extends AnalysisParent{
       .map(elem => elem._1 -> elem._2)
       .toMap
 
+    val json = JsonParser.mapToJsonDouble(map)
+
     //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    KafkaController.sendStringViaKafka(JsonParser.mapToJsonDouble(map), kafkaTopicSend)
+    new MongoProducer().writeToMongo(json, kafkaTopicSend)
+    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
