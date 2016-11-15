@@ -34,9 +34,9 @@ object QualityCustomer extends AnalysisParent{
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
     if (manufacturingData.analysisData.overallStatus.equals("NOK")) {
-      (manufacturingData.materialNumber, 1)
+      (manufacturingData.customerNumber, 1)
     }else{
-      (manufacturingData.materialNumber, 0)
+      (manufacturingData.customerNumber, 0)
 
     }
   }

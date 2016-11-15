@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:latest
 
 MAINTAINER Philip Riecks
 
@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy the node app to the docker directory
-COPY nodeapp/. /usr/src/app
+COPY nodeapp2/. /usr/src/app
 
 # Install all dependencies and build the project
 RUN npm install
