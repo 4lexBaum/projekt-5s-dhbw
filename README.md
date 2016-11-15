@@ -7,7 +7,7 @@
 ## Anwendung mittels docker-compose starten
 
 ### 1. Docker Image builden
-* Voraussetzung: Du befindest dich im Ordner mit der docker-compose.yml
+* Voraussetzung: Du befindest dich im Ordner mit der docker-compose.yml (/Dockerfiles)
 ```shell
 docker-compose build
 ```
