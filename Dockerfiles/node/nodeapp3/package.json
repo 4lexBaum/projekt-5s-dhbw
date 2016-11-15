@@ -1,0 +1,56 @@
+{
+  "name": "react-testing",
+  "version": "1.0.0",
+  "description": "get in touch with React.js",
+  "main": "README.md",
+  "private": false,
+  "contributors": [
+    {
+      "name": "Alexander Baum",
+      "email": "mail@alexbaum.de"
+    },
+    {
+      "name": "Gedeon Moritz",
+      "email": "gedeonmoritz@web.de"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4lexBaum/react-testing.git"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "start": "node ./src/Backend/server.js"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "body-parser": "^1.15.2",
+    "browserify": "^13.1.0",
+    "c3": "^0.4.11",
+    "d3": "^4.3.0",
+    "express": "^4.14.0",
+    "highcharts": "^4.2.7",
+    "react": "^15.3.2",
+    "react-bootstrap": "^0.30.3",
+    "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
+    "reactify": "^1.1.1",
+    "socket.io": "^1.4.8",
+    "http": "0.0.0",
+    "jsonfile": "^2.4.0",
+    "kafka-node": "^1.0.5",
+    "mongodb": "^2.2.11",
+    "socket.io": "^1.5.1"
+  }
+}

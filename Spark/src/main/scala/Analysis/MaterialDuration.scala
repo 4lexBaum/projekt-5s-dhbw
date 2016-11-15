@@ -34,8 +34,8 @@ object MaterialDuration extends AnalysisParent{
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
-    val productionTime = manufacturingData.machineData.last.timestamp.toDouble -
-      manufacturingData.machineData.head.timestamp.toDouble
+    val productionTime = (manufacturingData.machineData.last.timestamp.toDouble -
+      manufacturingData.machineData.head.timestamp.toDouble).toDouble/10000
 
     (manufacturingData.materialNumber, productionTime)
   }
