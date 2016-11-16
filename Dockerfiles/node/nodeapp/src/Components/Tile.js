@@ -44,7 +44,7 @@ export class Tile extends React.Component {
         }
 
         handleClick(){
-          window.location.href = '/#/test';
+          window.location.href = '/#/statistics';
         }
 
         render() {

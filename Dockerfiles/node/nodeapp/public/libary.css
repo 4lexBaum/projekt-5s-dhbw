@@ -11,8 +11,8 @@
 }
 
 #gauge-chart {
-    height: 320px !important;
-    max-height: 320px !important;
+    height: 270px !important;
+    max-height: 270px !important;
 }
 
 .tile {
@@ -205,6 +205,29 @@
 
 .machineBox{
   margin-top: 30rem;
+}
+
+.chartTile{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2.5%;
+  float: left;
+  width: 40%;
+  height: 37rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 2rem;
+  border-width: 0.1rem;
+  border-color: #333333;
+  border-style: solid;
+}
+
+.chartTitle{
+  font-family: 'Helvetica';
+  color: #333333;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 /*#gauge-chart{

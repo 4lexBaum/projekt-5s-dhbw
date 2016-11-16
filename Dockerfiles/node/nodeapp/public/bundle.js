@@ -13,7 +13,11 @@ var _reactRouter = require('react-router');
 
 var _Dashboard = require('./src/Modules/Dashboard');
 
-var _TestModule = require('./src/Modules/TestModule');
+var _Customer = require('./src/Modules/Customer');
+
+var _Material = require('./src/Modules/Material');
+
+var _MachineStat = require('./src/Modules/MachineStat');
 
 var _MachineOverview = require('./src/Modules/MachineOverview');
 
@@ -23,12 +27,14 @@ _reactDom2.default.render(_react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.hashHistory },
   _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Dashboard.Dashboard }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/test', component: _TestModule.TestModule }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/machine', component: _MachineOverview.MachineOverview })
+  _react2.default.createElement(_reactRouter.Route, { path: '/customer', component: _Customer.Customer }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/material', component: _Material.Material }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/machine', component: _MachineOverview.MachineOverview }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/machineStat', component: _MachineStat.MachineStat })
 ), document.getElementById('main'));
 
 
-},{"./src/Modules/Dashboard":503,"./src/Modules/MachineOverview":504,"./src/Modules/TestModule":505,"react":483,"react-dom":282,"react-router":332}],2:[function(require,module,exports){
+},{"./src/Modules/Customer":505,"./src/Modules/Dashboard":506,"./src/Modules/MachineOverview":507,"./src/Modules/MachineStat":508,"./src/Modules/Material":509,"react":483,"react-dom":282,"react-router":332}],2:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
 },{"core-js/library/fn/array/from":19}],3:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
@@ -61635,6 +61641,51 @@ var _c2 = _interopRequireDefault(_c);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var data;
+//var bindTo = "#"+this.props.bindTo;
+
+module.exports = {
+    createChart: function createChart(analysisName, socketName, bindTo) {
+        var chart = _c2.default.generate({
+            bindto: bindTo,
+            data: {
+                x: 'x',
+                columns: [['x', '4714', '4715', '4716', '4717', '4718', '4719', '4720'], [analysisName, 10, 8, 11, 9, 6, 7, 15]],
+                type: 'bar'
+            },
+            axis: {
+                x: {
+                    type: 'category'
+                }
+            }
+        });
+        socket.on(socketName, function (msg) {
+            var xAxis = ['x'];
+            var yAxis = [analysisName];
+
+            for (var key in msg) {
+                if (msg.hasOwnProperty(key)) {
+                    xAxis.push(key);
+                    yAxis.push(msg[key]);
+                }
+            }
+            chart.load({
+                columns: [xAxis, yAxis]
+            });
+        });
+    }
+};
+
+
+},{"c3":16}],490:[function(require,module,exports){
+"use strict";
+
+var _c = require('c3');
+
+var _c2 = _interopRequireDefault(_c);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 module.exports = {
     createChart: function createChart() {
         var chart, data;
@@ -61696,7 +61747,7 @@ module.exports = {
 };
 
 
-},{"c3":16}],490:[function(require,module,exports){
+},{"c3":16}],491:[function(require,module,exports){
 "use strict";
 
 var _c = require('c3');
@@ -61742,7 +61793,7 @@ module.exports = {
 };
 
 
-},{"c3":16}],491:[function(require,module,exports){
+},{"c3":16}],492:[function(require,module,exports){
 "use strict";
 
 var _c = require('c3');
@@ -61790,7 +61841,7 @@ module.exports = {
 };
 
 
-},{"c3":16}],492:[function(require,module,exports){
+},{"c3":16}],493:[function(require,module,exports){
 "use strict";
 
 var _c = require('c3');
@@ -61863,7 +61914,7 @@ module.exports = {
 };
 
 
-},{"c3":16}],493:[function(require,module,exports){
+},{"c3":16}],494:[function(require,module,exports){
 "use strict";
 
 var _c = require('c3');
@@ -61894,7 +61945,7 @@ module.exports = {
 };
 
 
-},{"c3":16}],494:[function(require,module,exports){
+},{"c3":16}],495:[function(require,module,exports){
 "use strict";
 
 var _c = require('c3');
@@ -61942,8 +61993,8 @@ module.exports = {
 };
 
 
-},{"c3":16}],495:[function(require,module,exports){
-"use strict";
+},{"c3":16}],496:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -61952,7 +62003,7 @@ exports.ChartContainer = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -61964,6 +62015,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var analysisBarChart = require('../Charts/analysisBarChart.js');
+
 var ChartContainer = exports.ChartContainer = function (_React$Component) {
   _inherits(ChartContainer, _React$Component);
 
@@ -61974,15 +62027,14 @@ var ChartContainer = exports.ChartContainer = function (_React$Component) {
   }
 
   _createClass(ChartContainer, [{
-    key: "handleClick",
-    value: function handleClick() {
-      var container = this.props.containerId;
-      alert("bin geklickt worden: " + container);
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      analysisBarChart.createChart(this.props.analysisName, this.props.socketName, this.props.bindTo);
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
-      return _react2.default.createElement("div", { onClick: this.handleClick.bind(this), id: this.props.containerId });
+      return _react2.default.createElement('div', { id: this.props.containerId });
     }
   }]);
 
@@ -61990,7 +62042,7 @@ var ChartContainer = exports.ChartContainer = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483}],496:[function(require,module,exports){
+},{"../Charts/analysisBarChart.js":489,"react":483}],497:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62107,7 +62159,7 @@ var ERPData = exports.ERPData = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483}],497:[function(require,module,exports){
+},{"react":483}],498:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62178,9 +62230,23 @@ var Header = exports.Header = function (_React$Component) {
             'Machine'
           ),
           _react2.default.createElement(
-            _reactBootstrap.NavItem,
-            { eventKey: 3, href: '#' },
-            'Statistics'
+            _reactBootstrap.NavDropdown,
+            { eventKey: 4, title: 'Statistics', id: 'basic-nav-dropdown' },
+            _react2.default.createElement(
+              _reactBootstrap.MenuItem,
+              { eventKey: 4.1, href: '/#/customer' },
+              'Customer'
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.MenuItem,
+              { eventKey: 4.2, href: '/#/material' },
+              'Material'
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.MenuItem,
+              { eventKey: 4.2, href: '/#/machineStat' },
+              'Machine'
+            )
           ),
           _react2.default.createElement(
             _reactBootstrap.NavItem,
@@ -62216,7 +62282,7 @@ var Header = exports.Header = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483,"react-bootstrap":271}],498:[function(require,module,exports){
+},{"react":483,"react-bootstrap":271}],499:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62264,7 +62330,7 @@ var LightBarrier = exports.LightBarrier = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483}],499:[function(require,module,exports){
+},{"react":483}],500:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62381,7 +62447,7 @@ var Machine = exports.Machine = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"../Components/LightBarrier.js":498,"react":483}],500:[function(require,module,exports){
+},{"../Components/LightBarrier.js":499,"react":483}],501:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62467,7 +62533,7 @@ var MachineData = exports.MachineData = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"../Charts/heatChart.js":491,"../Charts/speedChart.js":494,"../Components/ChartContainer.js":495,"react":483}],501:[function(require,module,exports){
+},{"../Charts/heatChart.js":492,"../Charts/speedChart.js":495,"../Components/ChartContainer.js":496,"react":483}],502:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62532,7 +62598,129 @@ var Product = exports.Product = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483}],502:[function(require,module,exports){
+},{"react":483}],503:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SpectralData = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SpectralData = exports.SpectralData = function (_React$Component) {
+  _inherits(SpectralData, _React$Component);
+
+  function SpectralData(props) {
+    _classCallCheck(this, SpectralData);
+
+    var _this = _possibleConstructorReturn(this, (SpectralData.__proto__ || Object.getPrototypeOf(SpectralData)).call(this, props));
+
+    _this.state = { overallStatus: "OK", em1: "n.A.", a1: "n.A.", b1: "n.A." };
+    return _this;
+  }
+
+  _createClass(SpectralData, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var that = this;
+      socket.on("manufacturingData", function (msg) {
+        var data = msg.analysisData;
+        var overallStatus = data.overallStatus;
+        var em1 = data.em1.toFixed(2);
+        var a1 = data.a1.toFixed(2);
+        var b1 = data.b1.toFixed(2);
+        that.setState({ overallStatus: overallStatus, em1: em1, a1: a1, b1: b1 });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "erpContainer" },
+        _react2.default.createElement(
+          "p",
+          { className: "erptitle" },
+          "Spectral Data"
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "erpcontent" },
+          _react2.default.createElement(
+            "p",
+            { className: "erpcontenttitle" },
+            "Overall Status"
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "erpdata" },
+            this.state.overallStatus
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "erpcontent" },
+          _react2.default.createElement(
+            "p",
+            { className: "erpcontenttitle" },
+            "em1"
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "erpdata" },
+            this.state.em1
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "erpcontent" },
+          _react2.default.createElement(
+            "p",
+            { className: "erpcontenttitle" },
+            "a1"
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "erpdata" },
+            this.state.a1
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "erpcontent" },
+          _react2.default.createElement(
+            "p",
+            { className: "erpcontenttitle" },
+            "b1"
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "erpdata" },
+            this.state.b1
+          )
+        )
+      );
+    }
+  }]);
+
+  return SpectralData;
+}(_react2.default.Component);
+
+
+},{"react":483}],504:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62606,7 +62794,7 @@ var Tile = exports.Tile = function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick() {
-      window.location.href = '/#/test';
+      window.location.href = '/#/statistics';
     }
   }, {
     key: "render",
@@ -62643,7 +62831,85 @@ var Tile = exports.Tile = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"react":483}],503:[function(require,module,exports){
+},{"react":483}],505:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Customer = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ChartContainer = require('../Components/ChartContainer.js');
+
+var _Header = require('../Components/Header.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Customer = exports.Customer = function (_React$Component) {
+  _inherits(Customer, _React$Component);
+
+  function Customer(props) {
+    _classCallCheck(this, Customer);
+
+    return _possibleConstructorReturn(this, (Customer.__proto__ || Object.getPrototypeOf(Customer)).call(this, props));
+  }
+
+  _createClass(Customer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      //socket.removeAllListeners();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_Header.Header, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Customer Order Amount'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'customer-order-amount', bindTo: '#customer-order-amount', analysisName: 'Customer Order Amount', socketName: 'CustomerOrderAmount' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Quality Customer'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'quality-customer', bindTo: '#quality-customer', analysisName: 'Quality Customer', socketName: 'QualityCustomer' })
+        )
+      );
+    }
+  }]);
+
+  return Customer;
+}(_react2.default.Component);
+
+
+},{"../Components/ChartContainer.js":496,"../Components/Header.js":498,"react":483}],506:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62710,12 +62976,12 @@ var Dashboard = exports.Dashboard = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { md: 3 },
-            _react2.default.createElement(_Tile.Tile, { containerId: 'millingTile', streamId: 'MILLING_SPEED', borders: '5, 10, 15, 17.5', colors: '#1e90ff,#00bfff,#60B044,#F6C600,#FF0000', icon: 'http://www.freeiconspng.com/uploads/mill-icon-16.png', value: '0', unit: 'T RPM', title: 'Milling Speed', status: 'stopped' })
+            _react2.default.createElement(_Tile.Tile, { containerId: 'drillingTile2', streamId: 'DRILLING_HEAT', borders: '50, 100, 150, 200', colors: '#1e90ff,#00bfff,#60B044,#F6C600,#FF0000', icon: 'https://d30y9cdsu7xlg0.cloudfront.net/png/170362-200.png', value: '0', unit: '°C', title: 'Drilling Heat', status: 'stopped' })
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { md: 3 },
-            _react2.default.createElement(_Tile.Tile, { containerId: 'drillingTile2', streamId: 'DRILLING_HEAT', borders: '50, 100, 150, 200', colors: '#1e90ff,#00bfff,#60B044,#F6C600,#FF0000', icon: 'https://d30y9cdsu7xlg0.cloudfront.net/png/170362-200.png', value: '0', unit: '°C', title: 'Drilling Heat', status: 'stopped' })
+            _react2.default.createElement(_Tile.Tile, { containerId: 'millingTile', streamId: 'MILLING_SPEED', borders: '5, 10, 15, 17.5', colors: '#1e90ff,#00bfff,#60B044,#F6C600,#FF0000', icon: 'http://www.freeiconspng.com/uploads/mill-icon-16.png', value: '0', unit: 'T RPM', title: 'Milling Speed', status: 'stopped' })
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
@@ -62726,6 +62992,21 @@ var Dashboard = exports.Dashboard = function (_React$Component) {
             _reactBootstrap.Col,
             { md: 3 },
             _react2.default.createElement(_Tile.Tile, { containerId: 'drillingTile3', streamId: 'LIGHT_BARRIER', borders: '', colors: '', icon: 'http://freeflaticons.com/wp-content/uploads/2014/09/placeholder-copy-1411475612k48gn.png', value: '0', unit: 'Barrier', title: 'Product Location', status: 'stopped' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { md: 3 },
+            _react2.default.createElement(_Tile.Tile, { containerId: 'fake1', streamId: '', borders: '', colors: '', icon: 'https://d30y9cdsu7xlg0.cloudfront.net/png/183367-200.png', value: '94.7', unit: '%', title: 'Quality Material', status: 'n.A.' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { md: 3 },
+            _react2.default.createElement(_Tile.Tile, { containerId: 'fake2', streamId: '', borders: '', colors: '', icon: 'http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Business%20Businessman.ico', value: '98', unit: '%', title: 'Qualtiy Customer', status: 'n.A.' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { md: 3 },
+            _react2.default.createElement(_Tile.Tile, { containerId: 'fake3', streamId: '', borders: '', colors: '', icon: 'http://www.newdesignfile.com/postpic/2015/02/the-legend-of-zelda_233539.png', value: '327', unit: 'QTY', title: 'Order Amount', status: 'n.A.' })
           )
         )
       );
@@ -62757,7 +63038,7 @@ var Dashboard = exports.Dashboard = function (_React$Component) {
 */
 
 
-},{"../Components/ChartContainer.js":495,"../Components/Header.js":497,"../Components/Product.js":501,"../Components/Tile.js":502,"react":483,"react-bootstrap":271}],504:[function(require,module,exports){
+},{"../Components/ChartContainer.js":496,"../Components/Header.js":498,"../Components/Product.js":502,"../Components/Tile.js":504,"react":483,"react-bootstrap":271}],507:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62778,6 +63059,8 @@ var _MachineData = require('../Components/MachineData.js');
 var _Header = require('../Components/Header.js');
 
 var _ERPData = require('../Components/ERPData.js');
+
+var _SpectralData = require('../Components/SpectralData.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62809,6 +63092,7 @@ var MachineOverview = exports.MachineOverview = function (_React$Component) {
         switch (msg.itemName) {
           case "L1":
             if (msg.value) {
+              product.css('marginLeft', '4%');
               $("#lb1").css({ opacity: 0, visibility: "visible" }).animate({ opacity: 1.0 }, 1000);
               $("#area1").removeClass("GOOD BAD");
               product.animate({ marginLeft: move }, 2000);
@@ -62866,8 +63150,9 @@ var MachineOverview = exports.MachineOverview = function (_React$Component) {
             if (msg.value) {
               $("#lb5").css({ opacity: 0, visibility: "visible" }).animate({ opacity: 1.0 }, 1000);
               $("#area5").removeClass("GOOD BAD");
-              product.css({ opacity: 1.0, visibility: "visible" }).animate({ opacity: 0 }, 500);
-              product.animate({ marginLeft: moveBack }, 0);
+              product.css('marginLeft', '4%');
+              product.css('visibility', 'hidden');
+              product.css('marginLeft', '4% !important');
             } else {
               $("#lb5").css({ opacity: 1.0, visibility: "visible" }).animate({ opacity: 0 }, 1000);
               $("#area5").addClass(msg.status);
@@ -62907,7 +63192,7 @@ var MachineOverview = exports.MachineOverview = function (_React$Component) {
           { className: 'machineBox' },
           _react2.default.createElement(_ERPData.ERPData, null),
           _react2.default.createElement(_Machine.Machine, null),
-          _react2.default.createElement(_ERPData.ERPData, null)
+          _react2.default.createElement(_SpectralData.SpectralData, null)
         )
       );
     }
@@ -62917,13 +63202,113 @@ var MachineOverview = exports.MachineOverview = function (_React$Component) {
 }(_react2.default.Component);
 
 
-},{"../Components/ERPData.js":496,"../Components/Header.js":497,"../Components/Machine.js":499,"../Components/MachineData.js":500,"react":483}],505:[function(require,module,exports){
+},{"../Components/ERPData.js":497,"../Components/Header.js":498,"../Components/Machine.js":500,"../Components/MachineData.js":501,"../Components/SpectralData.js":503,"react":483}],508:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TestModule = undefined;
+exports.MachineStat = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Product = require('../Components/Product.js');
+
+var _ChartContainer = require('../Components/ChartContainer.js');
+
+var _Header = require('../Components/Header.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MachineStat = exports.MachineStat = function (_React$Component) {
+  _inherits(MachineStat, _React$Component);
+
+  function MachineStat(props) {
+    _classCallCheck(this, MachineStat);
+
+    return _possibleConstructorReturn(this, (MachineStat.__proto__ || Object.getPrototypeOf(MachineStat)).call(this, props));
+  }
+
+  _createClass(MachineStat, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      //socket.removeAllListeners();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_Header.Header, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Material Milling Heat'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-milling-heat', bindTo: '#material-milling-heat', analysisName: 'Material Milling Heat', socketName: 'MaterialMillingHeat' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Material Milling Speed'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-milling-speed', bindTo: '#material-milling-speed', analysisName: 'Material Milling Speed', socketName: 'MaterialMillingSpeed' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Material Drilling Heat'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-drilling-heat', bindTo: '#material-drilling-heat', analysisName: 'Material Drilling Heat', socketName: 'MaterialDrillingHeat' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'chartTile' },
+          _react2.default.createElement(
+            'div',
+            { className: 'chartTitle' },
+            'Material Drilling Speed'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-drilling-speed', bindTo: '#material-drilling-speed', analysisName: 'Material Drilling Speed', socketName: 'MaterialDrillingSpeed' })
+        )
+      );
+    }
+  }]);
+
+  return MachineStat;
+}(_react2.default.Component);
+
+
+},{"../Components/ChartContainer.js":496,"../Components/Header.js":498,"../Components/Product.js":502,"react":483}],509:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Material = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -62952,16 +63337,16 @@ var gaugeChart = require('../Charts/gaugeChart.js');
 var barChart = require('../Charts/barChart.js');
 var pieChart = require('../Charts/pieChart.js');
 
-var TestModule = exports.TestModule = function (_React$Component) {
-  _inherits(TestModule, _React$Component);
+var Material = exports.Material = function (_React$Component) {
+  _inherits(Material, _React$Component);
 
-  function TestModule(props) {
-    _classCallCheck(this, TestModule);
+  function Material(props) {
+    _classCallCheck(this, Material);
 
-    return _possibleConstructorReturn(this, (TestModule.__proto__ || Object.getPrototypeOf(TestModule)).call(this, props));
+    return _possibleConstructorReturn(this, (Material.__proto__ || Object.getPrototypeOf(Material)).call(this, props));
   }
 
-  _createClass(TestModule, [{
+  _createClass(Material, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       testChart.createChart();
@@ -62978,51 +63363,45 @@ var TestModule = exports.TestModule = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _reactBootstrap.Grid,
-        { fluid: 'true' },
+        'div',
+        null,
+        _react2.default.createElement(_Header.Header, null),
         _react2.default.createElement(
-          _reactBootstrap.Row,
-          { className: 'show-grid' },
+          'div',
+          { className: 'chartTile' },
           _react2.default.createElement(
-            _reactBootstrap.Col,
-            { md: 16 },
-            _react2.default.createElement(_Header.Header, null)
-          )
+            'div',
+            { className: 'chartTitle' },
+            'Material Produced Amount'
+          ),
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-produced-amount', bindTo: '#material-produced-amount', analysisName: 'Material Produced Amount', socketName: 'MaterialProducedAmount' })
         ),
         _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
+          'div',
+          { className: 'chartTile' },
           _react2.default.createElement(
-            _reactBootstrap.Col,
-            { md: 6 },
-            _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'test-chart' })
+            'div',
+            { className: 'chartTitle' },
+            'Material Duration'
           ),
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { md: 6, id: 'gauge' },
-            _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'gauge-chart' })
-          )
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'material-duration', bindTo: '#material-duration', analysisName: 'Material Duration', socketName: 'MaterialDuration' })
         ),
         _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
+          'div',
+          { className: 'chartTile' },
           _react2.default.createElement(
-            _reactBootstrap.Col,
-            { md: 6 },
-            _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'bar-chart' })
+            'div',
+            { className: 'chartTitle' },
+            'Quality Material'
           ),
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { md: 6 },
-            _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'pie-chart' })
-          )
+          _react2.default.createElement(_ChartContainer.ChartContainer, { containerId: 'quality-material', bindTo: '#quality-material', analysisName: 'Quality Material', socketName: 'QualityMaterial' })
         )
       );
     }
   }]);
 
-  return TestModule;
+  return Material;
 }(_react2.default.Component);
 
 
-},{"../Charts/barChart.js":489,"../Charts/gaugeChart.js":490,"../Charts/lineChart.js":492,"../Charts/pieChart.js":493,"../Components/ChartContainer.js":495,"../Components/Header.js":497,"../Components/Product.js":501,"react":483,"react-bootstrap":271}]},{},[1]);
+},{"../Charts/barChart.js":490,"../Charts/gaugeChart.js":491,"../Charts/lineChart.js":493,"../Charts/pieChart.js":494,"../Components/ChartContainer.js":496,"../Components/Header.js":498,"../Components/Product.js":502,"react":483,"react-bootstrap":271}]},{},[1]);

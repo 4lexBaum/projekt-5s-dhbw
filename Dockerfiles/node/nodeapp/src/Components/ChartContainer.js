@@ -1,19 +1,20 @@
 import React from 'react';
 
+var analysisBarChart = require('../Charts/analysisBarChart.js');
+
 export class ChartContainer extends React.Component {
 
         constructor(props) {
             super(props);
         }
 
-        handleClick(){
-          var container = this.props.containerId;
-          alert("bin geklickt worden: " + container);
+        componentDidMount(){
+          analysisBarChart.createChart(this.props.analysisName, this.props.socketName, this.props.bindTo);
         }
 
         render() {
           return (
-            <div onClick={this.handleClick.bind(this)} id={this.props.containerId}></div>
+            <div id={this.props.containerId}></div>
           )
         }
 }
