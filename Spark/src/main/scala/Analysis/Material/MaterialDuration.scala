@@ -1,20 +1,19 @@
-package Analysis
+package Analysis.Material
 
+import Analysis.AnalysisParent
+import Controller.{KafkaController, MongoController}
 import JsonHandling.{JsonParser, MachineData, ManufacturingData}
-import KafkaConnectivity.KafkaController
-import MongoConnectivity.MongoProducer
 import org.apache.spark.rdd.RDD
-
-import scala.collection.mutable
 
 /**
   * Created by fabian on 12.11.16.
   */
-object MaterialDuration extends AnalysisParent{
+
+class MaterialDuration extends AnalysisParent{
 
   override val kafkaTopicSend: String = "MaterialDuration" //this.getClass.getSimpleName
 
-  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .groupByKey()
@@ -26,18 +25,21 @@ object MaterialDuration extends AnalysisParent{
 
     val json = JsonParser.mapToJsonDouble(map)
 
-    //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    new MongoProducer().writeToMongo(json, kafkaTopicSend)
-    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
     map.empty
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
     val productionTime = (manufacturingData.machineData.last.timestamp.toDouble -
-      manufacturingData.machineData.head.timestamp.toDouble).toDouble/10000
+      manufacturingData.machineData.head.timestamp.toDouble)/10000
 
     (manufacturingData.materialNumber, productionTime)
+  }
+
+  override def checkElement(element: MachineData): Double = {
+    -1.0
   }
 
 //  def updateMap(manuData: ManufacturingData): Unit ={

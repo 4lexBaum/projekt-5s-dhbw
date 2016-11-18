@@ -1,36 +1,38 @@
 package Analysis
 
+import Controller.{KafkaController, MongoController}
 import JsonHandling.{MachineData, ManufacturingData}
 import org.apache.spark.rdd.RDD
-
-import scala.collection.mutable.ListBuffer
 
 /**
   * Created by fabian on 06.11.16.
   */
 
-trait AnalysisParent {
+trait AnalysisParent extends Serializable{
 
   val kafkaTopicSend:String
 
-  def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {//list: List[ManufacturingData]
-    ()
-  }
 
-  def average[T]( ts: Iterable[T] )( implicit num: Numeric[T] ) = {
+  def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit
+
+  def mapping(manufacturingData: ManufacturingData): Any
+
+  def checkElement(element: MachineData): Double
+
+
+  def average[T]( ts: Iterable[T] )(implicit num: Numeric[T]) = {
     num.toDouble(ts.sum) / ts.size
   }
 
-  def sum[T]( ts: Iterable[T] )( implicit num: Numeric[T] ) = {
+  def sum[T]( ts: Iterable[T] )(implicit num: Numeric[T]) = {
     num.toDouble(ts.sum)
   }
 
-  def mapping(manufacturingData: ManufacturingData): (String, Double)={
-    ("",-1)
+  def max[T](ts: Iterable[T] )(implicit num: Numeric[T]) = {
+    num.toDouble(ts.max)
   }
 
-  def checkElement(element: MachineData): Double ={
-    -1.0
+  def min[T](ts: Iterable[T] )(implicit num: Numeric[T]) = {
+    num.toDouble(ts.min)
   }
-
 }

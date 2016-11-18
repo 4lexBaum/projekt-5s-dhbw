@@ -1,36 +1,39 @@
-package Analysis
+package Analysis.Customer
 
-import JsonHandling.{JsonParser, ManufacturingData}
-import KafkaConnectivity.KafkaController
-import MongoConnectivity.MongoProducer
+import Analysis.AnalysisParent
+import Controller.{KafkaController, MongoController}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import org.apache.spark.rdd.RDD
-
-import scala.collection._
 
 /**
   * Created by fabian on 12.11.16.
   */
-object CustomerOrderAmount extends AnalysisParent{
+
+class CustomerOrderAmount extends AnalysisParent{
 
   override val kafkaTopicSend: String = "CustomerOrderAmount"//this.getClass.getSimpleName.replace("$", "")
 
-  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .countByKey()
 
     val json = JsonParser.mapToJsonLong(map)
 
-    //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
-    new MongoProducer().writeToMongo(json, kafkaTopicSend)
-    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
     (manufacturingData.customerNumber, 1.0)
   }
 
-//  def updateMap(manuData: ManufacturingData): Unit = {
+  override def checkElement(element: MachineData): Double = {
+    -1.0
+  }
+
+
+  //  def updateMap(manuData: ManufacturingData): Unit = {
 //    val key = manuData.customerNumber
 //    val value = map.get(key)
 //
@@ -40,5 +43,4 @@ object CustomerOrderAmount extends AnalysisParent{
 //      map.update(key, map(key) + 1)
 //    }
 //  }
-
 }

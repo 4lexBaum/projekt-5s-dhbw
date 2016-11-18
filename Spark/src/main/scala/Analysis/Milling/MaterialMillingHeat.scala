@@ -1,20 +1,19 @@
-package Analysis
+package Analysis.Milling
 
+import Analysis.AnalysisParent
+import Controller.{KafkaController, MongoController}
 import JsonHandling.{JsonParser, MachineData, ManufacturingData}
-import KafkaConnectivity.KafkaController
-import MongoConnectivity.MongoProducer
 import org.apache.spark.rdd.RDD
-
-import scala.collection.mutable
 
 /**
   * Created by fabian on 12.11.16.
   */
-object MaterialMillingHeat extends AnalysisParent{
+
+class MaterialMillingHeat extends AnalysisParent{
 
   override val kafkaTopicSend: String = "MaterialMillingHeat"// this.getClass.getSimpleName
 
-  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
+  override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .groupByKey()
@@ -26,9 +25,8 @@ object MaterialMillingHeat extends AnalysisParent{
 
     val json = JsonParser.mapToJsonDouble(map)
 
-    //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    new MongoProducer().writeToMongo(json, kafkaTopicSend)
-    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={

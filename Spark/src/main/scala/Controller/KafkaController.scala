@@ -1,16 +1,17 @@
-package KafkaConnectivity
+package Controller
 
 import JsonHandling._
+import KafkaConnectivity.{KafkaConsumer, KafkaProducerClass}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
 /**
   * Created by fabian on 05.11.16.
   */
-object KafkaController {
+class KafkaController {
 
   private val kafkaConsumer: KafkaConsumer = new KafkaConsumer()
-  private val kafkaProd: KafkaProd = new KafkaProd()
+  private val kafkaProd: KafkaProducerClass = new KafkaProducerClass()
 
   private val kafkaTopicsReceive: Set[String] = Set("manufacturingData")
 
@@ -86,11 +87,9 @@ object KafkaController {
     */
 
   def sendStringViaKafka(message: String, topic: String): Unit = {
-    synchronized {
       val kafka = kafkaProd.getProducer(kafkaProd.getMandatoryOptions)
       kafkaProd.send(kafka, topic, message)
       kafka.close()
-    }
   }
 
 }

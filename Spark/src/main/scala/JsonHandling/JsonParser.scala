@@ -56,6 +56,11 @@ object JsonParser {
     writePretty(map)
   }
 
+  def mapToJsonSet(map: Map[java.lang.String, Set[(String,Int)]]): String = {
+    implicit val formats = DefaultFormats
+    writePretty(map)
+  }
+
 }
 
 case class MachineData(value: String, status: String, itemName: String, timestamp: String)

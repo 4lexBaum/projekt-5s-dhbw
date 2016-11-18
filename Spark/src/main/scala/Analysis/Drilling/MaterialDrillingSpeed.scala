@@ -1,20 +1,19 @@
-package Analysis
+package Analysis.Drilling
 
+import Analysis.AnalysisParent
+import Controller.{KafkaController, MongoController}
 import JsonHandling.{JsonParser, MachineData, ManufacturingData}
-import KafkaConnectivity.KafkaController
-import MongoConnectivity.MongoProducer
 import org.apache.spark.rdd.RDD
-
-import scala.collection.mutable
 
 /**
   * Created by fabian on 12.11.16.
   */
-object MaterialDrillingHeat extends AnalysisParent{
 
-  override val kafkaTopicSend: String = "MaterialDrillingHeat"// this.getClass.getSimpleName
+class MaterialDrillingSpeed extends AnalysisParent {
 
-  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
+  override val kafkaTopicSend: String = "MaterialDrillingSpeed"// this.getClass.getSimpleName
+
+  override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .groupByKey()
@@ -26,9 +25,8 @@ object MaterialDrillingHeat extends AnalysisParent{
 
     val json = JsonParser.mapToJsonDouble(map)
 
-    //    print(kafkaTopicsSend + " " + JsonParser.mapToJsonDouble(map))
-    new MongoProducer().writeToMongo(json, kafkaTopicSend)
-    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
@@ -42,28 +40,33 @@ object MaterialDrillingHeat extends AnalysisParent{
   }
 
   override def checkElement(element: MachineData): Double ={
-    if(element.itemName.equals("DRILLING_HEAT")){
+    if(element.itemName.equals("DRILLING_SPEED")){
       return element.value.toDouble
     }
     -1
   }
 
-//  def updateMap(manuData: ManufacturingData): Unit ={
+//  def updateMap(manuData: ManufacturingData): Unit = {
 //    val key = manuData.materialNumber
 //    val machineData = manuData.machineData
 //
-//    val speedList = for(elem <- machineData) yield checkElement(elem)
+//    val speedList = for (elem <- machineData) yield checkElement(elem)
 //    val filteredList = speedList.filter(v => v >= 0)
-//    val avg = filteredList.sum/filteredList.size.toDouble
+//    val avg = filteredList.sum / filteredList.size.toDouble
 //    val value = map.get(key)
 //
-//    if(value.isEmpty) {
+//    if (value.isEmpty) {
 //      map += (key -> avg)
-//    }else {
+//    } else {
 //      map.update(key, {(value.get + avg).toFloat/2})
 //    }
 //  }
 //
-
+//  def checkElement(element: MachineData): Double = {
+//    if (element.itemName.equals("DRILLING_SPEED")) {
+//      return element.value.toDouble
+//    }
+//    -1
+//  }
 
 }

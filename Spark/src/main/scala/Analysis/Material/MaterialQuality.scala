@@ -1,20 +1,19 @@
-package Analysis
+package Analysis.Material
 
-import JsonHandling.{JsonParser, ManufacturingData}
-import KafkaConnectivity.KafkaController
-import MongoConnectivity.MongoProducer
+import Analysis.AnalysisParent
+import Controller.{KafkaController, MongoController}
+import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import org.apache.spark.rdd.RDD
-
-import scala.collection._
 
 /**
   * Created by fabian on 12.11.16.
   */
-object QualityMaterial extends AnalysisParent{
 
-  override val kafkaTopicSend: String = "QualityMaterial" //this.getClass.getSimpleName.replace("$", "")
+class MaterialQuality extends AnalysisParent{
 
-  override def runAnalysis(rdd: RDD[ManufacturingData]): Unit = {
+  override val kafkaTopicSend: String = "MaterialQuality" //this.getClass.getSimpleName.replace("$", "")
+
+  override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
     val map = rdd.map(manuData => mapping(manuData))
       .groupByKey()
@@ -26,9 +25,8 @@ object QualityMaterial extends AnalysisParent{
 
     val json = JsonParser.mapToJsonDouble(map)
 
-//    print(kafkaTopicsSend + " " + JsonParser.mapToJsonInt(map))
-    new MongoProducer().writeToMongo(json, kafkaTopicSend)
-    KafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
@@ -41,7 +39,11 @@ object QualityMaterial extends AnalysisParent{
     }
   }
 
-//  def calculatePercentage(v: (String, Long), map: Map[String, Double]): Unit = {
+  override def checkElement(element: MachineData): Double ={
+    -1.0
+  }
+
+  //  def calculatePercentage(v: (String, Long), map: Map[String, Double]): Unit = {
 //    val key = v._1
 //    val value = map.get(key)
 //    if (value.isEmpty) {

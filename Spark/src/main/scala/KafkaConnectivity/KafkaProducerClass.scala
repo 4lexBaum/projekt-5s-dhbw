@@ -8,7 +8,8 @@ import java.util.Properties
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
-class KafkaProd {
+// different name to avoid name collisions
+class KafkaProducerClass {
 
   private val mandatoryOptions: Map[String, Any] = Map(
     "bootstrap.servers" -> "kafka:9092",
