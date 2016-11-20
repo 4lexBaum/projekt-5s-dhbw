@@ -33,9 +33,9 @@ class MaterialMinimumDrillingSpeed extends AnalysisParent {
     val machineData = manufacturingData.machineData
     val speedList = for(elem <- machineData) yield checkElement(elem)
     val filteredList = speedList.filter(_ != -1)
-    val max = filteredList.max
-
-    (manufacturingData.materialNumber, max)
+    val min = filteredList.min
+   
+    (manufacturingData.materialNumber, min)
   }
 
   override def checkElement(element: MachineData): Double ={
