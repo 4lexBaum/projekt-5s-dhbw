@@ -26,7 +26,7 @@ class MaterialProducedAmount extends AnalysisParent{
 
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
-    (manufacturingData.customerNumber, 1.0)
+    (manufacturingData.materialNumber, 1.0)
   }
 
   override def checkElement(element: MachineData): Double = {
