@@ -27,7 +27,6 @@ class MaterialDuration extends AnalysisParent{
 
     mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
     kafkaController.sendStringViaKafka(json, kafkaTopicSend)
-    map.empty
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={

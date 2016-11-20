@@ -25,7 +25,7 @@ class MaterialMinimumDrillingHeat extends AnalysisParent {
     val json = JsonParser.mapToJsonDouble(map)
 
     mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
-    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
+//    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={

@@ -8,13 +8,13 @@ import org.apache.spark.rdd.RDD
 /**
   * Created by Philip on 20.11.16.
   */
-class CustomerOverallQuality extends AnalysisParent{
+class OverallQuality extends AnalysisParent{
 
-  override val kafkaTopicSend: String = "CustomerOverallQuality"//this.getClass.getSimpleName.replace("$", "")
+  override val kafkaTopicSend: String = "OverallQuality"//this.getClass.getSimpleName.replace("$", "")
 
   override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
-    val total = rdd.map(manuData => ("key",1.0))
+    val total = rdd.map(manuData => ("key", 1.0))
       .reduceByKey(_ + _)
 
     val bad = rdd.map(manuData => mapping(manuData))
@@ -33,9 +33,6 @@ class CustomerOverallQuality extends AnalysisParent{
     kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
-  private def %(x: Double, y: Double): Double ={
-    BigDecimal((y/x)*100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
-  }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 

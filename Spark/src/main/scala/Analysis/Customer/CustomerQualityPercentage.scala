@@ -30,11 +30,7 @@ class CustomerQualityPercentage extends AnalysisParent{
     val json = JsonParser.mapToJsonDouble(map)
 
     mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
-    //kafkaController.sendStringViaKafka(json, kafkaTopicSend)
-  }
-
-  private def %(x: Double, y: Double): Double ={
-    BigDecimal((y/x)*100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={

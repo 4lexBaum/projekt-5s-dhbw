@@ -32,10 +32,6 @@ class MaterialQualityPercentage extends AnalysisParent{
     kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
-  private def %(x: Double, y: Double): Double ={
-    BigDecimal((y/x)*100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
-  }
-
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
     if (manufacturingData.analysisData.overallStatus.equals("NOK")) {
