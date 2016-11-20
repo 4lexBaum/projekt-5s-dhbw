@@ -16,31 +16,37 @@ export class Tile extends React.Component {
             var bordersarray = this.props.borders.split(',');
             var colorsarray = this.props.colors.split(',');
           }
-          socket.on(this.props.streamId, function (msg) {
-            if (typeof that.props.borders !== 'undefined' && typeof that.props.colors !== 'undefined') {
-              if (colorsarray.length - bordersarray.length == 1) {
-                colorchanged = false;
-                for (var i = 0; i < bordersarray.length; i++) {
-                  if (msg <= bordersarray[i]) {
-                    $(valueTag).css("color",colorsarray[i]);
-                    colorchanged = true;
-                    break;
+          if (this.props.streamType == "machine") {
+            socket.on(this.props.streamId, function (msg) {
+              if (typeof that.props.borders !== 'undefined' && typeof that.props.colors !== 'undefined') {
+                if (colorsarray.length - bordersarray.length == 1) {
+                  colorchanged = false;
+                  for (var i = 0; i < bordersarray.length; i++) {
+                    if (msg <= bordersarray[i]) {
+                      $(valueTag).css("color",colorsarray[i]);
+                      colorchanged = true;
+                      break;
+                    }
                   }
+                  if (colorchanged === false) {
+                    $(valueTag).css("color",colorsarray[colorsarray.length-1]);
+                  }
+                } else {
+                  console.log("Borders and colors not compatible for " + that.props.containerId);
                 }
-                if (colorchanged === false) {
-                  $(valueTag).css("color",colorsarray[colorsarray.length-1]);
-                }
-              } else {
-                console.log("Borders and colors not compatible for " + that.props.containerId);
               }
-            }
-            $(statusTag).css("color","#60B044");
-            that.setState({value: msg, status: "running"});
-            socket.on('disconnect', function(){
-              that.setState({status: "stopped"});
-              $(statusTag).css("color","#FF0000");
+              $(statusTag).css("color","#60B044");
+              that.setState({value: msg, status: "running"});
+              socket.on('disconnect', function(){
+                that.setState({status: "stopped"});
+                $(statusTag).css("color","#FF0000");
+              });
             });
-          });
+          } else if (this.props.streamType == "analytics") {
+            socket.on(this.props.streamId, function (msg){
+              that.setState({value: msg.key});
+            });
+          }
         }
 
         handleClick(){

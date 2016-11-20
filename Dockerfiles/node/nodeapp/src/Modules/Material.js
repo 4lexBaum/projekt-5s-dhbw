@@ -40,17 +40,19 @@ export class Material extends React.Component {
                 <Header></Header>
                 <div className="chartTile">
                   <div className="chartTitle">Material Produced Amount</div>
-                  <ChartContainer containerId="material-produced-amount" bindTo="#material-produced-amount" analysisName="Material Produced Amount" socketName="MaterialProducedAmount"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-produced-amount" bindTo="#material-produced-amount" analysisName="Material Produced Amount" socketName="MaterialProducedAmount"></ChartContainer>
                 </div>
                 <div className="chartTile">
                   <div className="chartTitle">Material Duration</div>
-                  <ChartContainer containerId="material-duration" bindTo="#material-duration" analysisName="Material Duration" socketName="MaterialDuration"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-duration" bindTo="#material-duration" analysisName="Material Duration" socketName="MaterialDuration"></ChartContainer>
                 </div>
                 <div className="chartTile">
-                  <div className="chartTitle">Quality Material</div>
-                  <ChartContainer containerId="quality-material" bindTo="#quality-material" analysisName="Quality Material" socketName="QualityMaterial"></ChartContainer>
+                  <div className="chartTitle">Quality Material Percentage</div>
+                  <ChartContainer type="category" containerId="quality-material" bindTo="#quality-material" analysisName="Quality Material Percentage" socketName="MaterialQualityPercentage"></ChartContainer>
                 </div>
               </div>
             )
         }
 }
+
+//<ChartContainer type="bar" containerId="quality-material" bindTo="#quality-material" analysisName="Quality Material" socketName="QualityMaterial"></ChartContainer>

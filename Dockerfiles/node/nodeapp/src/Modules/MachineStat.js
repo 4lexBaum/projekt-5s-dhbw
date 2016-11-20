@@ -25,19 +25,19 @@ export class MachineStat extends React.Component {
                 <Header></Header>
                 <div className="chartTile">
                   <div className="chartTitle">Material Milling Heat</div>
-                  <ChartContainer containerId="material-milling-heat" bindTo="#material-milling-heat" analysisName="Material Milling Heat" socketName="MaterialMillingHeat"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-milling-heat" bindTo="#material-milling-heat" analysisName="Material Milling Heat" socketName="MaterialMillingHeat"></ChartContainer>
                 </div>
                 <div className="chartTile">
                   <div className="chartTitle">Material Milling Speed</div>
-                  <ChartContainer containerId="material-milling-speed" bindTo="#material-milling-speed" analysisName="Material Milling Speed" socketName="MaterialMillingSpeed"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-milling-speed" bindTo="#material-milling-speed" analysisName="Material Milling Speed" socketName="MaterialMillingSpeed"></ChartContainer>
                 </div>
                 <div className="chartTile">
                   <div className="chartTitle">Material Drilling Heat</div>
-                  <ChartContainer containerId="material-drilling-heat" bindTo="#material-drilling-heat" analysisName="Material Drilling Heat" socketName="MaterialDrillingHeat"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-drilling-heat" bindTo="#material-drilling-heat" analysisName="Material Drilling Heat" socketName="MaterialDrillingHeat"></ChartContainer>
                 </div>
                 <div className="chartTile">
                   <div className="chartTitle">Material Drilling Speed</div>
-                  <ChartContainer containerId="material-drilling-speed" bindTo="#material-drilling-speed" analysisName="Material Drilling Speed" socketName="MaterialDrillingSpeed"></ChartContainer>
+                  <ChartContainer type="bar" containerId="material-drilling-speed" bindTo="#material-drilling-speed" analysisName="Material Drilling Speed" socketName="MaterialDrillingSpeed"></ChartContainer>
                 </div>
               </div>
             )

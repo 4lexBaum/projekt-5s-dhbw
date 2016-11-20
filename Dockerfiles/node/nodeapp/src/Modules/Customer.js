@@ -23,13 +23,14 @@ export class Customer extends React.Component {
                   <Header></Header>
                   <div className="chartTile">
                     <div className="chartTitle">Customer Order Amount</div>
-                    <ChartContainer containerId="customer-order-amount" bindTo="#customer-order-amount" analysisName="Customer Order Amount" socketName="CustomerOrderAmount"></ChartContainer>
+                    <ChartContainer type="bar" containerId="customer-order-amount" bindTo="#customer-order-amount" analysisName="Customer Order Amount" socketName="CustomerOrderAmount"></ChartContainer>
                   </div>
                   <div className="chartTile">
-                    <div className="chartTitle">Quality Customer</div>
-                    <ChartContainer containerId="quality-customer" bindTo="#quality-customer" analysisName="Quality Customer" socketName="QualityCustomer"></ChartContainer>
+                    <div className="chartTitle">Quality Customer Percentage</div>
+                    <ChartContainer type="category" containerId="quality-customer" bindTo="#quality-customer" analysisName="Quality Customer Percentage" socketName="CustomerQualityPercentage"></ChartContainer>
                   </div>
                 </div>
             )
         }
 }
+//<ChartContainer type="bar" containerId="quality-customer" bindTo="#quality-customer" analysisName="Quality Customer" socketName="QualityCustomer"></ChartContainer>

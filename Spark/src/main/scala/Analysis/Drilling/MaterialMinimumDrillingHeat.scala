@@ -32,7 +32,9 @@ class MaterialMinimumDrillingHeat extends AnalysisParent {
 
     val machineData = manufacturingData.machineData
     val speedList = for(elem <- machineData) yield checkElement(elem)
-    val filteredList = speedList.filter(_ != -1)
+    var filteredList = speedList.filter(_ != -1)
+    filteredList = filteredList.filter(_ != 0)
+
     val min = filteredList.min
 
     (manufacturingData.materialNumber, min)

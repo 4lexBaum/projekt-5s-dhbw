@@ -21,14 +21,14 @@ class MaterialQualityPercentage extends AnalysisParent{
     val bad = rdd.map(manuData => mapping(manuData))
       .reduceByKey(_ + _)
 
-    val finalRdd = total
+    val map = total
       .join(bad)
       .map(x => (x._1, %(x._2._1,x._2._2)))
       .collect()
       .map(elem => elem._1 -> elem._2)
       .toMap
 
-    val json = JsonParser.mapToJsonString(map)
+    val json = JsonParser.mapToJsonDouble(map)
 
     mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
     kafkaController.sendStringViaKafka(json, kafkaTopicSend)

@@ -43,9 +43,13 @@ var topics = [{
 }, {
     topic: "MaterialProducedAmount"
 }, {
-    topic: "QualityCustomerPercentage"
+    topic: "CustomerQualityPercentage"
 }, {
-    topic: "QualityMaterialPercentage"
+    topic: "MaterialQualityPercentage"
+}, {
+    topic: "OverallQuality"
+}, {
+    topic: "OverallOrderAmount"
 }];
 var options = {
     autoCommit: false,
@@ -101,4 +105,4 @@ setTimeout(function () {
         console.log('listening on *:3000');
     });
 
-}, 70000);
+}, 90000);

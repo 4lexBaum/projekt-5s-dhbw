@@ -17,7 +17,7 @@ object MainController {
   def main(args: Array[String]): Unit = {
 
     // Node takes some time to go online, before that, data cannot be received
-    Thread.sleep(70000)
+    Thread.sleep(91000)
 
     // Mongo analysis to show something in UI
     mongoController.runAnalysisWithMongoData(analysisController,sc)
