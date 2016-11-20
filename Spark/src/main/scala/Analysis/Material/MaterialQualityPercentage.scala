@@ -8,6 +8,7 @@ import org.apache.spark.rdd.RDD
 /**
   * Created by fabian on 18.11.16.
   */
+
 class MaterialQualityPercentage extends AnalysisParent{
 
   override val kafkaTopicSend: String = "MaterialQualityPercentage"//this.getClass.getSimpleName.replace("$", "")
@@ -20,10 +21,11 @@ class MaterialQualityPercentage extends AnalysisParent{
     val bad = rdd.map(manuData => mapping(manuData))
       .reduceByKey(_ + _)
 
-    val finalRdd = total.join(bad)
-    val map2 = finalRdd.map(x => (x._1, %(x._2._1,x._2._2)))
-    val map = map2.collect()
-      .map(elem => elem._1 -> (elem._2 + "%"))
+    val finalRdd = total
+      .join(bad)
+      .map(x => (x._1, %(x._2._1,x._2._2)))
+      .collect()
+      .map(elem => elem._1 -> elem._2)
       .toMap
 
     val json = JsonParser.mapToJsonString(map)
