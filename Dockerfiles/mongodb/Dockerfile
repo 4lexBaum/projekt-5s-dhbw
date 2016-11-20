@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y mongodb-org
 # Creating the MongoDB data directory
 RUN mkdir -p /data/db
 
-# Copy some existing data to ensure a reliable analysis
+# Copy some existing data to ensure a initial analysis
 COPY historicData.json /data
 
 # Copy entrypoint script and give privileges to execute

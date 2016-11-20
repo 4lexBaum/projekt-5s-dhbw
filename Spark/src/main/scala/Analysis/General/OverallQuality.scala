@@ -1,4 +1,4 @@
-package Analysis.Customer
+package Analysis.General
 
 import Analysis.AnalysisParent
 import Controller.{KafkaController, MongoController}
