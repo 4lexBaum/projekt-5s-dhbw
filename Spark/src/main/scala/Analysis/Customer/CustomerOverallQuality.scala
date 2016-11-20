@@ -6,15 +6,15 @@ import JsonHandling.{JsonParser, MachineData, ManufacturingData}
 import org.apache.spark.rdd.RDD
 
 /**
-  * Created by fabian on 18.11.16.
+  * Created by Philip on 20.11.16.
   */
-class CustomerQualityPercentage extends AnalysisParent{
+class CustomerOverallQuality extends AnalysisParent{
 
-  override val kafkaTopicSend: String = "CustomerQualityPercentage"//this.getClass.getSimpleName.replace("$", "")
+  override val kafkaTopicSend: String = "CustomerOverallQuality"//this.getClass.getSimpleName.replace("$", "")
 
   override def runAnalysis(rdd: RDD[ManufacturingData], kafkaController: KafkaController, mongoController: MongoController): Unit = {
 
-    val total = rdd.map(manuData => (manuData.customerNumber,1.0))
+    val total = rdd.map(manuData => ("key",1.0))
       .reduceByKey(_ + _)
 
     val bad = rdd.map(manuData => mapping(manuData))
@@ -30,7 +30,7 @@ class CustomerQualityPercentage extends AnalysisParent{
     val json = JsonParser.mapToJsonDouble(map)
 
     mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
-    //kafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   private def %(x: Double, y: Double): Double ={
@@ -39,10 +39,10 @@ class CustomerQualityPercentage extends AnalysisParent{
 
   override def mapping(manufacturingData: ManufacturingData): (String, Double) ={
 
-    if (manufacturingData.analysisData.overallStatus.equals("NOK")) {
-      (manufacturingData.customerNumber, 1)
+    if (manufacturingData.analysisData.overallStatus.equals("OK")) {
+      ("key", 1)
     }else{
-      (manufacturingData.customerNumber, 0)
+      ("key", 0)
 
     }
   }
