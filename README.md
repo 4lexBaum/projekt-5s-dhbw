@@ -22,26 +22,25 @@ docker-compose up
 * [Docker Toolbox](https://www.docker.com/products/docker-toolbox) (Installation auf Windows)
 
 ### Docker Images herunterladen (mit docker-compose nicht notwendig)
-* docker pull spotify/kafka ([Dokumentation](https://hub.docker.com/r/spotify/kafka/))
-* docker pull webcenter/activemq ([Dokumentation](https://hub.docker.com/r/webcenter/activemq/))
+
 * docker pull mongo ([Dokumentation](https://hub.docker.com/_/mongo/))
 
 ### Docker Container ausführen (mit docker-compose nicht notwendig)
-* Kafka starten (Windows): 
+* Kafka starten (Windows):
 ```shell
 docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=192.168.99.100 --env ADVERTISED_PORT=9092 spotify/kafka
 ```
-* Kafka starten (sonst): 
+* Kafka starten (sonst):
 ````shell
 docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=127.0.0.1 --env ADVERTISED_PORT=9092 spotify/kafka
 ```
-* ActiveMq starten: 
+* ActiveMq starten:
 ````shell
 docker run --name activemq -P webcenter/activemq
 ```
 
 ### Simulation starten (mit docker-compose nicht notwendig)
-* Windows: 
+* Windows:
 ```shell
 java -jar TaktstrasseOpcServer-0.0.1-SNAPSHOT.jar -amqp tcp://192.168.99.100:32768 -d 1000 -kafka 192.168.99.100:9092 -o <path> -topic prodData
 ```
@@ -59,30 +58,30 @@ mongod --dbpath /Pfad/zum/Data/Ordner (e.g. /Users/Philip/Database/Data)
 ```shell
 mongo
 ```
-* Alle Datenbanken auflisten: 
+* Alle Datenbanken auflisten:
 ```shell
 > show dbs
 ```
-* Spezielle Datenbank verwenden: 
+* Spezielle Datenbank verwenden:
 ```shell
 > use db_name
 ```
-* Alle Collections einer Datenbank anzeigen: 
+* Alle Collections einer Datenbank anzeigen:
 ```shell
 > show collections
 ```
-* Alle Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben: 
+* Alle Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben:
 ```shell
 > db.collection_name.find()
 ```
 ```shell
 > db.collection_name.find().pretty()
 ```
-*  Bestimmte Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben: 
+*  Bestimmte Dokumente einer Collection auf einer ausgewählten Datenbank ausgeben:
 ```shell
 > db.collection_name.find({name:"mongoDB", nummer:1})
 ```
-*  MongoShell verlassen: 
+*  MongoShell verlassen:
 ```shell
 > exit
 ```

@@ -24,7 +24,7 @@ class MaterialMinimumMillingSpeed extends AnalysisParent {
 
     val json = JsonParser.mapToJsonDouble(map)
 
-    //mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
     //kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 

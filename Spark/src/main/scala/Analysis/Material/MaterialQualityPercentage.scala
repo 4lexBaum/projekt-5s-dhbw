@@ -28,8 +28,8 @@ class MaterialQualityPercentage extends AnalysisParent{
 
     val json = JsonParser.mapToJsonString(map)
 
-//    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
-//    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   private def %(x: Double, y: Double): Double ={

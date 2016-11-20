@@ -13,7 +13,7 @@ sleep 10
 
 #submit job to cluster
 ./spark/bin/spark-submit \
-  --class ControllerMain \
+  --class Controller.MainController \
   --master spark://spark:7077 \
   /jarFiles/SparkAnalysis.jar
 

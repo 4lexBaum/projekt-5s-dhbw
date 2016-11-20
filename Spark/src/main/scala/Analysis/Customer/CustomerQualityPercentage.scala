@@ -24,13 +24,13 @@ class CustomerQualityPercentage extends AnalysisParent{
       .join(bad)
       .map(x => (x._1, %(x._2._1,x._2._2)))
       .collect()
-      .map(elem => elem._1 -> (elem._2 + "%"))
+      .map (elem => elem._1 -> elem._2)
       .toMap
 
-    val json = JsonParser.mapToJsonString(map)
+    val json = JsonParser.mapToJsonDouble(map)
 
-//    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
-//    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
+    mongoController.writeAnalysisToMongo(json, kafkaTopicSend)
+    kafkaController.sendStringViaKafka(json, kafkaTopicSend)
   }
 
   private def %(x: Double, y: Double): Double ={

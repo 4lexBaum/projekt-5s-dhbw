@@ -25,9 +25,9 @@ var topics = [{
 }, {
     topic: "prodData"
 }, {
-    topic: "QualityCustomer"
+    topic: "CustomerQuality"
 }, {
-    topic: "QualityMaterial"
+    topic: "MaterialQuality"
 }, {
     topic: "MaterialMillingSpeed"
 }, {
