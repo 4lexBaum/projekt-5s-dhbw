@@ -2,8 +2,6 @@
 
 <img src="./Documentation/browm_logo.png" width="400" height="400" />
 
-[![Build Status](https://travis-ci.org/4lexBaum/projekt-5s-dhbw.svg?branch=master)](https://travis-ci.org/4lexBaum/projekt-5s-dhbw)
-
 ## Anwendung mittels docker-compose starten
 
 ### 1. Docker Image builden
